@@ -1,0 +1,70 @@
+import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { products } from "@/data/products";
+
+const edits = [
+  {
+    title: "Eid Edit",
+    href: "/#shop",
+    image: products[1].image,
+    count: "4 festive silhouettes",
+  },
+  {
+    title: "Power Edit",
+    href: "/#shop",
+    image: products[10].image,
+    count: "Tailored workwear",
+  },
+  {
+    title: "Sunset Resort",
+    href: "/#shop",
+    image: products[3].image,
+    count: "Light vacation dresses",
+  },
+];
+
+export function Collections() {
+  return (
+    <section id="collections" className="bg-[#f3eee7] py-14">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-sm font-semibold text-[#b9404f]">Collections</p>
+            <h2 className="mt-2 text-3xl font-semibold md:text-4xl">Shop by mood</h2>
+          </div>
+          <Link
+            href="/#shop"
+            className="flex w-fit items-center gap-2 text-sm font-semibold text-[#151515]"
+          >
+            View all
+            <ArrowRight size={17} />
+          </Link>
+        </div>
+
+        <div className="mt-8 grid gap-5 md:grid-cols-3">
+          {edits.map((edit) => (
+            <Link
+              key={edit.title}
+              href={edit.href}
+              className="group relative min-h-96 overflow-hidden rounded-lg bg-[#151515]"
+            >
+              <Image
+                src={edit.image}
+                alt={edit.title}
+                fill
+                sizes="(min-width: 768px) 33vw, 100vw"
+                className="object-cover transition duration-700 group-hover:scale-[1.04]"
+              />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(12,12,13,0.08),rgba(12,12,13,0.72))]" />
+              <div className="absolute inset-x-0 bottom-0 p-5 text-white">
+                <p className="text-sm text-[#f0c76a]">{edit.count}</p>
+                <h3 className="mt-2 text-2xl font-semibold">{edit.title}</h3>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
