@@ -9,8 +9,8 @@ import {
 
 const ShopContext = createContext(null);
 
-const CART_STORAGE_KEY = "aurelia-cart";
-const WISHLIST_STORAGE_KEY = "aurelia-wishlist";
+const CART_STORAGE_KEY = "noska-cart";
+const WISHLIST_STORAGE_KEY = "noska-wishlist";
 const FREE_SHIPPING_THRESHOLD = 12000;
 
 function lineId(productId, size, color) {

@@ -58,7 +58,7 @@ export default function CheckoutPage() {
       return;
     }
 
-    const orderNumber = `AA-${Math.floor(100000 + Math.random() * 900000)}`;
+    const orderNumber = `NS-${Math.floor(100000 + Math.random() * 900000)}`;
     setOrder({
       number: orderNumber,
       total,
@@ -75,7 +75,7 @@ export default function CheckoutPage() {
     return (
       <>
         <Head>
-          <title>Order Confirmed | Aurelia Atelier</title>
+          <title>Order Confirmed | Noska</title>
         </Head>
         <section className="mx-auto flex min-h-[70vh] max-w-3xl flex-col items-center justify-center px-4 py-16 text-center sm:px-6 lg:px-8">
           <CheckCircle2 size={56} className="text-[#1f7a5a]" />
@@ -104,7 +104,7 @@ export default function CheckoutPage() {
   return (
     <>
       <Head>
-        <title>Checkout | Aurelia Atelier</title>
+        <title>Checkout | Noska</title>
       </Head>
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">

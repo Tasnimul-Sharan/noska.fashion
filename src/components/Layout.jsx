@@ -61,9 +61,9 @@ export function Layout({ children }) {
               <Sparkles size={20} strokeWidth={1.8} />
             </span>
             <span className="flex flex-col leading-none">
-              <span className="text-lg font-semibold">Aurelia</span>
+              <span className="text-lg font-semibold">Noska</span>
               <span className="mt-1 text-xs font-medium text-[#7b7167]">
-                Atelier
+                Premium Wear
               </span>
             </span>
           </Link>
@@ -356,7 +356,7 @@ function SiteFooter() {
             <span className="flex h-10 w-10 items-center justify-center rounded-[8px] bg-white text-[#151515]">
               <Sparkles size={19} />
             </span>
-            <span className="text-xl font-semibold">Aurelia Atelier</span>
+            <span className="text-xl font-semibold">Noska</span>
           </div>
           <p className="mt-4 max-w-sm text-sm leading-6 text-[#c9c0b7]">
             Premium dresses, occasionwear, and everyday silhouettes crafted for a

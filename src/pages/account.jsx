@@ -18,14 +18,14 @@ import { formatCurrency, products } from "@/data/products";
 
 const orders = [
   {
-    id: "AA-482913",
+    id: "NS-482913",
     status: "In transit",
     date: "May 12, 2026",
     total: 15400,
     items: "Celeste Satin Midi, Zuri Print Shirt Dress",
   },
   {
-    id: "AA-391028",
+    id: "NS-391028",
     status: "Delivered",
     date: "April 28, 2026",
     total: 11800,
@@ -48,7 +48,7 @@ export default function AccountPage() {
   return (
     <>
       <Head>
-        <title>Account | Aurelia Atelier</title>
+        <title>Account | Noska</title>
       </Head>
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -69,7 +69,7 @@ export default function AccountPage() {
                 <User size={20} />
               </span>
               <div>
-                <p className="font-semibold">Aurelia Member</p>
+                <p className="font-semibold">Noska Member</p>
                 <p className="text-sm text-[#7b7167]">Premium tier</p>
               </div>
             </div>

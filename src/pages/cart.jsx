@@ -7,7 +7,7 @@ import { useShop } from "@/context/ShopContext";
 import { formatCurrency } from "@/data/products";
 
 const promos = {
-  AURELIA15: 0.15,
+  NOSKA15: 0.15,
   EID10: 0.1,
 };
 
@@ -40,7 +40,7 @@ export default function CartPage() {
   return (
     <>
       <Head>
-        <title>Shopping Bag | Aurelia Atelier</title>
+        <title>Shopping Bag | Noska</title>
       </Head>
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -153,7 +153,7 @@ export default function CartPage() {
                     value={promoInput}
                     onChange={(event) => setPromoInput(event.target.value)}
                     className="focus-ring min-w-0 flex-1 rounded-[8px] border border-[#ded6ca] bg-white px-3 text-sm outline-none"
-                    placeholder="AURELIA15"
+                    placeholder="NOSKA15"
                   />
                   <button
                     className="focus-ring rounded-[8px] bg-[#151515] px-4 text-sm font-semibold text-white"
@@ -190,7 +190,7 @@ export default function CartPage() {
                 Checkout
               </Link>
               <p className="mt-3 text-xs leading-5 text-[#7b7167]">
-                Use AURELIA15 for a demo discount. Shipping becomes free from{" "}
+                Use NOSKA15 for a demo discount. Shipping becomes free from{" "}
                 {formatCurrency(freeShippingThreshold)}.
               </p>
             </aside>

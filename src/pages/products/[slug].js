@@ -41,7 +41,7 @@ export default function ProductDetail({ product }) {
   return (
     <>
       <Head>
-        <title>{product.name} | Aurelia Atelier</title>
+        <title>{product.name} | Noska</title>
         <meta name="description" content={product.description} />
       </Head>
 

@@ -83,7 +83,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Aurelia Atelier | Premium Fashion Ecommerce</title>
+        <title>Noska | Premium Fashion Ecommerce</title>
         <meta
           name="description"
           content="Premium Next.js and Tailwind CSS ecommerce storefront for curated dresses."
@@ -284,10 +284,10 @@ function HeroSection() {
         <div className="max-w-2xl">
           <p className="flex items-center gap-2 text-sm font-semibold text-[#f0c76a]">
             <Sparkles size={17} />
-            Eid Atelier is live
+            Noska Eid Edit is live
           </p>
           <h1 className="mt-4 max-w-2xl text-5xl font-semibold leading-[1.04] sm:text-6xl lg:text-7xl">
-            Aurelia Atelier
+            Noska
           </h1>
           <p className="mt-5 max-w-xl text-base leading-7 text-[#f0ece5] sm:text-lg">
             Premium dresses for festive evenings, work days, destination plans,
@@ -354,7 +354,7 @@ function ServiceStrip() {
 function Collections() {
   const edits = [
     {
-      title: "Eid Atelier",
+      title: "Eid Edit",
       href: "/#shop",
       image: products[1].image,
       count: "4 festive silhouettes",

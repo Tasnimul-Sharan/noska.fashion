@@ -47,7 +47,7 @@ export const products = [
     slug: "noor-embroidered-anarkali",
     name: "Noor Embroidered Anarkali",
     category: "Festive",
-    collection: "Eid Atelier",
+    collection: "Eid Edit",
     price: 11800,
     oldPrice: 13600,
     rating: 4.8,
