@@ -84,7 +84,7 @@ export default function CheckoutPage() {
             Order {order.number} has been placed. A confirmation was prepared for{" "}
             {order.email}.
           </p>
-          <div className="mt-8 grid w-full gap-3 rounded-[8px] border border-[#e5ddd2] bg-white p-5 text-left sm:grid-cols-2">
+          <div className="mt-8 grid w-full gap-3 rounded-lg border border-[#e5ddd2] bg-white p-5 text-left sm:grid-cols-2">
             <SummaryTile label="Total" value={formatCurrency(order.total)} />
             <SummaryTile label="Items" value={`${order.items} line item${order.items > 1 ? "s" : ""}`} />
             <SummaryTile label="Delivery" value={order.delivery === "express" ? "Express" : "Standard"} />
@@ -92,7 +92,7 @@ export default function CheckoutPage() {
           </div>
           <Link
             href="/#shop"
-            className="mt-8 rounded-[8px] bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
+            className="mt-8 rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
           >
             Continue shopping
           </Link>
@@ -114,7 +114,7 @@ export default function CheckoutPage() {
         </div>
 
         {cart.length === 0 ? (
-          <div className="mt-10 flex min-h-96 flex-col items-center justify-center rounded-[8px] border border-[#e5ddd2] bg-white p-8 text-center">
+          <div className="mt-10 flex min-h-96 flex-col items-center justify-center rounded-lg border border-[#e5ddd2] bg-white p-8 text-center">
             <ShoppingBag size={44} className="text-[#b9404f]" />
             <h2 className="mt-4 text-2xl font-semibold">No items to checkout</h2>
             <p className="mt-2 max-w-md text-sm leading-6 text-[#6f6a63]">
@@ -122,7 +122,7 @@ export default function CheckoutPage() {
             </p>
             <Link
               href="/#shop"
-              className="mt-6 rounded-[8px] bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
+              className="mt-6 rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
             >
               Shop dresses
             </Link>
@@ -130,7 +130,7 @@ export default function CheckoutPage() {
         ) : (
           <form onSubmit={placeOrder} className="mt-8 grid gap-6 lg:grid-cols-[1fr_380px]">
             <div className="space-y-6">
-              <section className="rounded-[8px] border border-[#e5ddd2] bg-white p-5">
+              <section className="rounded-lg border border-[#e5ddd2] bg-white p-5">
                 <div className="flex items-center gap-2">
                   <Phone size={19} className="text-[#b9404f]" />
                   <h2 className="text-xl font-semibold">Contact</h2>
@@ -165,7 +165,7 @@ export default function CheckoutPage() {
                 </div>
               </section>
 
-              <section className="rounded-[8px] border border-[#e5ddd2] bg-white p-5">
+              <section className="rounded-lg border border-[#e5ddd2] bg-white p-5">
                 <div className="flex items-center gap-2">
                   <MapPin size={19} className="text-[#b9404f]" />
                   <h2 className="text-xl font-semibold">Delivery</h2>
@@ -178,7 +178,7 @@ export default function CheckoutPage() {
                     id="address"
                     value={form.address}
                     onChange={(event) => updateField("address", event.target.value)}
-                    className="focus-ring mt-2 min-h-28 w-full resize-y rounded-[8px] border border-[#ded6ca] bg-[#fbfaf8] px-3 py-3 text-sm outline-none"
+                    className="focus-ring mt-2 min-h-28 w-full resize-y rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-3 py-3 text-sm outline-none"
                     required
                   />
                 </div>
@@ -202,7 +202,7 @@ export default function CheckoutPage() {
                 </div>
               </section>
 
-              <section className="rounded-[8px] border border-[#e5ddd2] bg-white p-5">
+              <section className="rounded-lg border border-[#e5ddd2] bg-white p-5">
                 <div className="flex items-center gap-2">
                   <CreditCard size={19} className="text-[#b9404f]" />
                   <h2 className="text-xl font-semibold">Payment</h2>
@@ -215,7 +215,7 @@ export default function CheckoutPage() {
                   ].map(([value, label]) => (
                     <button
                       key={value}
-                      className={`focus-ring h-12 rounded-[8px] border text-sm font-semibold ${
+                      className={`focus-ring h-12 rounded-lg border text-sm font-semibold ${
                         payment === value
                           ? "border-[#151515] bg-[#151515] text-white"
                           : "border-[#ded6ca] bg-[#fbfaf8]"
@@ -234,18 +234,18 @@ export default function CheckoutPage() {
                   id="note"
                   value={form.note}
                   onChange={(event) => updateField("note", event.target.value)}
-                  className="focus-ring mt-2 h-11 w-full rounded-[8px] border border-[#ded6ca] bg-[#fbfaf8] px-3 text-sm outline-none"
+                  className="focus-ring mt-2 h-11 w-full rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-3 text-sm outline-none"
                   placeholder="Optional"
                 />
               </section>
             </div>
 
-            <aside className="h-fit rounded-[8px] border border-[#e5ddd2] bg-white p-5">
+            <aside className="h-fit rounded-lg border border-[#e5ddd2] bg-white p-5">
               <h2 className="text-xl font-semibold">Order summary</h2>
               <div className="mt-5 space-y-4">
                 {cart.map((line) => (
                   <div key={line.id} className="grid grid-cols-[64px_1fr] gap-3">
-                    <div className="relative h-20 overflow-hidden rounded-[8px] bg-[#eee7dd]">
+                    <div className="relative h-20 overflow-hidden rounded-lg bg-[#eee7dd]">
                       <Image
                         src={line.image}
                         alt={line.name}
@@ -279,7 +279,7 @@ export default function CheckoutPage() {
               </div>
               {error && <p className="mt-3 text-sm text-[#b9404f]">{error}</p>}
               <button
-                className="focus-ring mt-5 w-full rounded-[8px] bg-[#b9404f] px-5 py-3 text-sm font-semibold text-white"
+                className="focus-ring mt-5 w-full rounded-lg bg-[#b9404f] px-5 py-3 text-sm font-semibold text-white"
                 type="submit"
               >
                 Place order
@@ -306,7 +306,7 @@ function Field({ label, value, onChange, type = "text", required = false }) {
         onChange={(event) => onChange(event.target.value)}
         type={type}
         required={required}
-        className="focus-ring mt-2 h-11 w-full rounded-[8px] border border-[#ded6ca] bg-[#fbfaf8] px-3 text-sm outline-none"
+        className="focus-ring mt-2 h-11 w-full rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-3 text-sm outline-none"
       />
     </div>
   );
@@ -315,7 +315,7 @@ function Field({ label, value, onChange, type = "text", required = false }) {
 function DeliveryOption({ active, icon: Icon, title, text, price, onClick }) {
   return (
     <button
-      className={`focus-ring rounded-[8px] border p-4 text-left ${
+      className={`focus-ring rounded-lg border p-4 text-left ${
         active ? "border-[#151515] bg-[#fbfaf8]" : "border-[#ded6ca] bg-white"
       }`}
       type="button"
@@ -340,7 +340,7 @@ function SummaryLine({ label, value }) {
 
 function SummaryTile({ label, value }) {
   return (
-    <div className="rounded-[8px] bg-[#fbfaf8] p-4">
+    <div className="rounded-lg bg-[#fbfaf8] p-4">
       <p className="text-sm text-[#7b7167]">{label}</p>
       <p className="mt-1 font-semibold">{value}</p>
     </div>

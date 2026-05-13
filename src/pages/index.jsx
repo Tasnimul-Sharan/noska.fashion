@@ -111,7 +111,7 @@ export default function Home() {
           {categories.map((option) => (
             <button
               key={option}
-              className={`focus-ring h-11 min-w-fit rounded-[8px] border px-4 text-sm font-semibold transition ${
+              className={`focus-ring h-11 min-w-fit rounded-lg border px-4 text-sm font-semibold transition ${
                 category === option
                   ? "border-[#151515] bg-[#151515] text-white"
                   : "border-[#ded6ca] bg-white text-[#514c45] hover:border-[#b9404f]"
@@ -125,7 +125,7 @@ export default function Home() {
         </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[280px_1fr]">
-          <aside className="h-fit rounded-[8px] border border-[#e5ddd2] bg-white p-4">
+          <aside className="h-fit rounded-lg border border-[#e5ddd2] bg-white p-4">
             <div className="flex items-center justify-between">
               <h3 className="font-semibold">Filters</h3>
               <button
@@ -141,7 +141,7 @@ export default function Home() {
             <label className="mt-5 block text-sm font-semibold" htmlFor="catalog-search">
               Search
             </label>
-            <div className="mt-2 flex h-11 items-center gap-2 rounded-[8px] border border-[#ded6ca] bg-[#fbfaf8] px-3">
+            <div className="mt-2 flex h-11 items-center gap-2 rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-3">
               <Search size={17} className="text-[#7b7167]" />
               <input
                 id="catalog-search"
@@ -169,7 +169,7 @@ export default function Home() {
                 {["All", ...sizes].map((option) => (
                   <button
                     key={option}
-                    className={`focus-ring h-10 rounded-[8px] border text-sm font-semibold ${
+                    className={`focus-ring h-10 rounded-lg border text-sm font-semibold ${
                       size === option
                         ? "border-[#151515] bg-[#151515] text-white"
                         : "border-[#ded6ca] bg-[#fbfaf8] text-[#514c45]"
@@ -187,7 +187,7 @@ export default function Home() {
               <p className="text-sm font-semibold">Color</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 <button
-                  className={`focus-ring h-9 rounded-[8px] border px-3 text-sm font-semibold ${
+                  className={`focus-ring h-9 rounded-lg border px-3 text-sm font-semibold ${
                     color === "All"
                       ? "border-[#151515] bg-[#151515] text-white"
                       : "border-[#ded6ca] bg-[#fbfaf8]"
@@ -200,7 +200,7 @@ export default function Home() {
                 {colorOptions.map((option) => (
                   <button
                     key={option.name}
-                    className={`focus-ring flex h-9 items-center gap-2 rounded-[8px] border px-2 text-sm font-semibold ${
+                    className={`focus-ring flex h-9 items-center gap-2 rounded-lg border px-2 text-sm font-semibold ${
                       color === option.name
                         ? "border-[#151515] bg-[#f8f2ea]"
                         : "border-[#ded6ca] bg-[#fbfaf8]"
@@ -225,7 +225,7 @@ export default function Home() {
               id="sort"
               value={sort}
               onChange={(event) => setSort(event.target.value)}
-              className="focus-ring mt-2 h-11 w-full rounded-[8px] border border-[#ded6ca] bg-[#fbfaf8] px-3 text-sm font-semibold"
+              className="focus-ring mt-2 h-11 w-full rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-3 text-sm font-semibold"
             >
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -243,14 +243,14 @@ export default function Home() {
                 ))}
               </div>
             ) : (
-              <div className="flex min-h-80 flex-col items-center justify-center rounded-[8px] border border-[#e5ddd2] bg-white p-8 text-center">
+              <div className="flex min-h-80 flex-col items-center justify-center rounded-lg border border-[#e5ddd2] bg-white p-8 text-center">
                 <Search size={36} className="text-[#b9404f]" />
                 <h3 className="mt-4 text-xl font-semibold">No dresses found</h3>
                 <p className="mt-2 max-w-md text-sm leading-6 text-[#6f6a63]">
                   Try a different category, size, color, or search phrase.
                 </p>
                 <button
-                  className="focus-ring mt-5 rounded-[8px] bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
+                  className="focus-ring mt-5 rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
                   type="button"
                   onClick={resetFilters}
                 >
@@ -296,14 +296,14 @@ function HeroSection() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/#shop"
-              className="focus-ring flex h-12 items-center justify-center gap-2 rounded-[8px] bg-white px-5 text-sm font-semibold text-[#151515]"
+              className="focus-ring flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-[#151515]"
             >
               Shop collection
               <ArrowRight size={17} />
             </Link>
             <Link
               href={`/products/${heroProduct.slug}`}
-              className="focus-ring flex h-12 items-center justify-center rounded-[8px] border border-white/60 px-5 text-sm font-semibold text-white transition hover:bg-white/10"
+              className="focus-ring flex h-12 items-center justify-center rounded-lg border border-white/60 px-5 text-sm font-semibold text-white transition hover:bg-white/10"
             >
               View featured dress
             </Link>
@@ -336,7 +336,7 @@ function ServiceStrip() {
               key={item.label}
               className="flex items-center gap-4 border-b border-[#e7e1d8] py-5 md:border-b-0 md:border-r md:last:border-r-0"
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-[8px] bg-[#f5eee5] text-[#b9404f]">
+              <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-[#f5eee5] text-[#b9404f]">
                 <Icon size={20} />
               </span>
               <span>
@@ -395,7 +395,7 @@ function Collections() {
             <Link
               key={edit.title}
               href={edit.href}
-              className="group relative min-h-96 overflow-hidden rounded-[8px] bg-[#151515]"
+              className="group relative min-h-96 overflow-hidden rounded-lg bg-[#151515]"
             >
               <Image
                 src={edit.image}
@@ -444,9 +444,9 @@ function Lookbook() {
             <Link
               key={product.id}
               href={`/products/${product.slug}`}
-              className="group overflow-hidden rounded-[8px] border border-[#e5ddd2] bg-white"
+              className="group overflow-hidden rounded-lg border border-[#e5ddd2] bg-white"
             >
-              <div className="relative aspect-[4/5] overflow-hidden bg-[#eee7dd]">
+              <div className="relative aspect-4/5 overflow-hidden bg-[#eee7dd]">
                 <Image
                   src={product.image}
                   alt={product.name}

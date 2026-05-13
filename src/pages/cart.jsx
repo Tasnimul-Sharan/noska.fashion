@@ -55,7 +55,7 @@ export default function CartPage() {
         </div>
 
         {cart.length === 0 ? (
-          <div className="mt-10 flex min-h-96 flex-col items-center justify-center rounded-[8px] border border-[#e5ddd2] bg-white p-8 text-center">
+          <div className="mt-10 flex min-h-96 flex-col items-center justify-center rounded-lg border border-[#e5ddd2] bg-white p-8 text-center">
             <ShoppingBag size={44} className="text-[#b9404f]" />
             <h2 className="mt-4 text-2xl font-semibold">Your bag is empty</h2>
             <p className="mt-2 max-w-md text-sm leading-6 text-[#6f6a63]">
@@ -63,7 +63,7 @@ export default function CartPage() {
             </p>
             <Link
               href="/#shop"
-              className="mt-6 rounded-[8px] bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
+              className="mt-6 rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
             >
               Shop dresses
             </Link>
@@ -74,11 +74,11 @@ export default function CartPage() {
               {cart.map((line) => (
                 <article
                   key={line.id}
-                  className="grid gap-4 rounded-[8px] border border-[#e5ddd2] bg-white p-4 sm:grid-cols-[132px_1fr]"
+                  className="grid gap-4 rounded-lg border border-[#e5ddd2] bg-white p-4 sm:grid-cols-[132px_1fr]"
                 >
                   <Link
                     href={`/products/${line.slug}`}
-                    className="relative aspect-[4/5] overflow-hidden rounded-[8px] bg-[#eee7dd] sm:h-40 sm:aspect-auto"
+                    className="relative aspect-4/5 overflow-hidden rounded-lg bg-[#eee7dd] sm:h-40 sm:aspect-auto"
                   >
                     <Image
                       src={line.image}
@@ -103,7 +103,7 @@ export default function CartPage() {
                         <p className="mt-2 font-semibold">{formatCurrency(line.price)}</p>
                       </div>
                       <button
-                        className="focus-ring flex h-10 w-10 items-center justify-center rounded-[8px] border border-[#ded6ca] text-[#7b7167] transition hover:text-[#b9404f]"
+                        className="focus-ring flex h-10 w-10 items-center justify-center rounded-lg border border-[#ded6ca] text-[#7b7167] transition hover:text-[#b9404f]"
                         type="button"
                         aria-label={`Remove ${line.name}`}
                         onClick={() => removeFromCart(line.id)}
@@ -113,7 +113,7 @@ export default function CartPage() {
                     </div>
 
                     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                      <div className="flex h-11 w-36 items-center justify-between rounded-[8px] border border-[#ded6ca] bg-[#fbfaf8]">
+                      <div className="flex h-11 w-36 items-center justify-between rounded-lg border border-[#ded6ca] bg-[#fbfaf8]">
                         <button
                           className="focus-ring flex h-11 w-11 items-center justify-center"
                           type="button"
@@ -141,9 +141,9 @@ export default function CartPage() {
               ))}
             </div>
 
-            <aside className="h-fit rounded-[8px] border border-[#e5ddd2] bg-white p-5">
+            <aside className="h-fit rounded-lg border border-[#e5ddd2] bg-white p-5">
               <h2 className="text-xl font-semibold">Order summary</h2>
-              <div className="mt-5 rounded-[8px] border border-[#e0d8cc] bg-[#fbfaf8] p-3">
+              <div className="mt-5 rounded-lg border border-[#e0d8cc] bg-[#fbfaf8] p-3">
                 <div className="flex items-center gap-2 text-sm font-semibold">
                   <Gift size={17} className="text-[#b9404f]" />
                   Promo
@@ -152,11 +152,11 @@ export default function CartPage() {
                   <input
                     value={promoInput}
                     onChange={(event) => setPromoInput(event.target.value)}
-                    className="focus-ring min-w-0 flex-1 rounded-[8px] border border-[#ded6ca] bg-white px-3 text-sm outline-none"
+                    className="focus-ring min-w-0 flex-1 rounded-lg border border-[#ded6ca] bg-white px-3 text-sm outline-none"
                     placeholder="NOSKA15"
                   />
                   <button
-                    className="focus-ring rounded-[8px] bg-[#151515] px-4 text-sm font-semibold text-white"
+                    className="focus-ring rounded-lg bg-[#151515] px-4 text-sm font-semibold text-white"
                     type="button"
                     onClick={applyPromo}
                   >
@@ -185,7 +185,7 @@ export default function CartPage() {
               </div>
               <Link
                 href="/checkout"
-                className="mt-5 block rounded-[8px] bg-[#b9404f] px-5 py-3 text-center text-sm font-semibold text-white"
+                className="mt-5 block rounded-lg bg-[#b9404f] px-5 py-3 text-center text-sm font-semibold text-white"
               >
                 Checkout
               </Link>

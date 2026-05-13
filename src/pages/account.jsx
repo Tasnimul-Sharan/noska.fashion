@@ -63,9 +63,9 @@ export default function AccountPage() {
         </div>
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[280px_1fr]">
-          <aside className="h-fit rounded-[8px] border border-[#e5ddd2] bg-white p-4">
+          <aside className="h-fit rounded-lg border border-[#e5ddd2] bg-white p-4">
             <div className="flex items-center gap-3 border-b border-[#e7e1d8] pb-4">
-              <span className="flex h-12 w-12 items-center justify-center rounded-[8px] bg-[#151515] text-white">
+              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#151515] text-white">
                 <User size={20} />
               </span>
               <div>
@@ -90,7 +90,7 @@ export default function AccountPage() {
           </aside>
 
           {activeTab === "wishlist" ? (
-            <section className="rounded-[8px] border border-[#e5ddd2] bg-white p-5">
+            <section className="rounded-lg border border-[#e5ddd2] bg-white p-5">
               <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className="text-sm font-semibold text-[#b9404f]">Wishlist</p>
@@ -100,7 +100,7 @@ export default function AccountPage() {
               </div>
 
               {wishedProducts.length === 0 ? (
-                <div className="mt-8 flex min-h-80 flex-col items-center justify-center rounded-[8px] border border-[#e7e1d8] bg-[#fbfaf8] p-8 text-center">
+                <div className="mt-8 flex min-h-80 flex-col items-center justify-center rounded-lg border border-[#e7e1d8] bg-[#fbfaf8] p-8 text-center">
                   <Heart size={40} className="text-[#b9404f]" />
                   <h3 className="mt-4 text-xl font-semibold">No saved dresses yet</h3>
                   <p className="mt-2 max-w-md text-sm leading-6 text-[#6f6a63]">
@@ -108,7 +108,7 @@ export default function AccountPage() {
                   </p>
                   <Link
                     href="/#shop"
-                    className="mt-6 rounded-[8px] bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
+                    className="mt-6 rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
                   >
                     Browse collection
                   </Link>
@@ -129,7 +129,7 @@ export default function AccountPage() {
                 <Metric icon={CheckCircle2} label="Tier" value="Premium" />
               </section>
 
-              <section className="rounded-[8px] border border-[#e5ddd2] bg-white p-5">
+              <section className="rounded-lg border border-[#e5ddd2] bg-white p-5">
                 <div className="flex items-center gap-2">
                   <PackageCheck size={20} className="text-[#b9404f]" />
                   <h2 className="text-xl font-semibold">Recent orders</h2>
@@ -138,14 +138,14 @@ export default function AccountPage() {
                   {orders.map((order) => (
                     <article
                       key={order.id}
-                      className="rounded-[8px] border border-[#e7e1d8] bg-[#fbfaf8] p-4"
+                      className="rounded-lg border border-[#e7e1d8] bg-[#fbfaf8] p-4"
                     >
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div>
                           <p className="font-semibold">{order.id}</p>
                           <p className="mt-1 text-sm text-[#6f6a63]">{order.items}</p>
                         </div>
-                        <span className="w-fit rounded-[8px] bg-white px-3 py-1 text-sm font-semibold text-[#1f7a5a]">
+                        <span className="w-fit rounded-lg bg-white px-3 py-1 text-sm font-semibold text-[#1f7a5a]">
                           {order.status}
                         </span>
                       </div>
@@ -158,7 +158,7 @@ export default function AccountPage() {
                 </div>
               </section>
 
-              <section className="rounded-[8px] border border-[#e5ddd2] bg-white p-5">
+              <section className="rounded-lg border border-[#e5ddd2] bg-white p-5">
                 <div className="flex items-center gap-2">
                   <Bell size={20} className="text-[#b9404f]" />
                   <h2 className="text-xl font-semibold">Preferences</h2>
@@ -190,7 +190,7 @@ function TabLink({ href, active, icon: Icon, label }) {
   return (
     <Link
       href={href}
-      className={`flex items-center gap-3 rounded-[8px] px-3 py-3 text-sm font-semibold ${
+      className={`flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-semibold ${
         active ? "bg-[#151515] text-white" : "text-[#514c45] hover:bg-[#fbfaf8]"
       }`}
     >
@@ -202,7 +202,7 @@ function TabLink({ href, active, icon: Icon, label }) {
 
 function Metric({ icon: Icon, label, value }) {
   return (
-    <div className="rounded-[8px] border border-[#e5ddd2] bg-white p-5">
+    <div className="rounded-lg border border-[#e5ddd2] bg-white p-5">
       <Icon size={20} className="text-[#b9404f]" />
       <p className="mt-4 text-sm text-[#7b7167]">{label}</p>
       <p className="mt-1 text-2xl font-semibold">{value}</p>
@@ -212,7 +212,7 @@ function Metric({ icon: Icon, label, value }) {
 
 function Preference({ icon: Icon, label, checked, onChange }) {
   return (
-    <label className="flex items-center justify-between rounded-[8px] border border-[#e7e1d8] bg-[#fbfaf8] p-4">
+    <label className="flex items-center justify-between rounded-lg border border-[#e7e1d8] bg-[#fbfaf8] p-4">
       <span className="flex items-center gap-3 font-semibold">
         <Icon size={18} className="text-[#b9404f]" />
         {label}

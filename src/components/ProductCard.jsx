@@ -12,8 +12,8 @@ export function ProductCard({ product }) {
   const wished = isInWishlist(product.id);
 
   return (
-    <article className="group overflow-hidden rounded-[8px] border border-[#e5ddd2] bg-white">
-      <div className="relative aspect-[4/5] overflow-hidden bg-[#efe8dd]">
+    <article className="group overflow-hidden rounded-lg border border-[#e5ddd2] bg-white">
+      <div className="relative aspect-4/5 overflow-hidden bg-[#efe8dd]">
         <Link href={`/products/${product.slug}`} aria-label={`View ${product.name}`}>
           <Image
             src={product.image}
@@ -23,11 +23,11 @@ export function ProductCard({ product }) {
             className="object-cover transition duration-700 group-hover:scale-[1.04]"
           />
         </Link>
-        <div className="absolute left-3 top-3 rounded-[8px] bg-white/92 px-3 py-1 text-xs font-semibold text-[#151515] shadow-sm">
+        <div className="absolute left-3 top-3 rounded-lg bg-white/92 px-3 py-1 text-xs font-semibold text-[#151515] shadow-sm">
           {product.badge}
         </div>
         <button
-          className="focus-ring absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-[8px] bg-white/92 text-[#151515] shadow-sm transition hover:text-[#b9404f]"
+          className="focus-ring absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-lg bg-white/92 text-[#151515] shadow-sm transition hover:text-[#b9404f]"
           type="button"
           aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
           onClick={() => toggleWishlist(product.id)}
@@ -76,7 +76,7 @@ export function ProductCard({ product }) {
           <select
             value={size}
             onChange={(event) => setSize(event.target.value)}
-            className="focus-ring h-9 rounded-[8px] border border-[#ded6ca] bg-[#fbfaf8] px-2 text-sm font-medium"
+            className="focus-ring h-9 rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-2 text-sm font-medium"
             aria-label="Select size"
           >
             {product.sizes.map((option) => (
@@ -86,7 +86,7 @@ export function ProductCard({ product }) {
         </div>
 
         <button
-          className="focus-ring mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-[8px] bg-[#151515] px-4 text-sm font-semibold text-white transition hover:bg-[#b9404f]"
+          className="focus-ring mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#151515] px-4 text-sm font-semibold text-white transition hover:bg-[#b9404f]"
           type="button"
           onClick={() => addToCart(product, { size, color })}
         >
