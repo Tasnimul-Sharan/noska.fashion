@@ -57,7 +57,7 @@ export default function AccountPage() {
             <p className="text-sm font-semibold text-[#b9404f]">Account</p>
             <h1 className="mt-2 text-4xl font-semibold">Member dashboard</h1>
           </div>
-          <Link href="/#shop" className="w-fit text-sm font-semibold text-[#151515]">
+          <Link href="/shop" className="w-fit text-sm font-semibold text-[#151515]">
             Shop new arrivals
           </Link>
         </div>
@@ -107,7 +107,7 @@ export default function AccountPage() {
                     Save dresses from the collection and they will appear here.
                   </p>
                   <Link
-                    href="/#shop"
+                    href="/shop"
                     className="mt-6 rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
                   >
                     Browse collection

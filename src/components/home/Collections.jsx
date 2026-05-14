@@ -6,19 +6,19 @@ import { products } from "@/data/products";
 const edits = [
   {
     title: "Eid Edit",
-    href: "/#shop",
+    href: "/shop?collection=Eid%20Edit",
     image: products[1].image,
     count: "4 festive silhouettes",
   },
   {
     title: "Power Edit",
-    href: "/#shop",
+    href: "/shop?collection=Power%20Edit",
     image: products[10].image,
     count: "Tailored workwear",
   },
   {
     title: "Sunset Resort",
-    href: "/#shop",
+    href: "/shop?collection=Sunset%20Resort",
     image: products[3].image,
     count: "Light vacation dresses",
   },
@@ -34,7 +34,7 @@ export function Collections() {
             <h2 className="mt-2 text-3xl font-semibold md:text-4xl">Shop by mood</h2>
           </div>
           <Link
-            href="/#shop"
+            href="/collections"
             className="flex w-fit items-center gap-2 text-sm font-semibold text-[#151515]"
           >
             View all

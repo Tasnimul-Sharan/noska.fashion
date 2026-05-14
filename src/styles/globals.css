@@ -79,6 +79,29 @@ button:disabled {
   display: none;
 }
 
+.cart-scroll {
+  scrollbar-color: #b9404f #eee7dd;
+  scrollbar-width: thin;
+}
+
+.cart-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cart-scroll::-webkit-scrollbar-track {
+  background: #eee7dd;
+  border-radius: 999px;
+}
+
+.cart-scroll::-webkit-scrollbar-thumb {
+  background: #b9404f;
+  border-radius: 999px;
+}
+
+.cart-scroll::-webkit-scrollbar-thumb:hover {
+  background: #8f2637;
+}
+
 .shop-shadow {
   box-shadow: 0 24px 80px rgba(24, 21, 18, 0.12);
 }

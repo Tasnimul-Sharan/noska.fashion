@@ -10,7 +10,7 @@ export function CartEmptyState() {
         Add dresses from the collection and come back here to checkout.
       </p>
       <Link
-        href="/#shop"
+        href="/shop"
         className="mt-6 rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
       >
         Shop dresses

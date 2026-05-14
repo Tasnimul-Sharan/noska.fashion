@@ -18,10 +18,16 @@ const colorOptions = Array.from(
   ).values(),
 ).slice(0, 9);
 
-export function ShopCatalog() {
+const collectionOptions = [
+  "All",
+  ...Array.from(new Set(products.map((product) => product.collection))),
+];
+
+export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
+  const [collection, setCollection] = useState("All");
   const [size, setSize] = useState("All");
   const [color, setColor] = useState("All");
   const [sort, setSort] = useState("featured");
@@ -31,6 +37,18 @@ export function ShopCatalog() {
       queueMicrotask(() => setQuery(router.query.q));
     }
   }, [router.query.q]);
+
+  useEffect(() => {
+    if (typeof router.query.category === "string") {
+      queueMicrotask(() => setCategory(router.query.category));
+    }
+  }, [router.query.category]);
+
+  useEffect(() => {
+    if (typeof router.query.collection === "string") {
+      queueMicrotask(() => setCollection(router.query.collection));
+    }
+  }, [router.query.collection]);
 
   const filteredProducts = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -44,11 +62,19 @@ export function ShopCatalog() {
             .toLowerCase()
             .includes(normalizedQuery);
         const matchesCategory = category === "All" || product.category === category;
+        const matchesCollection =
+          collection === "All" || product.collection === collection;
         const matchesSize = size === "All" || product.sizes.includes(size);
         const matchesColor =
           color === "All" || product.colors.some((option) => option.name === color);
 
-        return matchesQuery && matchesCategory && matchesSize && matchesColor;
+        return (
+          matchesQuery &&
+          matchesCategory &&
+          matchesCollection &&
+          matchesSize &&
+          matchesColor
+        );
       })
       .sort((a, b) => {
         if (sort === "price-low") return a.price - b.price;
@@ -57,11 +83,12 @@ export function ShopCatalog() {
         if (sort === "new") return b.id.localeCompare(a.id);
         return products.indexOf(a) - products.indexOf(b);
       });
-  }, [category, color, query, size, sort]);
+  }, [category, collection, color, query, size, sort]);
 
   const resetFilters = () => {
     setQuery("");
     setCategory("All");
+    setCollection("All");
     setSize("All");
     setColor("All");
     setSort("featured");
@@ -73,9 +100,9 @@ export function ShopCatalog() {
         <div>
           <p className="flex items-center gap-2 text-sm font-semibold text-[#b9404f]">
             <SlidersHorizontal size={17} />
-            Curated rack
+            {eyebrow}
           </p>
-          <h2 className="mt-2 text-3xl font-semibold md:text-4xl">Shop dresses</h2>
+          <h2 className="mt-2 text-3xl font-semibold md:text-4xl">{title}</h2>
         </div>
         <div className="text-sm text-[#6f6a63]">
           {filteredProducts.length} styles ready to order
@@ -137,6 +164,22 @@ export function ShopCatalog() {
               </button>
             )}
           </div>
+
+          <label className="mt-5 block text-sm font-semibold" htmlFor="collection">
+            Collection
+          </label>
+          <select
+            id="collection"
+            value={collection}
+            onChange={(event) => setCollection(event.target.value)}
+            className="focus-ring mt-2 h-11 w-full rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-3 text-sm font-semibold"
+          >
+            {collectionOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
 
           <div className="mt-5">
             <p className="text-sm font-semibold">Size</p>

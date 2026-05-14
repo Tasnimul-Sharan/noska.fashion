@@ -24,7 +24,7 @@ export function CheckoutSuccess({ order }) {
         <SummaryTile label="Payment" value={paymentLabel(order.payment)} />
       </div>
       <Link
-        href="/#shop"
+        href="/shop"
         className="mt-8 rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
       >
         Continue shopping

@@ -47,7 +47,7 @@ export default function ProductDetail({ product }) {
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Link
-          href="/#shop"
+          href="/shop"
           className="inline-flex items-center gap-2 text-sm font-semibold text-[#514c45] transition hover:text-[#b9404f]"
         >
           <ArrowLeft size={17} />
@@ -139,7 +139,7 @@ export default function ProductDetail({ product }) {
             <div className="mt-7">
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold">Size</p>
-                <Link href="/#shop" className="text-sm font-semibold text-[#b9404f]">
+                <Link href="/shop" className="text-sm font-semibold text-[#b9404f]">
                   Size guide
                 </Link>
               </div>
@@ -220,7 +220,7 @@ export default function ProductDetail({ product }) {
             <p className="text-sm font-semibold text-[#b9404f]">Recommended</p>
             <h2 className="mt-2 text-3xl font-semibold">Complete the edit</h2>
           </div>
-          <Link href="/#shop" className="hidden text-sm font-semibold text-[#151515] sm:block">
+          <Link href="/shop" className="hidden text-sm font-semibold text-[#151515] sm:block">
             View all
           </Link>
         </div>

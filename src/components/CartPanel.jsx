@@ -1,6 +1,7 @@
 import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect } from "react";
 import { useShop } from "@/context/ShopContext";
 import { formatCurrency } from "@/data/products";
 
@@ -8,14 +9,37 @@ export function CartPanel({ open, onClose }) {
   const { cart, subtotal, updateQuantity, removeFromCart } = useShop();
   const remaining = Math.max(0, 12000 - subtotal);
 
+  useEffect(() => {
+    if (!open) {
+      return;
+    }
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [open]);
+
   if (!open) {
     return null;
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#151515]/45" role="dialog" aria-modal="true">
-      <div className="ml-auto flex h-full w-full max-w-md flex-col bg-[#fbfaf8] shadow-2xl">
-        <div className="flex items-center justify-between border-b border-[#e7e1d8] p-5">
+    <div
+      className="fixed inset-0 z-50 bg-[#151515]/45"
+      role="dialog"
+      aria-modal="true"
+      data-lenis-prevent=""
+    >
+      <div
+        className="ml-auto flex h-dvh min-h-0 w-full max-w-md flex-col bg-[#fbfaf8] shadow-2xl"
+        onWheel={(event) => event.stopPropagation()}
+        onTouchMove={(event) => event.stopPropagation()}
+        data-lenis-prevent=""
+      >
+        <div className="shrink-0 flex items-center justify-between border-b border-[#e7e1d8] p-5">
           <div>
             <p className="text-sm font-medium text-[#7b7167]">Shopping bag</p>
             <h2 className="mt-1 text-2xl font-semibold">Your edit</h2>
@@ -38,7 +62,7 @@ export function CartPanel({ open, onClose }) {
               Add your favorite dresses and they will stay here.
             </p>
             <Link
-              href="/#shop"
+              href="/shop"
               className="mt-6 rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
             >
               Shop dresses
@@ -46,7 +70,14 @@ export function CartPanel({ open, onClose }) {
           </div>
         ) : (
           <>
-            <div className="no-scrollbar flex-1 overflow-y-auto px-5 py-4">
+            <div
+              className="cart-scroll min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-4"
+              onWheel={(event) => event.stopPropagation()}
+              onTouchMove={(event) => event.stopPropagation()}
+              data-lenis-prevent=""
+              data-lenis-prevent-wheel=""
+              data-lenis-prevent-touch=""
+            >
               <div className="mb-4 rounded-lg border border-[#e0d8cc] bg-white p-3 text-sm text-[#514c45]">
                 {remaining === 0
                   ? "Free shipping unlocked."
@@ -124,7 +155,7 @@ export function CartPanel({ open, onClose }) {
               </div>
             </div>
 
-            <div className="border-t border-[#e7e1d8] p-5">
+            <div className="shrink-0 border-t border-[#e7e1d8] p-5">
               <div className="mb-4 flex items-center justify-between text-base font-semibold">
                 <span>Subtotal</span>
                 <span>{formatCurrency(subtotal)}</span>

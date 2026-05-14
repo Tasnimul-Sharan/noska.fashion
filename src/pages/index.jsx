@@ -1,9 +1,9 @@
 import Head from "next/head";
 import { Collections } from "@/components/home/Collections";
+import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { HeroSection } from "@/components/home/HeroSection";
 import { Lookbook } from "@/components/home/Lookbook";
 import { ServiceStrip } from "@/components/home/ServiceStrip";
-import { ShopCatalog } from "@/components/home/ShopCatalog";
 
 export default function Home() {
   return (
@@ -18,7 +18,7 @@ export default function Home() {
 
       <HeroSection />
       <ServiceStrip />
-      <ShopCatalog />
+      <FeaturedProducts />
       <Collections />
       <Lookbook />
     </>

@@ -30,7 +30,7 @@ export function Layout({ children }) {
   const handleSearch = (event) => {
     event.preventDefault();
     const trimmed = query.trim();
-    router.push(trimmed ? `/?q=${encodeURIComponent(trimmed)}#shop` : "/#shop");
+    router.push(trimmed ? `/shop?q=${encodeURIComponent(trimmed)}` : "/shop");
   };
 
   return (

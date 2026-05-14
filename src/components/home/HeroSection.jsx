@@ -30,7 +30,7 @@ export function HeroSection() {
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
-              href="/#shop"
+              href="/shop"
               className="focus-ring flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-5 text-sm font-semibold text-[#151515]"
             >
               Shop collection

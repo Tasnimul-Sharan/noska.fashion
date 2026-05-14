@@ -48,7 +48,7 @@ export default function CartPage() {
             <p className="text-sm font-semibold text-[#b9404f]">Shopping bag</p>
             <h1 className="mt-2 text-4xl font-semibold">Your selected dresses</h1>
           </div>
-          <Link href="/#shop" className="w-fit text-sm font-semibold text-[#151515]">
+          <Link href="/shop" className="w-fit text-sm font-semibold text-[#151515]">
             Continue shopping
           </Link>
         </div>
