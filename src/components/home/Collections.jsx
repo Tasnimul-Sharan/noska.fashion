@@ -1,27 +1,23 @@
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { products } from "@/data/products";
+import { getCollectionBySlug, slugifyCollection } from "@/data/products";
+
+function getCollectionCard(title) {
+  const collection = getCollectionBySlug(slugifyCollection(title));
+
+  return {
+    title: collection.title,
+    href: `/collections/${collection.slug}`,
+    image: collection.image,
+    count: `${collection.items.length} style${collection.items.length > 1 ? "s" : ""}`,
+  };
+}
 
 const edits = [
-  {
-    title: "Eid Edit",
-    href: "/shop?collection=Eid%20Edit",
-    image: products[1].image,
-    count: "4 festive silhouettes",
-  },
-  {
-    title: "Power Edit",
-    href: "/shop?collection=Power%20Edit",
-    image: products[10].image,
-    count: "Tailored workwear",
-  },
-  {
-    title: "Sunset Resort",
-    href: "/shop?collection=Sunset%20Resort",
-    image: products[3].image,
-    count: "Light vacation dresses",
-  },
+  getCollectionCard("Eid Edit"),
+  getCollectionCard("Power Edit"),
+  getCollectionCard("Sunset Resort"),
 ];
 
 export function Collections() {

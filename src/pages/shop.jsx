@@ -1,16 +1,25 @@
-import Head from "next/head";
+import { Seo } from "@/components/Seo";
 import { ShopCatalog } from "@/components/home/ShopCatalog";
+import { products } from "@/data/products";
+import { createBreadcrumbJsonLd, createItemListJsonLd } from "@/lib/seo";
 
 export default function ShopPage() {
   return (
     <>
-      <Head>
-        <title>Shop All Dresses | Noska</title>
-        <meta
-          name="description"
-          content="Shop all premium Noska dresses with filters for collection, size, color, and category."
-        />
-      </Head>
+      <Seo
+        title="Shop Premium Dresses"
+        description="Browse every Noska dress with filters for collection, size, color, and category. Shop festive, workwear, resort, bridal, casual, and evening styles."
+        canonicalPath="/shop"
+        image={products[0].image}
+        imageAlt="Noska shop all dresses"
+        jsonLd={[
+          createBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Shop", path: "/shop" },
+          ]),
+          createItemListJsonLd(products, "All Noska dresses", "/shop"),
+        ]}
+      />
 
       <section className="border-b border-border_color bg-secondary text-white">
         <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">

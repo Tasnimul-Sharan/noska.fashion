@@ -9,13 +9,23 @@ import {
   Star,
   Truck,
 } from "lucide-react";
-import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ProductCard } from "@/components/ProductCard";
+import { Seo } from "@/components/Seo";
 import { useShop } from "@/context/ShopContext";
-import { formatCurrency, getProductBySlug, products } from "@/data/products";
+import {
+  formatCurrency,
+  getProductBySlug,
+  products,
+  slugifyCollection,
+} from "@/data/products";
+import {
+  createBreadcrumbJsonLd,
+  createProductJsonLd,
+  createItemListJsonLd,
+} from "@/lib/seo";
 
 export default function ProductDetail({ product }) {
   const { addToCart, isInWishlist, toggleWishlist } = useShop();
@@ -24,15 +34,27 @@ export default function ProductDetail({ product }) {
   const [color, setColor] = useState(product.colors[0].name);
   const [quantity, setQuantity] = useState(1);
   const wished = isInWishlist(product.id);
+  const collectionHref = `/collections/${slugifyCollection(product.collection)}`;
 
-  const recommendations = useMemo(
-    () =>
-      products
-        .filter((item) => item.category === product.category && item.id !== product.id)
-        .concat(products.filter((item) => item.category !== product.category))
-        .slice(0, 3),
-    [product],
-  );
+  const recommendations = useMemo(() => {
+    const sameCollection = products.filter(
+      (item) => item.collection === product.collection && item.id !== product.id,
+    );
+    const sameCategory = products.filter(
+      (item) =>
+        item.category === product.category &&
+        item.collection !== product.collection &&
+        item.id !== product.id,
+    );
+    const rest = products.filter(
+      (item) =>
+        item.category !== product.category &&
+        item.collection !== product.collection &&
+        item.id !== product.id,
+    );
+
+    return [...sameCollection, ...sameCategory, ...rest].slice(0, 3);
+  }, [product.category, product.collection, product.id]);
 
   const addSelectedToCart = () => {
     addToCart(product, { size, color, quantity });
@@ -40,10 +62,26 @@ export default function ProductDetail({ product }) {
 
   return (
     <>
-      <Head>
-        <title>{product.name} | Noska</title>
-        <meta name="description" content={product.description} />
-      </Head>
+      <Seo
+        title={`${product.name} | Premium ${product.category} Dress`}
+        description={`${product.description} Available in ${product.colors
+          .map((option) => option.name)
+          .join(", ")} with sizes ${product.sizes.join(", ")}.`}
+        canonicalPath={`/products/${product.slug}`}
+        image={product.image}
+        imageAlt={product.name}
+        type="product"
+        jsonLd={[
+          createProductJsonLd(product),
+          createBreadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Shop", path: "/shop" },
+            { name: product.collection, path: collectionHref },
+            { name: product.name, path: `/products/${product.slug}` },
+          ]),
+          createItemListJsonLd(recommendations, `Recommended ${product.category} dresses`, `/shop`),
+        ]}
+      />
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Link
@@ -88,9 +126,12 @@ export default function ProductDetail({ product }) {
 
           <div className="lg:pl-6">
             <div className="flex flex-wrap items-center gap-3 text-sm">
-              <span className="rounded-[8px] bg-[#f4ece2] px-3 py-1 font-semibold text-[#b9404f]">
+              <Link
+                href={collectionHref}
+                className="rounded-[8px] bg-[#f4ece2] px-3 py-1 font-semibold text-[#b9404f] transition hover:bg-[#ead8ca]"
+              >
                 {product.collection}
-              </span>
+              </Link>
               <span className="flex items-center gap-1 text-[#514c45]">
                 <Star size={16} fill="#e6b84f" className="text-[#e6b84f]" />
                 {product.rating} ({product.reviews} reviews)
@@ -220,8 +261,11 @@ export default function ProductDetail({ product }) {
             <p className="text-sm font-semibold text-[#b9404f]">Recommended</p>
             <h2 className="mt-2 text-3xl font-semibold">Complete the edit</h2>
           </div>
-          <Link href="/shop" className="hidden text-sm font-semibold text-[#151515] sm:block">
-            View all
+          <Link
+            href={collectionHref}
+            className="hidden text-sm font-semibold text-[#151515] sm:block"
+          >
+            View collection
           </Link>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,8 +1,8 @@
-import Head from "next/head";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { CartContent } from "@/components/cart/CartContent";
 import { CartEmptyState } from "@/components/cart/CartEmptyState";
+import { Seo } from "@/components/Seo";
 import { useShop } from "@/context/ShopContext";
 
 const promos = {
@@ -38,9 +38,12 @@ export default function CartPage() {
 
   return (
     <>
-      <Head>
-        <title>Shopping Bag | Noska</title>
-      </Head>
+      <Seo
+        title="Shopping Bag"
+        description="Review selected Noska dresses, apply a promo code, and continue to checkout."
+        canonicalPath="/cart"
+        noindex
+      />
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">

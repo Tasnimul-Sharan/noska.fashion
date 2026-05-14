@@ -1,42 +1,9 @@
 import { ArrowRight, Layers3 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { formatCurrency, products } from "@/data/products";
+import { formatCurrency, getCollectionGroups } from "@/data/products";
 
-const collectionCopy = {
-  "Moonlit Edit": "Polished evening dresses with satin shine and soft sculpting.",
-  "Eid Edit": "Festive silhouettes with embroidery, color, and occasion-ready movement.",
-  "Nine to Nine": "Structured day-to-evening pieces for polished schedules.",
-  "Sunset Resort": "Lightweight dresses for warm getaways and relaxed plans.",
-  "White Room": "Bridal and reception-ready pieces with refined detail.",
-  "Soft Hours": "Comfortable knits and easy shapes for daily wear.",
-  "Gala Room": "Elevated gowns for formal evenings and special entrances.",
-  "Weekend Market": "Printed, casual dresses made for expressive weekends.",
-  "After Dark": "Party dresses with metallic texture and evening energy.",
-  "Power Edit": "Tailored workwear with sharper lines and confident fits.",
-  "Garden Mehfil": "Fresh florals for daylight occasions and festive gatherings.",
-};
-
-const collectionGroups = Array.from(
-  products.reduce((groups, product) => {
-    const current = groups.get(product.collection) || [];
-    current.push(product);
-    groups.set(product.collection, current);
-    return groups;
-  }, new Map()),
-).map(([title, items]) => {
-  const categories = [...new Set(items.map((item) => item.category))];
-  const lowestPrice = Math.min(...items.map((item) => item.price));
-
-  return {
-    title,
-    items,
-    categories,
-    lowestPrice,
-    image: items[0].image,
-    description: collectionCopy[title] || "A refined capsule from the Noska wardrobe.",
-  };
-});
+const collectionGroups = getCollectionGroups();
 
 export function CollectionsGrid() {
   return (
@@ -45,7 +12,7 @@ export function CollectionsGrid() {
         {collectionGroups.map((collection) => (
           <Link
             key={collection.title}
-            href={`/shop?collection=${encodeURIComponent(collection.title)}`}
+            href={`/collections/${collection.slug}`}
             className="group overflow-hidden rounded-lg border border-border_soft bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-premium"
           >
             <div className="relative aspect-[4/5] overflow-hidden bg-image_wash">

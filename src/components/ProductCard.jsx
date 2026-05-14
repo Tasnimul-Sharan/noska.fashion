@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useShop } from "@/context/ShopContext";
-import { formatCurrency } from "@/data/products";
+import { formatCurrency, slugifyCollection } from "@/data/products";
 
 export function ProductCard({ product }) {
   const { addToCart, isInWishlist, toggleWishlist } = useShop();
@@ -38,7 +38,12 @@ export function ProductCard({ product }) {
 
       <div className="p-4">
         <div className="flex items-center justify-between gap-3 text-xs text-[#7b7167]">
-          <span>{product.collection}</span>
+          <Link
+            href={`/collections/${slugifyCollection(product.collection)}`}
+            className="transition hover:text-[#b9404f]"
+          >
+            {product.collection}
+          </Link>
           <span className="flex items-center gap-1 text-[#514c45]">
             <Star size={14} fill="#e6b84f" className="text-[#e6b84f]" />
             {product.rating}

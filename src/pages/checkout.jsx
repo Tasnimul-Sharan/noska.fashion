@@ -1,8 +1,8 @@
-import Head from "next/head";
 import { useMemo, useState } from "react";
 import { CheckoutEmptyState } from "@/components/checkout/CheckoutEmptyState";
 import { CheckoutForm } from "@/components/checkout/CheckoutForm";
 import { CheckoutSuccess } from "@/components/checkout/CheckoutSuccess";
+import { Seo } from "@/components/Seo";
 import { useShop } from "@/context/ShopContext";
 
 const initialForm = {
@@ -65,9 +65,12 @@ export default function CheckoutPage() {
   if (order) {
     return (
       <>
-        <Head>
-          <title>Order Confirmed | Noska</title>
-        </Head>
+        <Seo
+          title="Order Confirmed"
+          description="Your Noska order confirmation."
+          canonicalPath="/checkout"
+          noindex
+        />
         <CheckoutSuccess order={order} />
       </>
     );
@@ -75,9 +78,12 @@ export default function CheckoutPage() {
 
   return (
     <>
-      <Head>
-        <title>Checkout | Noska</title>
-      </Head>
+      <Seo
+        title="Checkout"
+        description="Securely place your Noska dress order with delivery and payment options."
+        canonicalPath="/checkout"
+        noindex
+      />
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div>

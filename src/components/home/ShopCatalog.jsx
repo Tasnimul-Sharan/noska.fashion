@@ -33,22 +33,40 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
   const [sort, setSort] = useState("featured");
 
   useEffect(() => {
-    if (typeof router.query.q === "string") {
-      queueMicrotask(() => setQuery(router.query.q));
-    }
-  }, [router.query.q]);
+    if (!router.isReady) return;
+
+    queueMicrotask(() => {
+      setQuery(typeof router.query.q === "string" ? router.query.q : "");
+    });
+  }, [router.isReady, router.query.q]);
 
   useEffect(() => {
-    if (typeof router.query.category === "string") {
-      queueMicrotask(() => setCategory(router.query.category));
-    }
-  }, [router.query.category]);
+    if (!router.isReady) return;
+
+    queueMicrotask(() => {
+      const nextCategory =
+        typeof router.query.category === "string" &&
+        categories.includes(router.query.category)
+          ? router.query.category
+          : "All";
+
+      setCategory(nextCategory);
+    });
+  }, [router.isReady, router.query.category]);
 
   useEffect(() => {
-    if (typeof router.query.collection === "string") {
-      queueMicrotask(() => setCollection(router.query.collection));
-    }
-  }, [router.query.collection]);
+    if (!router.isReady) return;
+
+    queueMicrotask(() => {
+      const nextCollection =
+        typeof router.query.collection === "string" &&
+        collectionOptions.includes(router.query.collection)
+          ? router.query.collection
+          : "All";
+
+      setCollection(nextCollection);
+    });
+  }, [router.isReady, router.query.collection]);
 
   const filteredProducts = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -93,6 +111,8 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
     setColor("All");
     setSort("featured");
   };
+  const activeEyebrow = collection === "All" ? eyebrow : "Collection";
+  const activeTitle = collection === "All" ? title : collection;
 
   return (
     <section id="shop" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -100,9 +120,9 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
         <div>
           <p className="flex items-center gap-2 text-sm font-semibold text-[#b9404f]">
             <SlidersHorizontal size={17} />
-            {eyebrow}
+            {activeEyebrow}
           </p>
-          <h2 className="mt-2 text-3xl font-semibold md:text-4xl">{title}</h2>
+          <h2 className="mt-2 text-3xl font-semibold md:text-4xl">{activeTitle}</h2>
         </div>
         <div className="text-sm text-[#6f6a63]">
           {filteredProducts.length} styles ready to order

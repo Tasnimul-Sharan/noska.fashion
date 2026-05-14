@@ -8,11 +8,11 @@ import {
   ShoppingBag,
   User,
 } from "lucide-react";
-import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
 import { ProductCard } from "@/components/ProductCard";
+import { Seo } from "@/components/Seo";
 import { useShop } from "@/context/ShopContext";
 import { formatCurrency, products } from "@/data/products";
 
@@ -47,9 +47,12 @@ export default function AccountPage() {
 
   return (
     <>
-      <Head>
-        <title>Account | Noska</title>
-      </Head>
+      <Seo
+        title={activeTab === "wishlist" ? "Wishlist" : "Account"}
+        description="Manage your Noska profile, wishlist, order history, and communication preferences."
+        canonicalPath="/account"
+        noindex
+      />
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
