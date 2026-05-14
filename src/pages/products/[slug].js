@@ -98,7 +98,7 @@ export default function ProductDetail({ product }) {
               {product.gallery.map((image) => (
                 <button
                   key={image}
-                  className={`focus-ring relative h-24 w-20 shrink-0 overflow-hidden rounded-[8px] border bg-[#eee7dd] md:w-24 ${
+                  className={`focus-ring relative h-24 w-20 shrink-0 overflow-hidden rounded-lg border bg-[#eee7dd] md:w-24 ${
                     activeImage === image ? "border-[#151515]" : "border-[#e0d8cc]"
                   }`}
                   type="button"
@@ -109,7 +109,7 @@ export default function ProductDetail({ product }) {
                 </button>
               ))}
             </div>
-            <div className="relative order-1 aspect-[4/5] overflow-hidden rounded-[8px] bg-[#eee7dd] md:order-2">
+            <div className="relative order-1 aspect-4/5 overflow-hidden rounded-lg bg-[#eee7dd] md:order-2">
               <Image
                 src={activeImage}
                 alt={product.name}
@@ -118,7 +118,7 @@ export default function ProductDetail({ product }) {
                 sizes="(min-width: 1024px) 52vw, 100vw"
                 className="object-cover"
               />
-              <div className="absolute left-4 top-4 rounded-[8px] bg-white/92 px-3 py-1 text-sm font-semibold">
+              <div className="absolute left-4 top-4 rounded-lg bg-white/92 px-3 py-1 text-sm font-semibold">
                 {product.badge}
               </div>
             </div>
@@ -128,7 +128,7 @@ export default function ProductDetail({ product }) {
             <div className="flex flex-wrap items-center gap-3 text-sm">
               <Link
                 href={collectionHref}
-                className="rounded-[8px] bg-[#f4ece2] px-3 py-1 font-semibold text-[#b9404f] transition hover:bg-[#ead8ca]"
+                className="rounded-lg bg-[#f4ece2] px-3 py-1 font-semibold text-[#b9404f] transition hover:bg-[#ead8ca]"
               >
                 {product.collection}
               </Link>
@@ -159,7 +159,7 @@ export default function ProductDetail({ product }) {
                 {product.colors.map((option) => (
                   <button
                     key={option.name}
-                    className={`focus-ring flex h-11 items-center gap-2 rounded-[8px] border px-3 text-sm font-semibold ${
+                    className={`focus-ring flex h-11 items-center gap-2 rounded-lg border px-3 text-sm font-semibold ${
                       color === option.name
                         ? "border-[#151515] bg-white"
                         : "border-[#ded6ca] bg-[#fbfaf8]"
@@ -188,7 +188,7 @@ export default function ProductDetail({ product }) {
                 {product.sizes.map((option) => (
                   <button
                     key={option}
-                    className={`focus-ring h-12 rounded-[8px] border text-sm font-semibold ${
+                    className={`focus-ring h-12 rounded-lg border text-sm font-semibold ${
                       size === option
                         ? "border-[#151515] bg-[#151515] text-white"
                         : "border-[#ded6ca] bg-white text-[#514c45]"
@@ -203,7 +203,7 @@ export default function ProductDetail({ product }) {
             </div>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <div className="flex h-12 w-full items-center justify-between rounded-[8px] border border-[#ded6ca] bg-white sm:w-36">
+              <div className="flex h-12 w-full items-center justify-between rounded-lg border border-[#ded6ca] bg-white sm:w-36">
                 <button
                   className="focus-ring flex h-12 w-12 items-center justify-center"
                   type="button"
@@ -223,7 +223,7 @@ export default function ProductDetail({ product }) {
                 </button>
               </div>
               <button
-                className="focus-ring flex h-12 flex-1 items-center justify-center gap-2 rounded-[8px] bg-[#151515] px-5 text-sm font-semibold text-white transition hover:bg-[#b9404f]"
+                className="focus-ring flex h-12 flex-1 items-center justify-center gap-2 rounded-lg bg-[#151515] px-5 text-sm font-semibold text-white transition hover:bg-[#b9404f]"
                 type="button"
                 onClick={addSelectedToCart}
               >
@@ -231,7 +231,7 @@ export default function ProductDetail({ product }) {
                 Add to cart
               </button>
               <button
-                className="focus-ring flex h-12 items-center justify-center gap-2 rounded-[8px] border border-[#151515] px-5 text-sm font-semibold"
+                className="focus-ring flex h-12 items-center justify-center gap-2 rounded-lg border border-[#151515] px-5 text-sm font-semibold"
                 type="button"
                 onClick={() => toggleWishlist(product.id)}
               >
@@ -280,7 +280,7 @@ export default function ProductDetail({ product }) {
 
 function InfoTile({ icon: Icon, label, text }) {
   return (
-    <div className="rounded-[8px] border border-[#e5ddd2] bg-white p-3">
+    <div className="rounded-lg border border-[#e5ddd2] bg-white p-3">
       <Icon size={18} className="text-[#b9404f]" />
       <p className="mt-2 text-sm font-semibold">{label}</p>
       <p className="mt-1 text-xs text-[#7b7167]">{text}</p>
