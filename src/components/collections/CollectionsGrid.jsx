@@ -15,7 +15,7 @@ export function CollectionsGrid() {
             href={`/collections/${collection.slug}`}
             className="group overflow-hidden rounded-lg border border-border_soft bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-premium"
           >
-            <div className="relative aspect-[4/5] overflow-hidden bg-image_wash">
+            <div className="relative aspect-4/5 overflow-hidden bg-image_wash">
               <Image
                 src={collection.image}
                 alt={collection.title}
