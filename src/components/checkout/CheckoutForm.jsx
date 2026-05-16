@@ -1,7 +1,9 @@
+import { motion } from "framer-motion";
 import { CheckoutOrderSummary } from "@/components/checkout/CheckoutOrderSummary";
 import { ContactSection } from "@/components/checkout/ContactSection";
 import { DeliverySection } from "@/components/checkout/DeliverySection";
 import { PaymentSection } from "@/components/checkout/PaymentSection";
+import { staggerContainer } from "@/lib/motion";
 
 export function CheckoutForm({
   cart,
@@ -19,8 +21,14 @@ export function CheckoutForm({
   updateField,
 }) {
   return (
-    <form onSubmit={placeOrder} className="mt-8 grid gap-6 lg:grid-cols-[1fr_380px]">
-      <div className="space-y-6">
+    <motion.form
+      onSubmit={placeOrder}
+      className="mt-8 grid gap-6 lg:grid-cols-[1fr_380px]"
+      initial="hidden"
+      animate="show"
+      variants={staggerContainer}
+    >
+      <motion.div className="space-y-6" variants={staggerContainer}>
         <ContactSection form={form} updateField={updateField} />
         <DeliverySection
           address={form.address}
@@ -36,7 +44,7 @@ export function CheckoutForm({
           setPayment={setPayment}
           updateField={updateField}
         />
-      </div>
+      </motion.div>
 
       <CheckoutOrderSummary
         cart={cart}
@@ -45,6 +53,6 @@ export function CheckoutForm({
         subtotal={subtotal}
         total={total}
       />
-    </form>
+    </motion.form>
   );
 }

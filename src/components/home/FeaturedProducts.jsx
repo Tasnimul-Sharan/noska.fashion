@@ -1,14 +1,25 @@
 import { ArrowRight, Sparkles } from "lucide-react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { ProductCard } from "@/components/ProductCard";
 import { products } from "@/data/products";
+import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 const featuredProducts = products.slice(0, 6);
 
 export function FeaturedProducts() {
   return (
-    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <motion.section
+      className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8"
+      initial="hidden"
+      whileInView="show"
+      viewport={viewportOnce}
+      variants={staggerContainer}
+    >
+      <motion.div
+        className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+        variants={fadeUp}
+      >
         <div>
           <p className="flex items-center gap-2 text-sm font-semibold text-primary">
             <Sparkles size={17} />
@@ -27,13 +38,13 @@ export function FeaturedProducts() {
           Shop all
           <ArrowRight size={17} />
         </Link>
-      </div>
+      </motion.div>
 
-      <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <motion.div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" variants={staggerContainer}>
         {featuredProducts.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }

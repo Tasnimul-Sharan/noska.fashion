@@ -1,13 +1,18 @@
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { formatCurrency } from "@/data/products";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export function CheckoutOrderSummary({ cart, error, shipping, subtotal, total }) {
   return (
-    <aside className="h-fit rounded-lg border border-[#e5ddd2] bg-white p-5">
+    <motion.aside
+      className="h-fit rounded-lg border border-[#e5ddd2] bg-white p-5"
+      variants={fadeUp}
+    >
       <h2 className="text-xl font-semibold">Order summary</h2>
-      <div className="mt-5 space-y-4">
+      <motion.div className="mt-5 space-y-4" variants={staggerContainer}>
         {cart.map((line) => (
-          <div key={line.id} className="grid grid-cols-[64px_1fr] gap-3">
+          <motion.div key={line.id} className="grid grid-cols-[64px_1fr] gap-3" variants={fadeUp}>
             <div className="relative h-20 overflow-hidden rounded-lg bg-[#eee7dd]">
               <Image
                 src={line.image}
@@ -26,13 +31,16 @@ export function CheckoutOrderSummary({ cart, error, shipping, subtotal, total })
                 {formatCurrency(line.price * line.quantity)}
               </p>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
-      <div className="mt-5 space-y-3 border-t border-[#e7e1d8] pt-5 text-sm">
+      </motion.div>
+      <motion.div
+        className="mt-5 space-y-3 border-t border-[#e7e1d8] pt-5 text-sm"
+        variants={staggerContainer}
+      >
         <SummaryLine label="Subtotal" value={formatCurrency(subtotal)} />
         <SummaryLine label="Shipping" value={shipping === 0 ? "Free" : formatCurrency(shipping)} />
-      </div>
+      </motion.div>
       <div className="mt-5 flex items-center justify-between border-t border-[#e7e1d8] pt-5 text-lg font-semibold">
         <span>Total</span>
         <span>{formatCurrency(total)}</span>
@@ -44,15 +52,15 @@ export function CheckoutOrderSummary({ cart, error, shipping, subtotal, total })
       >
         Place order
       </button>
-    </aside>
+    </motion.aside>
   );
 }
 
 function SummaryLine({ label, value }) {
   return (
-    <div className="flex items-center justify-between">
+    <motion.div className="flex items-center justify-between" variants={fadeUp}>
       <span className="text-[#6f6a63]">{label}</span>
       <span className="font-semibold">{value}</span>
-    </div>
+    </motion.div>
   );
 }

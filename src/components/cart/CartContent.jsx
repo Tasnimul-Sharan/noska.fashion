@@ -1,5 +1,7 @@
+import { motion } from "framer-motion";
 import { CartItem } from "@/components/cart/CartItem";
 import { CartOrderSummary } from "@/components/cart/CartOrderSummary";
+import { staggerContainer } from "@/lib/motion";
 
 export function CartContent({
   applyPromo,
@@ -17,8 +19,13 @@ export function CartContent({
   updateQuantity,
 }) {
   return (
-    <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_380px]">
-      <div className="space-y-4">
+    <motion.div
+      className="mt-8 grid gap-6 lg:grid-cols-[1fr_380px]"
+      initial="hidden"
+      animate="show"
+      variants={staggerContainer}
+    >
+      <motion.div className="space-y-4" variants={staggerContainer}>
         {cart.map((line) => (
           <CartItem
             key={line.id}
@@ -27,7 +34,7 @@ export function CartContent({
             updateQuantity={updateQuantity}
           />
         ))}
-      </div>
+      </motion.div>
 
       <CartOrderSummary
         applyPromo={applyPromo}
@@ -41,6 +48,6 @@ export function CartContent({
         subtotal={subtotal}
         total={total}
       />
-    </div>
+    </motion.div>
   );
 }

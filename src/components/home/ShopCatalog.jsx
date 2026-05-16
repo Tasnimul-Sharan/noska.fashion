@@ -1,8 +1,10 @@
 import { RotateCcw, Search, SlidersHorizontal, X } from "lucide-react";
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { ProductCard } from "@/components/ProductCard";
 import { categories, products, sizes } from "@/data/products";
+import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 const sortOptions = [
   { value: "featured", label: "Featured" },
@@ -115,8 +117,18 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
   const activeTitle = collection === "All" ? title : collection;
 
   return (
-    <section id="shop" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+    <motion.section
+      id="shop"
+      className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"
+      initial="hidden"
+      whileInView="show"
+      viewport={viewportOnce}
+      variants={staggerContainer}
+    >
+      <motion.div
+        className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+        variants={fadeUp}
+      >
         <div>
           <p className="flex items-center gap-2 text-sm font-semibold text-[#b9404f]">
             <SlidersHorizontal size={17} />
@@ -127,12 +139,13 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
         <div className="text-sm text-[#6f6a63]">
           {filteredProducts.length} styles ready to order
         </div>
-      </div>
+      </motion.div>
 
-      <div className="mt-8 flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+      <motion.div className="mt-8 flex gap-2 overflow-x-auto pb-2 no-scrollbar" variants={fadeUp}>
         {categories.map((option) => (
-          <button
+          <motion.button
             key={option}
+            whileTap={{ scale: 0.96 }}
             className={`focus-ring h-11 min-w-fit rounded-lg border px-4 text-sm font-semibold transition ${
               category === option
                 ? "border-[#151515] bg-[#151515] text-white"
@@ -142,22 +155,23 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
             onClick={() => setCategory(option)}
           >
             {option}
-          </button>
+          </motion.button>
         ))}
-      </div>
+      </motion.div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[280px_1fr]">
-        <aside className="h-fit rounded-lg border border-[#e5ddd2] bg-white p-4">
+      <motion.div className="mt-6 grid gap-6 lg:grid-cols-[280px_1fr]" variants={staggerContainer}>
+        <motion.aside className="h-fit rounded-lg border border-[#e5ddd2] bg-white p-4" variants={fadeUp}>
           <div className="flex items-center justify-between">
             <h3 className="font-semibold">Filters</h3>
-            <button
+            <motion.button
+              whileTap={{ scale: 0.96 }}
               className="focus-ring flex items-center gap-1 text-sm font-semibold text-[#b9404f]"
               type="button"
               onClick={resetFilters}
             >
               <RotateCcw size={15} />
               Reset
-            </button>
+            </motion.button>
           </div>
 
           <label className="mt-5 block text-sm font-semibold" htmlFor="catalog-search">
@@ -174,14 +188,15 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
               type="search"
             />
             {query && (
-              <button
+              <motion.button
+                whileTap={{ scale: 0.9 }}
                 className="focus-ring text-[#7b7167]"
                 type="button"
                 aria-label="Clear search"
                 onClick={() => setQuery("")}
               >
                 <X size={16} />
-              </button>
+              </motion.button>
             )}
           </div>
 
@@ -205,8 +220,9 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
             <p className="text-sm font-semibold">Size</p>
             <div className="mt-2 grid grid-cols-3 gap-2">
               {["All", ...sizes].map((option) => (
-                <button
+                <motion.button
                   key={option}
+                  whileTap={{ scale: 0.96 }}
                   className={`focus-ring h-10 rounded-lg border text-sm font-semibold ${
                     size === option
                       ? "border-[#151515] bg-[#151515] text-white"
@@ -216,7 +232,7 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
                   onClick={() => setSize(option)}
                 >
                   {option}
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
@@ -224,7 +240,8 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
           <div className="mt-5">
             <p className="text-sm font-semibold">Color</p>
             <div className="mt-3 flex flex-wrap gap-2">
-              <button
+              <motion.button
+                whileTap={{ scale: 0.96 }}
                 className={`focus-ring h-9 rounded-lg border px-3 text-sm font-semibold ${
                   color === "All"
                     ? "border-[#151515] bg-[#151515] text-white"
@@ -234,10 +251,11 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
                 onClick={() => setColor("All")}
               >
                 All
-              </button>
+              </motion.button>
               {colorOptions.map((option) => (
-                <button
+                <motion.button
                   key={option.name}
+                  whileTap={{ scale: 0.96 }}
                   className={`focus-ring flex h-9 items-center gap-2 rounded-lg border px-2 text-sm font-semibold ${
                     color === option.name
                       ? "border-[#151515] bg-[#f8f2ea]"
@@ -251,7 +269,7 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
                     style={{ backgroundColor: option.value }}
                   />
                   {option.name}
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
@@ -271,17 +289,26 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
               </option>
             ))}
           </select>
-        </aside>
+        </motion.aside>
 
         <div>
           {filteredProducts.length > 0 ? (
-            <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <motion.div
+              key={`${query}-${category}-${collection}-${size}-${color}-${sort}`}
+              className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3"
+              initial="hidden"
+              animate="show"
+              variants={staggerContainer}
+            >
               {filteredProducts.map((product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
-            </div>
+            </motion.div>
           ) : (
-            <div className="flex min-h-80 flex-col items-center justify-center rounded-lg border border-[#e5ddd2] bg-white p-8 text-center">
+            <motion.div
+              className="flex min-h-80 flex-col items-center justify-center rounded-lg border border-[#e5ddd2] bg-white p-8 text-center"
+              variants={fadeUp}
+            >
               <Search size={36} className="text-[#b9404f]" />
               <h3 className="mt-4 text-xl font-semibold">No dresses found</h3>
               <p className="mt-2 max-w-md text-sm leading-6 text-[#6f6a63]">
@@ -294,10 +321,10 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
               >
                 Clear filters
               </button>
-            </div>
+            </motion.div>
           )}
         </div>
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }

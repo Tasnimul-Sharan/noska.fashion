@@ -1,9 +1,11 @@
 import { Heart, ShoppingBag, Star } from "lucide-react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useShop } from "@/context/ShopContext";
 import { formatCurrency, slugifyCollection } from "@/data/products";
+import { fadeUp, viewportOnce } from "@/lib/motion";
 
 export function ProductCard({ product }) {
   const { addToCart, isInWishlist, toggleWishlist } = useShop();
@@ -12,7 +14,15 @@ export function ProductCard({ product }) {
   const wished = isInWishlist(product.id);
 
   return (
-    <article className="group overflow-hidden rounded-lg border border-[#e5ddd2] bg-white">
+    <motion.article
+      className="group overflow-hidden rounded-lg border border-[#e5ddd2] bg-white"
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="show"
+      viewport={viewportOnce}
+      whileHover={{ y: -6 }}
+      transition={{ duration: 0.24 }}
+    >
       <div className="relative aspect-4/5 overflow-hidden bg-[#efe8dd]">
         <Link href={`/products/${product.slug}`} aria-label={`View ${product.name}`}>
           <Image
@@ -26,14 +36,15 @@ export function ProductCard({ product }) {
         <div className="absolute left-3 top-3 rounded-lg bg-white/92 px-3 py-1 text-xs font-semibold text-[#151515] shadow-sm">
           {product.badge}
         </div>
-        <button
+        <motion.button
+          whileTap={{ scale: 0.92 }}
           className="focus-ring absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-lg bg-white/92 text-[#151515] shadow-sm transition hover:text-[#b9404f]"
           type="button"
           aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
           onClick={() => toggleWishlist(product.id)}
         >
           <Heart size={18} fill={wished ? "#b9404f" : "none"} />
-        </button>
+        </motion.button>
       </div>
 
       <div className="p-4">
@@ -64,8 +75,9 @@ export function ProductCard({ product }) {
         <div className="mt-4 flex items-center justify-between gap-3">
           <div className="flex items-center gap-1.5">
             {product.colors.slice(0, 3).map((option) => (
-              <button
+              <motion.button
                 key={option.name}
+                whileTap={{ scale: 0.9 }}
                 className={`focus-ring h-6 w-6 rounded-full border ${
                   color === option.name
                     ? "border-[#151515] ring-2 ring-[#151515]/15"
@@ -90,15 +102,16 @@ export function ProductCard({ product }) {
           </select>
         </div>
 
-        <button
+        <motion.button
+          whileTap={{ scale: 0.98 }}
           className="focus-ring mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#151515] px-4 text-sm font-semibold text-white transition hover:bg-[#b9404f]"
           type="button"
           onClick={() => addToCart(product, { size, color })}
         >
           <ShoppingBag size={17} />
           Add to cart
-        </button>
+        </motion.button>
       </div>
-    </article>
+    </motion.article>
   );
 }

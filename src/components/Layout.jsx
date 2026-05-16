@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { CartPanel } from "@/components/CartPanel";
@@ -47,7 +48,7 @@ export function Layout({ children }) {
         wishlistCount={wishlist.length}
       />
       <CartPanel open={cartOpen} onClose={() => setCartOpen(false)} />
-      <main>{children}</main>
+      <motion.main layout="position">{children}</motion.main>
       <SiteFooter />
     </div>
   );

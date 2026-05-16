@@ -7,8 +7,10 @@ import {
   User,
   X,
 } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { easeOut, fadeIn, panelSlide } from "@/lib/motion";
 
 const navLinks = [
   { href: "/shop", label: "Shop" },
@@ -32,7 +34,12 @@ export function Navbar({
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-border_color bg-off_white/94 backdrop-blur-xl">
+      <motion.header
+        initial={{ opacity: 0, y: -18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.45, ease: easeOut }}
+        className="sticky top-0 z-40 border-b border-border_color bg-off_white/94 backdrop-blur-xl"
+      >
         <div className="hidden border-b border-secondary/10 bg-secondary text-white sm:block">
           <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-6 text-xs font-semibold lg:px-8">
             <span className="text-[#d8d0c8]">Premium dresswear made for modern occasions</span>
@@ -63,7 +70,11 @@ export function Navbar({
               >
                 {link.label}
                 {isActiveLink(router.asPath, link.href) && (
-                  <span className="absolute inset-x-0 -bottom-1 h-0.5 rounded-full bg-primary" />
+                  <motion.span
+                    layoutId="desktop-nav-active"
+                    className="absolute inset-x-0 -bottom-1 h-0.5 rounded-full bg-primary"
+                    transition={{ duration: 0.28, ease: easeOut }}
+                  />
                 )}
               </Link>
             ))}
@@ -96,7 +107,8 @@ export function Navbar({
                 </span>
               )}
             </Link>
-            <button
+            <motion.button
+              whileTap={{ scale: 0.96 }}
               className="focus-ring relative flex h-11 w-11 items-center justify-center rounded-lg bg-secondary text-white shadow-[0_12px_30px_rgba(21,21,21,0.16)] transition hover:bg-primary"
               type="button"
               aria-label="Open cart"
@@ -108,32 +120,44 @@ export function Navbar({
                   {itemCount}
                 </span>
               )}
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileTap={{ scale: 0.96 }}
               className="focus-ring flex h-11 w-11 items-center justify-center rounded-lg border border-border_color bg-white shadow-sm lg:hidden"
               type="button"
               aria-label="Open menu"
               onClick={onMobileOpen}
             >
               <Menu size={20} />
-            </button>
+            </motion.button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
-      {mobileOpen && (
-        <div className="fixed inset-0 z-50 bg-secondary/45 lg:hidden">
-          <div className="ml-auto flex h-full w-full max-w-sm flex-col bg-off_white p-5 shadow-2xl">
+      <AnimatePresence>
+        {mobileOpen && (
+        <motion.div
+          className="fixed inset-0 z-50 bg-secondary/45 lg:hidden"
+          initial="hidden"
+          animate="show"
+          exit="hidden"
+          variants={fadeIn}
+        >
+          <motion.div
+            className="ml-auto flex h-full w-full max-w-sm flex-col bg-off_white p-5 shadow-2xl"
+            variants={panelSlide}
+          >
             <div className="flex items-center justify-between">
               <span className="text-lg font-semibold">Noska menu</span>
-              <button
+              <motion.button
+                whileTap={{ scale: 0.96 }}
                 className="focus-ring flex h-10 w-10 items-center justify-center rounded-lg border border-border_color bg-white"
                 type="button"
                 aria-label="Close menu"
                 onClick={onMobileClose}
               >
                 <X size={19} />
-              </button>
+              </motion.button>
             </div>
             <SearchForm
               className="mt-6 flex h-12 items-center gap-2 rounded-lg border border-[#e0d8cc] bg-white px-3"
@@ -146,11 +170,18 @@ export function Navbar({
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`rounded-lg px-3 py-3 text-base font-medium transition hover:bg-white ${
+                  className={`relative rounded-lg px-3 py-3 text-base font-medium transition hover:bg-white ${
                     isActiveLink(router.asPath, link.href) ? "bg-white text-primary" : ""
                   }`}
                 >
                   {link.label}
+                  {isActiveLink(router.asPath, link.href) && (
+                    <motion.span
+                      layoutId="mobile-nav-active"
+                      className="absolute inset-y-2 left-0 w-1 rounded-full bg-primary"
+                      transition={{ duration: 0.28, ease: easeOut }}
+                    />
+                  )}
                 </Link>
               ))}
               <Link
@@ -166,16 +197,22 @@ export function Navbar({
                 Cart
               </Link>
             </nav>
-          </div>
-        </div>
-      )}
+          </motion.div>
+        </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
 
 function SearchForm({ className, handleSearch, query, setQuery }) {
   return (
-    <form onSubmit={handleSearch} className={className}>
+    <motion.form
+      onSubmit={handleSearch}
+      className={className}
+      whileFocus={{ scale: 1.01 }}
+      transition={{ duration: 0.2, ease: easeOut }}
+    >
       <Search size={18} className="text-muted_light" />
       <input
         value={query}
@@ -184,7 +221,7 @@ function SearchForm({ className, handleSearch, query, setQuery }) {
         placeholder="Search the edit"
         type="search"
       />
-    </form>
+    </motion.form>
   );
 }
 

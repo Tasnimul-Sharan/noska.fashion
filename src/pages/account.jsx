@@ -8,6 +8,7 @@ import {
   ShoppingBag,
   User,
 } from "lucide-react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useMemo, useState } from "react";
@@ -15,6 +16,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { Seo } from "@/components/Seo";
 import { useShop } from "@/context/ShopContext";
 import { formatCurrency, products } from "@/data/products";
+import { fadeUp, scaleIn, staggerContainer } from "@/lib/motion";
 
 const orders = [
   {
@@ -55,18 +57,37 @@ export default function AccountPage() {
       />
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <motion.div
+          className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between"
+          initial="hidden"
+          animate="show"
+          variants={staggerContainer}
+        >
           <div>
-            <p className="text-sm font-semibold text-[#b9404f]">Account</p>
-            <h1 className="mt-2 text-4xl font-semibold">Member dashboard</h1>
+            <motion.p className="text-sm font-semibold text-[#b9404f]" variants={fadeUp}>
+              Account
+            </motion.p>
+            <motion.h1 className="mt-2 text-4xl font-semibold" variants={fadeUp}>
+              Member dashboard
+            </motion.h1>
           </div>
-          <Link href="/shop" className="w-fit text-sm font-semibold text-[#151515]">
-            Shop new arrivals
-          </Link>
-        </div>
+          <motion.div variants={fadeUp}>
+            <Link href="/shop" className="w-fit text-sm font-semibold text-[#151515]">
+              Shop new arrivals
+            </Link>
+          </motion.div>
+        </motion.div>
 
-        <div className="mt-8 grid gap-6 lg:grid-cols-[280px_1fr]">
-          <aside className="h-fit rounded-lg border border-[#e5ddd2] bg-white p-4">
+        <motion.div
+          className="mt-8 grid gap-6 lg:grid-cols-[280px_1fr]"
+          initial="hidden"
+          animate="show"
+          variants={staggerContainer}
+        >
+          <motion.aside
+            className="h-fit rounded-lg border border-[#e5ddd2] bg-white p-4"
+            variants={fadeUp}
+          >
             <div className="flex items-center gap-3 border-b border-[#e7e1d8] pb-4">
               <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-[#151515] text-white">
                 <User size={20} />
@@ -90,10 +111,13 @@ export default function AccountPage() {
                 label="Wishlist"
               />
             </nav>
-          </aside>
+          </motion.aside>
 
           {activeTab === "wishlist" ? (
-            <section className="rounded-lg border border-[#e5ddd2] bg-white p-5">
+            <motion.section
+              className="rounded-lg border border-[#e5ddd2] bg-white p-5"
+              variants={fadeUp}
+            >
               <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                   <p className="text-sm font-semibold text-[#b9404f]">Wishlist</p>
@@ -103,45 +127,64 @@ export default function AccountPage() {
               </div>
 
               {wishedProducts.length === 0 ? (
-                <div className="mt-8 flex min-h-80 flex-col items-center justify-center rounded-lg border border-[#e7e1d8] bg-[#fbfaf8] p-8 text-center">
-                  <Heart size={40} className="text-[#b9404f]" />
-                  <h3 className="mt-4 text-xl font-semibold">No saved dresses yet</h3>
-                  <p className="mt-2 max-w-md text-sm leading-6 text-[#6f6a63]">
-                    Save dresses from the collection and they will appear here.
-                  </p>
-                  <Link
-                    href="/shop"
-                    className="mt-6 rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
+                <motion.div
+                  className="mt-8 flex min-h-80 flex-col items-center justify-center rounded-lg border border-[#e7e1d8] bg-[#fbfaf8] p-8 text-center"
+                  variants={staggerContainer}
+                >
+                  <motion.div variants={scaleIn}>
+                    <Heart size={40} className="text-[#b9404f]" />
+                  </motion.div>
+                  <motion.h3 className="mt-4 text-xl font-semibold" variants={fadeUp}>
+                    No saved dresses yet
+                  </motion.h3>
+                  <motion.p
+                    className="mt-2 max-w-md text-sm leading-6 text-[#6f6a63]"
+                    variants={fadeUp}
                   >
-                    Browse collection
-                  </Link>
-                </div>
+                    Save dresses from the collection and they will appear here.
+                  </motion.p>
+                  <motion.div variants={fadeUp}>
+                    <Link
+                      href="/shop"
+                      className="mt-6 inline-flex rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
+                    >
+                      Browse collection
+                    </Link>
+                  </motion.div>
+                </motion.div>
               ) : (
-                <div className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+                <motion.div
+                  className="mt-6 grid gap-5 sm:grid-cols-2 xl:grid-cols-3"
+                  variants={staggerContainer}
+                >
                   {wishedProducts.map((product) => (
                     <ProductCard key={product.id} product={product} />
                   ))}
-                </div>
+                </motion.div>
               )}
-            </section>
+            </motion.section>
           ) : (
-            <div className="space-y-6">
-              <section className="grid gap-4 sm:grid-cols-3">
+            <motion.div className="space-y-6" variants={staggerContainer}>
+              <motion.section className="grid gap-4 sm:grid-cols-3" variants={staggerContainer}>
                 <Metric icon={ShoppingBag} label="Orders" value="12" />
                 <Metric icon={Heart} label="Saved" value={String(wishedProducts.length)} />
                 <Metric icon={CheckCircle2} label="Tier" value="Premium" />
-              </section>
+              </motion.section>
 
-              <section className="rounded-lg border border-[#e5ddd2] bg-white p-5">
+              <motion.section
+                className="rounded-lg border border-[#e5ddd2] bg-white p-5"
+                variants={fadeUp}
+              >
                 <div className="flex items-center gap-2">
                   <PackageCheck size={20} className="text-[#b9404f]" />
                   <h2 className="text-xl font-semibold">Recent orders</h2>
                 </div>
-                <div className="mt-5 space-y-4">
+                <motion.div className="mt-5 space-y-4" variants={staggerContainer}>
                   {orders.map((order) => (
-                    <article
+                    <motion.article
                       key={order.id}
                       className="rounded-lg border border-[#e7e1d8] bg-[#fbfaf8] p-4"
+                      variants={fadeUp}
                     >
                       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                         <div>
@@ -156,17 +199,20 @@ export default function AccountPage() {
                         <span>{order.date}</span>
                         <span>{formatCurrency(order.total)}</span>
                       </div>
-                    </article>
+                    </motion.article>
                   ))}
-                </div>
-              </section>
+                </motion.div>
+              </motion.section>
 
-              <section className="rounded-lg border border-[#e5ddd2] bg-white p-5">
+              <motion.section
+                className="rounded-lg border border-[#e5ddd2] bg-white p-5"
+                variants={fadeUp}
+              >
                 <div className="flex items-center gap-2">
                   <Bell size={20} className="text-[#b9404f]" />
                   <h2 className="text-xl font-semibold">Preferences</h2>
                 </div>
-                <div className="mt-5 grid gap-3 sm:grid-cols-2">
+                <motion.div className="mt-5 grid gap-3 sm:grid-cols-2" variants={staggerContainer}>
                   <Preference
                     icon={Mail}
                     label="Email updates"
@@ -179,11 +225,11 @@ export default function AccountPage() {
                     checked={smsUpdates}
                     onChange={setSmsUpdates}
                   />
-                </div>
-              </section>
-            </div>
+                </motion.div>
+              </motion.section>
+            </motion.div>
           )}
-        </div>
+        </motion.div>
       </section>
     </>
   );
@@ -191,31 +237,36 @@ export default function AccountPage() {
 
 function TabLink({ href, active, icon: Icon, label }) {
   return (
-    <Link
-      href={href}
-      className={`flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-semibold ${
-        active ? "bg-[#151515] text-white" : "text-[#514c45] hover:bg-[#fbfaf8]"
-      }`}
-    >
-      <Icon size={17} />
-      {label}
-    </Link>
+    <motion.div whileTap={{ scale: 0.98 }}>
+      <Link
+        href={href}
+        className={`flex items-center gap-3 rounded-lg px-3 py-3 text-sm font-semibold ${
+          active ? "bg-[#151515] text-white" : "text-[#514c45] hover:bg-[#fbfaf8]"
+        }`}
+      >
+        <Icon size={17} />
+        {label}
+      </Link>
+    </motion.div>
   );
 }
 
 function Metric({ icon: Icon, label, value }) {
   return (
-    <div className="rounded-lg border border-[#e5ddd2] bg-white p-5">
+    <motion.div className="rounded-lg border border-[#e5ddd2] bg-white p-5" variants={fadeUp}>
       <Icon size={20} className="text-[#b9404f]" />
       <p className="mt-4 text-sm text-[#7b7167]">{label}</p>
       <p className="mt-1 text-2xl font-semibold">{value}</p>
-    </div>
+    </motion.div>
   );
 }
 
 function Preference({ icon: Icon, label, checked, onChange }) {
   return (
-    <label className="flex items-center justify-between rounded-lg border border-[#e7e1d8] bg-[#fbfaf8] p-4">
+    <motion.label
+      className="flex items-center justify-between rounded-lg border border-[#e7e1d8] bg-[#fbfaf8] p-4"
+      variants={fadeUp}
+    >
       <span className="flex items-center gap-3 font-semibold">
         <Icon size={18} className="text-[#b9404f]" />
         {label}
@@ -226,6 +277,6 @@ function Preference({ icon: Icon, label, checked, onChange }) {
         type="checkbox"
         className="h-5 w-5 accent-[#b9404f]"
       />
-    </label>
+    </motion.label>
   );
 }

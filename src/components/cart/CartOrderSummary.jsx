@@ -1,6 +1,8 @@
 import { Gift } from "lucide-react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { formatCurrency } from "@/data/products";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export function CartOrderSummary({
   applyPromo,
@@ -15,9 +17,15 @@ export function CartOrderSummary({
   total,
 }) {
   return (
-    <aside className="h-fit rounded-lg border border-[#e5ddd2] bg-white p-5">
+    <motion.aside
+      className="h-fit rounded-lg border border-[#e5ddd2] bg-white p-5"
+      variants={fadeUp}
+    >
       <h2 className="text-xl font-semibold">Order summary</h2>
-      <div className="mt-5 rounded-lg border border-[#e0d8cc] bg-[#fbfaf8] p-3">
+      <motion.div
+        className="mt-5 rounded-lg border border-[#e0d8cc] bg-[#fbfaf8] p-3"
+        variants={fadeUp}
+      >
         <div className="flex items-center gap-2 text-sm font-semibold">
           <Gift size={17} className="text-[#b9404f]" />
           Promo
@@ -43,13 +51,13 @@ export function CartOrderSummary({
           </p>
         )}
         {promoError && <p className="mt-2 text-sm text-[#b9404f]">{promoError}</p>}
-      </div>
+      </motion.div>
 
-      <div className="mt-5 space-y-3 text-sm">
+      <motion.div className="mt-5 space-y-3 text-sm" variants={staggerContainer}>
         <SummaryLine label="Subtotal" value={formatCurrency(subtotal)} />
         <SummaryLine label="Discount" value={`-${formatCurrency(discount)}`} />
         <SummaryLine label="Shipping" value={shipping === 0 ? "Free" : formatCurrency(shipping)} />
-      </div>
+      </motion.div>
       <div className="mt-5 flex items-center justify-between border-t border-[#e7e1d8] pt-5 text-lg font-semibold">
         <span>Total</span>
         <span>{formatCurrency(total)}</span>
@@ -64,15 +72,15 @@ export function CartOrderSummary({
         Use NOSKA15 for a demo discount. Shipping becomes free from{" "}
         {formatCurrency(freeShippingThreshold)}.
       </p>
-    </aside>
+    </motion.aside>
   );
 }
 
 function SummaryLine({ label, value }) {
   return (
-    <div className="flex items-center justify-between">
+    <motion.div className="flex items-center justify-between" variants={fadeUp}>
       <span className="text-[#6f6a63]">{label}</span>
       <span className="font-semibold">{value}</span>
-    </div>
+    </motion.div>
   );
 }

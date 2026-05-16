@@ -1,9 +1,11 @@
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { CartContent } from "@/components/cart/CartContent";
 import { CartEmptyState } from "@/components/cart/CartEmptyState";
 import { Seo } from "@/components/Seo";
 import { useShop } from "@/context/ShopContext";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 const promos = {
   NOSKA15: 0.15,
@@ -46,15 +48,26 @@ export default function CartPage() {
       />
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <motion.div
+          className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between"
+          initial="hidden"
+          animate="show"
+          variants={staggerContainer}
+        >
           <div>
-            <p className="text-sm font-semibold text-[#b9404f]">Shopping bag</p>
-            <h1 className="mt-2 text-4xl font-semibold">Your selected dresses</h1>
+            <motion.p className="text-sm font-semibold text-[#b9404f]" variants={fadeUp}>
+              Shopping bag
+            </motion.p>
+            <motion.h1 className="mt-2 text-4xl font-semibold" variants={fadeUp}>
+              Your selected dresses
+            </motion.h1>
           </div>
-          <Link href="/shop" className="w-fit text-sm font-semibold text-[#151515]">
-            Continue shopping
-          </Link>
-        </div>
+          <motion.div variants={fadeUp}>
+            <Link href="/shop" className="w-fit text-sm font-semibold text-[#151515]">
+              Continue shopping
+            </Link>
+          </motion.div>
+        </motion.div>
 
         {cart.length === 0 ? (
           <CartEmptyState />

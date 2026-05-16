@@ -1,11 +1,18 @@
 import { Minus, Plus, Trash2 } from "lucide-react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { formatCurrency } from "@/data/products";
+import { fadeUp } from "@/lib/motion";
 
 export function CartItem({ line, removeFromCart, updateQuantity }) {
   return (
-    <article className="grid gap-4 rounded-lg border border-[#e5ddd2] bg-white p-4 sm:grid-cols-[132px_1fr]">
+    <motion.article
+      className="grid gap-4 rounded-lg border border-[#e5ddd2] bg-white p-4 sm:grid-cols-[132px_1fr]"
+      variants={fadeUp}
+      whileHover={{ y: -3 }}
+      transition={{ duration: 0.22 }}
+    >
       <Link
         href={`/products/${line.slug}`}
         className="relative aspect-4/5 overflow-hidden rounded-lg bg-[#eee7dd] sm:h-40 sm:aspect-auto"
@@ -32,41 +39,44 @@ export function CartItem({ line, removeFromCart, updateQuantity }) {
             </p>
             <p className="mt-2 font-semibold">{formatCurrency(line.price)}</p>
           </div>
-          <button
+          <motion.button
+            whileTap={{ scale: 0.94 }}
             className="focus-ring flex h-10 w-10 items-center justify-center rounded-lg border border-[#ded6ca] text-[#7b7167] transition hover:text-[#b9404f]"
             type="button"
             aria-label={`Remove ${line.name}`}
             onClick={() => removeFromCart(line.id)}
           >
             <Trash2 size={18} />
-          </button>
+          </motion.button>
         </div>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex h-11 w-36 items-center justify-between rounded-lg border border-[#ded6ca] bg-[#fbfaf8]">
-            <button
+            <motion.button
+              whileTap={{ scale: 0.94 }}
               className="focus-ring flex h-11 w-11 items-center justify-center"
               type="button"
               aria-label="Decrease quantity"
               onClick={() => updateQuantity(line.id, line.quantity - 1)}
             >
               <Minus size={16} />
-            </button>
+            </motion.button>
             <span className="font-semibold">{line.quantity}</span>
-            <button
+            <motion.button
+              whileTap={{ scale: 0.94 }}
               className="focus-ring flex h-11 w-11 items-center justify-center"
               type="button"
               aria-label="Increase quantity"
               onClick={() => updateQuantity(line.id, line.quantity + 1)}
             >
               <Plus size={16} />
-            </button>
+            </motion.button>
           </div>
           <p className="text-lg font-semibold">
             {formatCurrency(line.price * line.quantity)}
           </p>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }

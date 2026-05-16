@@ -1,9 +1,11 @@
+import { motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { CheckoutEmptyState } from "@/components/checkout/CheckoutEmptyState";
 import { CheckoutForm } from "@/components/checkout/CheckoutForm";
 import { CheckoutSuccess } from "@/components/checkout/CheckoutSuccess";
 import { Seo } from "@/components/Seo";
 import { useShop } from "@/context/ShopContext";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 const initialForm = {
   name: "",
@@ -86,10 +88,14 @@ export default function CheckoutPage() {
       />
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div>
-          <p className="text-sm font-semibold text-[#b9404f]">Checkout</p>
-          <h1 className="mt-2 text-4xl font-semibold">Secure your edit</h1>
-        </div>
+        <motion.div initial="hidden" animate="show" variants={staggerContainer}>
+          <motion.p className="text-sm font-semibold text-[#b9404f]" variants={fadeUp}>
+            Checkout
+          </motion.p>
+          <motion.h1 className="mt-2 text-4xl font-semibold" variants={fadeUp}>
+            Secure your edit
+          </motion.h1>
+        </motion.div>
 
         {cart.length === 0 ? (
           <CheckoutEmptyState />

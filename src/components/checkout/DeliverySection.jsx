@@ -1,5 +1,7 @@
 import { MapPin, PackageCheck, Truck } from "lucide-react";
+import { motion } from "framer-motion";
 import { formatCurrency } from "@/data/products";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export function DeliverySection({
   address,
@@ -13,7 +15,7 @@ export function DeliverySection({
   const expressPrice = subtotal >= freeShippingThreshold ? "Free" : formatCurrency(320);
 
   return (
-    <section className="rounded-lg border border-[#e5ddd2] bg-white p-5">
+    <motion.section className="rounded-lg border border-[#e5ddd2] bg-white p-5" variants={fadeUp}>
       <div className="flex items-center gap-2">
         <MapPin size={19} className="text-[#b9404f]" />
         <h2 className="text-xl font-semibold">Delivery</h2>
@@ -30,7 +32,7 @@ export function DeliverySection({
           required
         />
       </div>
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+      <motion.div className="mt-4 grid gap-3 sm:grid-cols-2" variants={staggerContainer}>
         <DeliveryOption
           active={delivery === "standard"}
           icon={Truck}
@@ -47,14 +49,16 @@ export function DeliverySection({
           price={expressPrice}
           onClick={() => setDelivery("express")}
         />
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }
 
 function DeliveryOption({ active, icon: Icon, title, text, price, onClick }) {
   return (
-    <button
+    <motion.button
+      variants={fadeUp}
+      whileTap={{ scale: 0.97 }}
       className={`focus-ring rounded-lg border p-4 text-left ${
         active ? "border-[#151515] bg-[#fbfaf8]" : "border-[#ded6ca] bg-white"
       }`}
@@ -65,6 +69,6 @@ function DeliveryOption({ active, icon: Icon, title, text, price, onClick }) {
       <span className="mt-3 block font-semibold">{title}</span>
       <span className="mt-1 block text-sm text-[#6f6a63]">{text}</span>
       <span className="mt-2 block text-sm font-semibold">{price}</span>
-    </button>
+    </motion.button>
   );
 }
