@@ -2,6 +2,7 @@ import { Gift } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { formatCurrency } from "@/data/products";
+import { promoCodes } from "@/data/promos";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
 export function CartOrderSummary({
@@ -44,6 +45,24 @@ export function CartOrderSummary({
           >
             Apply
           </button>
+        </div>
+        <div className="mt-3 grid gap-2">
+          {promoCodes.map((suggestion) => (
+            <button
+              key={suggestion.code}
+              className={`focus-ring rounded-lg border px-3 py-2 text-left text-xs transition ${
+                promo === suggestion.code
+                  ? "border-[#1f7a5a] bg-[#eaf7f1] text-[#1f7a5a]"
+                  : "border-[#ded6ca] bg-white text-[#514c45] hover:border-[#b9404f]"
+              }`}
+              type="button"
+              onClick={() => applyPromo(suggestion.code)}
+            >
+              <span className="font-bold">{suggestion.code}</span>
+              <span className="ml-2">{suggestion.label}</span>
+              <span className="mt-1 block text-[#7b7167]">{suggestion.hint}</span>
+            </button>
+          ))}
         </div>
         {promo && (
           <p className="mt-2 text-sm font-semibold text-[#1f7a5a]">

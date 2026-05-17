@@ -16,6 +16,7 @@ export function CartContent({
   shipping,
   subtotal,
   total,
+  updateCartItemOptions,
   updateQuantity,
 }) {
   return (
@@ -31,6 +32,7 @@ export function CartContent({
             key={line.id}
             line={line}
             removeFromCart={removeFromCart}
+            updateCartItemOptions={updateCartItemOptions}
             updateQuantity={updateQuantity}
           />
         ))}

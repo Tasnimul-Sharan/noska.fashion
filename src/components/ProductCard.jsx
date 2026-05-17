@@ -4,7 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useShop } from "@/context/ShopContext";
-import { formatCurrency, slugifyCollection } from "@/data/products";
+import {
+  formatCurrency,
+  getOptionStock,
+  getProductBadges,
+  getStockStatus,
+  slugifyCollection,
+} from "@/data/products";
 import { fadeUp, viewportOnce } from "@/lib/motion";
 
 export function ProductCard({ product }) {
@@ -12,6 +18,10 @@ export function ProductCard({ product }) {
   const [size, setSize] = useState(product.sizes[0]);
   const [color, setColor] = useState(product.colors[0].name);
   const wished = isInWishlist(product.id);
+  const optionStock = getOptionStock(product, size, color);
+  const stockStatus = getStockStatus(optionStock);
+  const badges = getProductBadges(product);
+  const soldOut = optionStock <= 0;
 
   return (
     <motion.article
@@ -33,8 +43,15 @@ export function ProductCard({ product }) {
             className="object-cover transition duration-700 group-hover:scale-[1.04]"
           />
         </Link>
-        <div className="absolute left-3 top-3 rounded-lg bg-white/92 px-3 py-1 text-xs font-semibold text-[#151515] shadow-sm">
-          {product.badge}
+        <div className="absolute left-3 top-3 flex flex-wrap gap-2">
+          {badges.map((badge) => (
+            <span
+              key={badge}
+              className="rounded-lg bg-white/92 px-3 py-1 text-xs font-semibold text-[#151515] shadow-sm"
+            >
+              {badge}
+            </span>
+          ))}
         </div>
         <motion.button
           whileTap={{ scale: 0.92 }}
@@ -101,15 +118,27 @@ export function ProductCard({ product }) {
             ))}
           </select>
         </div>
+        <div
+          className={`mt-3 rounded-lg px-3 py-2 text-xs font-semibold ${
+            stockStatus.tone === "success"
+              ? "bg-[#eaf7f1] text-[#1f7a5a]"
+              : stockStatus.tone === "warning"
+                ? "bg-[#fff6dc] text-[#8a6515]"
+                : "bg-[#ffe2e6] text-[#8f2637]"
+          }`}
+        >
+          {stockStatus.label} · {size} / {color}
+        </div>
 
         <motion.button
           whileTap={{ scale: 0.98 }}
-          className="focus-ring mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#151515] px-4 text-sm font-semibold text-white transition hover:bg-[#b9404f]"
+          className="focus-ring mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#151515] px-4 text-sm font-semibold text-white transition hover:bg-[#b9404f] disabled:bg-[#9b9288]"
           type="button"
+          disabled={soldOut}
           onClick={() => addToCart(product, { size, color })}
         >
           <ShoppingBag size={17} />
-          Add to cart
+          {soldOut ? "Sold out" : "Add to cart"}
         </motion.button>
       </div>
     </motion.article>

@@ -987,6 +987,113 @@ export function getProductBySlug(slug) {
   return products.find((product) => product.slug === slug);
 }
 
+function hashOption(value) {
+  return String(value)
+    .split("")
+    .reduce((sum, character) => sum + character.charCodeAt(0), 0);
+}
+
+export function getOptionStock(product, size, color) {
+  if (!product) {
+    return 0;
+  }
+
+  const baseStock = Number(product.stock) || 0;
+
+  if (baseStock <= 0) {
+    return 0;
+  }
+
+  const hash = hashOption(`${product.id}-${size}-${color}`);
+  const cappedStock = Math.min(baseStock, 9);
+
+  return Math.max(1, (hash % cappedStock) + 1);
+}
+
+export function getStockStatus(stock) {
+  if (stock <= 0) {
+    return {
+      label: "Sold out",
+      tone: "danger",
+      detail: "This option is currently unavailable.",
+    };
+  }
+
+  if (stock <= 3) {
+    return {
+      label: `Only ${stock} left`,
+      tone: "danger",
+      detail: "Low stock for this size and color.",
+    };
+  }
+
+  if (stock <= 7) {
+    return {
+      label: `${stock} in stock`,
+      tone: "warning",
+      detail: "Limited availability.",
+    };
+  }
+
+  return {
+    label: "In stock",
+    tone: "success",
+    detail: `${stock} pieces ready to ship.`,
+  };
+}
+
+export function getProductBadges(product) {
+  const badges = [];
+  const badge = product.badge.toLowerCase();
+
+  if (badge.includes("best") || product.rating >= 4.9 || product.reviews >= 120) {
+    badges.push("Best seller");
+  }
+
+  if (badge.includes("new") || Number(product.id.split("-")[1]) >= 24) {
+    badges.push("New arrival");
+  }
+
+  if (product.stock <= 8) {
+    badges.push("Low stock");
+  }
+
+  return [...new Set(badges.length > 0 ? badges : [product.badge])].slice(0, 2);
+}
+
+export function getPriceRange() {
+  return {
+    min: Math.min(...products.map((product) => product.price)),
+    max: Math.max(...products.map((product) => product.price)),
+  };
+}
+
+export function getRelatedProducts(product, limit = 4) {
+  const sameCollection = products.filter(
+    (item) => item.collection === product.collection && item.id !== product.id,
+  );
+  const sameCategory = products.filter(
+    (item) =>
+      item.category === product.category &&
+      item.collection !== product.collection &&
+      item.id !== product.id,
+  );
+  const rest = products.filter(
+    (item) =>
+      item.category !== product.category &&
+      item.collection !== product.collection &&
+      item.id !== product.id,
+  );
+
+  return [...sameCollection, ...sameCategory, ...rest].slice(0, limit);
+}
+
+export function getProductsByIds(ids) {
+  return ids
+    .map((id) => products.find((product) => product.id === id))
+    .filter(Boolean);
+}
+
 export const collectionDescriptions = {
   "Moonlit Edit": "Polished evening dresses with satin shine and soft sculpting.",
   "Eid Edit": "Festive silhouettes with embroidery, color, and occasion-ready movement.",

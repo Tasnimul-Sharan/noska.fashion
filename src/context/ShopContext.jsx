@@ -11,6 +11,8 @@ const ShopContext = createContext(null);
 
 const CART_STORAGE_KEY = "noska-cart";
 const WISHLIST_STORAGE_KEY = "noska-wishlist";
+const RECENTLY_VIEWED_STORAGE_KEY = "noska-recently-viewed";
+const THEME_STORAGE_KEY = "noska-theme";
 const FREE_SHIPPING_THRESHOLD = 12000;
 
 function lineId(productId, size, color) {
@@ -33,6 +35,8 @@ function readStorage(key, fallback) {
 export function ShopProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
+  const [recentlyViewed, setRecentlyViewed] = useState([]);
+  const [theme, setTheme] = useState("light");
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -45,6 +49,8 @@ export function ShopProvider({ children }) {
 
       setCart(readStorage(CART_STORAGE_KEY, []));
       setWishlist(readStorage(WISHLIST_STORAGE_KEY, []));
+      setRecentlyViewed(readStorage(RECENTLY_VIEWED_STORAGE_KEY, []));
+      setTheme(readStorage(THEME_STORAGE_KEY, "light"));
       setHydrated(true);
     });
 
@@ -64,6 +70,24 @@ export function ShopProvider({ children }) {
       window.localStorage.setItem(WISHLIST_STORAGE_KEY, JSON.stringify(wishlist));
     }
   }, [wishlist, hydrated]);
+
+  useEffect(() => {
+    if (hydrated) {
+      window.localStorage.setItem(
+        RECENTLY_VIEWED_STORAGE_KEY,
+        JSON.stringify(recentlyViewed),
+      );
+    }
+  }, [recentlyViewed, hydrated]);
+
+  useEffect(() => {
+    if (!hydrated) {
+      return;
+    }
+
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    window.localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
+  }, [hydrated, theme]);
 
   const addToCart = useCallback((product, options = {}) => {
     const size = options.size || product.sizes?.[0] || "M";
@@ -109,6 +133,37 @@ export function ShopProvider({ children }) {
     );
   }, []);
 
+  const updateCartItemOptions = useCallback((id, options = {}) => {
+    setCart((current) => {
+      const line = current.find((item) => item.id === id);
+
+      if (!line) {
+        return current;
+      }
+
+      const nextSize = options.size || line.size;
+      const nextColor = options.color || line.color;
+      const nextId = lineId(line.productId, nextSize, nextColor);
+
+      if (nextId === id) {
+        return current;
+      }
+
+      const existing = current.find((item) => item.id === nextId);
+      const withoutCurrent = current.filter((item) => item.id !== id);
+
+      if (existing) {
+        return withoutCurrent.map((item) =>
+          item.id === nextId
+            ? { ...item, quantity: Math.min(item.quantity + line.quantity, 12) }
+            : item,
+        );
+      }
+
+      return [...withoutCurrent, { ...line, id: nextId, size: nextSize, color: nextColor }];
+    });
+  }, []);
+
   const removeFromCart = useCallback((id) => {
     setCart((current) => current.filter((line) => line.id !== id));
   }, []);
@@ -125,10 +180,25 @@ export function ShopProvider({ children }) {
     );
   }, []);
 
+  const removeFromWishlist = useCallback((productId) => {
+    setWishlist((current) => current.filter((id) => id !== productId));
+  }, []);
+
   const isInWishlist = useCallback(
     (productId) => wishlist.includes(productId),
     [wishlist],
   );
+
+  const addRecentlyViewed = useCallback((productId) => {
+    setRecentlyViewed((current) => [
+      productId,
+      ...current.filter((id) => id !== productId),
+    ].slice(0, 8));
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((current) => (current === "dark" ? "light" : "dark"));
+  }, []);
 
   const subtotal = useMemo(
     () => cart.reduce((sum, line) => sum + line.price * line.quantity, 0),
@@ -144,25 +214,37 @@ export function ShopProvider({ children }) {
     () => ({
       cart,
       wishlist,
+      recentlyViewed,
+      theme,
       subtotal,
       itemCount,
       freeShippingThreshold: FREE_SHIPPING_THRESHOLD,
       addToCart,
       updateQuantity,
+      updateCartItemOptions,
       removeFromCart,
       clearCart,
       toggleWishlist,
+      removeFromWishlist,
       isInWishlist,
+      addRecentlyViewed,
+      toggleTheme,
     }),
     [
+      addRecentlyViewed,
       addToCart,
       cart,
       clearCart,
       isInWishlist,
       itemCount,
+      recentlyViewed,
+      removeFromWishlist,
       removeFromCart,
       subtotal,
+      theme,
+      toggleTheme,
       toggleWishlist,
+      updateCartItemOptions,
       updateQuantity,
       wishlist,
     ],

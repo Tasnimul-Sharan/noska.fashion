@@ -12,13 +12,17 @@ import {
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ProductCard } from "@/components/ProductCard";
 import { Seo } from "@/components/Seo";
 import { useShop } from "@/context/ShopContext";
 import {
   formatCurrency,
+  getOptionStock,
   getProductBySlug,
+  getProductsByIds,
+  getRelatedProducts,
+  getStockStatus,
   products,
   slugifyCollection,
 } from "@/data/products";
@@ -30,35 +34,38 @@ import {
 import { fadeUp, scaleIn, staggerContainer, viewportOnce } from "@/lib/motion";
 
 export default function ProductDetail({ product }) {
-  const { addToCart, isInWishlist, toggleWishlist } = useShop();
+  const {
+    addToCart,
+    addRecentlyViewed,
+    isInWishlist,
+    recentlyViewed,
+    toggleWishlist,
+  } = useShop();
   const [activeImage, setActiveImage] = useState(product.gallery[0]);
   const [size, setSize] = useState(product.sizes[0]);
   const [color, setColor] = useState(product.colors[0].name);
   const [quantity, setQuantity] = useState(1);
   const wished = isInWishlist(product.id);
   const collectionHref = `/collections/${slugifyCollection(product.collection)}`;
+  const optionStock = getOptionStock(product, size, color);
+  const stockStatus = getStockStatus(optionStock);
+  const soldOut = optionStock <= 0;
 
-  const recommendations = useMemo(() => {
-    const sameCollection = products.filter(
-      (item) => item.collection === product.collection && item.id !== product.id,
-    );
-    const sameCategory = products.filter(
-      (item) =>
-        item.category === product.category &&
-        item.collection !== product.collection &&
-        item.id !== product.id,
-    );
-    const rest = products.filter(
-      (item) =>
-        item.category !== product.category &&
-        item.collection !== product.collection &&
-        item.id !== product.id,
-    );
+  useEffect(() => {
+    addRecentlyViewed(product.id);
+  }, [addRecentlyViewed, product.id]);
 
-    return [...sameCollection, ...sameCategory, ...rest].slice(0, 3);
-  }, [product.category, product.collection, product.id]);
+  const recommendations = useMemo(() => getRelatedProducts(product, 3), [product]);
+  const recentlyViewedProducts = useMemo(
+    () => getProductsByIds(recentlyViewed).filter((item) => item.id !== product.id).slice(0, 3),
+    [product.id, recentlyViewed],
+  );
 
   const addSelectedToCart = () => {
+    if (soldOut) {
+      return;
+    }
+
     addToCart(product, { size, color, quantity });
   };
 
@@ -217,6 +224,20 @@ export default function ProductDetail({ product }) {
               </div>
             </motion.div>
 
+            <motion.div
+              className={`mt-5 rounded-lg px-4 py-3 text-sm font-semibold ${
+                stockStatus.tone === "success"
+                  ? "bg-[#eaf7f1] text-[#1f7a5a]"
+                  : stockStatus.tone === "warning"
+                    ? "bg-[#fff6dc] text-[#8a6515]"
+                    : "bg-[#ffe2e6] text-[#8f2637]"
+              }`}
+              variants={fadeUp}
+            >
+              {stockStatus.label} for {size} / {color}.{" "}
+              <span className="font-medium">{stockStatus.detail}</span>
+            </motion.div>
+
             <motion.div className="mt-7 flex flex-col gap-3 sm:flex-row" variants={fadeUp}>
               <div className="flex h-12 w-full items-center justify-between rounded-lg border border-[#ded6ca] bg-white sm:w-36">
                 <motion.button
@@ -241,12 +262,13 @@ export default function ProductDetail({ product }) {
               </div>
               <motion.button
                 whileTap={{ scale: 0.98 }}
-                className="focus-ring flex h-12 flex-1 items-center justify-center gap-2 rounded-lg bg-[#151515] px-5 text-sm font-semibold text-white transition hover:bg-[#b9404f]"
+                className="focus-ring flex h-12 flex-1 items-center justify-center gap-2 rounded-lg bg-[#151515] px-5 text-sm font-semibold text-white transition hover:bg-[#b9404f] disabled:bg-[#9b9288]"
                 type="button"
+                disabled={soldOut}
                 onClick={addSelectedToCart}
               >
                 <ShoppingBag size={18} />
-                Add to cart
+                {soldOut ? "Sold out" : "Add to cart"}
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.98 }}
@@ -284,7 +306,7 @@ export default function ProductDetail({ product }) {
         <motion.div className="mb-6 flex items-end justify-between" variants={fadeUp}>
           <div>
             <p className="text-sm font-semibold text-[#b9404f]">Recommended</p>
-            <h2 className="mt-2 text-3xl font-semibold">Complete the edit</h2>
+            <h2 className="mt-2 text-3xl font-semibold">Related from the collection</h2>
           </div>
           <Link
             href={collectionHref}
@@ -299,6 +321,26 @@ export default function ProductDetail({ product }) {
           ))}
         </motion.div>
       </motion.section>
+
+      {recentlyViewedProducts.length > 0 && (
+        <motion.section
+          className="mx-auto max-w-7xl px-4 pb-14 sm:px-6 lg:px-8"
+          initial="hidden"
+          whileInView="show"
+          viewport={viewportOnce}
+          variants={staggerContainer}
+        >
+          <motion.div className="mb-6" variants={fadeUp}>
+            <p className="text-sm font-semibold text-[#b9404f]">Recently viewed</p>
+            <h2 className="mt-2 text-3xl font-semibold">Back to pieces you opened</h2>
+          </motion.div>
+          <motion.div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" variants={staggerContainer}>
+            {recentlyViewedProducts.map((item) => (
+              <ProductCard key={item.id} product={item} />
+            ))}
+          </motion.div>
+        </motion.section>
+      )}
     </>
   );
 }

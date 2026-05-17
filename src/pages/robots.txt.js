@@ -6,6 +6,8 @@ Allow: /
 Disallow: /account
 Disallow: /cart
 Disallow: /checkout
+Disallow: /wishlist
+Disallow: /login
 
 Sitemap: ${absoluteUrl("/sitemap.xml")}`;
 }

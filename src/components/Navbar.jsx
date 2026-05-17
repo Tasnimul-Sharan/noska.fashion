@@ -1,22 +1,26 @@
 import {
   Heart,
   Menu,
+  Moon,
   Search,
   ShoppingBag,
   Sparkles,
+  Sun,
   User,
   X,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useShop } from "@/context/ShopContext";
 import { easeOut, fadeIn, panelSlide } from "@/lib/motion";
 
 const navLinks = [
   { href: "/shop", label: "Shop" },
   { href: "/collections", label: "Collections" },
-  { href: "/#journal", label: "Lookbook" },
+  { href: "/journal", label: "Journal" },
   { href: "/account", label: "Account" },
+  { href: "/login", label: "Login" },
 ];
 
 export function Navbar({
@@ -31,6 +35,8 @@ export function Navbar({
   wishlistCount,
 }) {
   const router = useRouter();
+  const { theme, toggleTheme } = useShop();
+  const ThemeIcon = theme === "dark" ? Sun : Moon;
 
   return (
     <>
@@ -88,6 +94,15 @@ export function Navbar({
           />
 
           <div className="ml-auto flex items-center gap-2 md:ml-2">
+            <motion.button
+              whileTap={{ scale: 0.96 }}
+              className="focus-ring hidden h-11 w-11 items-center justify-center rounded-lg border border-border_color bg-white shadow-sm transition hover:border-primary/40 hover:text-primary sm:flex dark:bg-[#24201d] dark:text-[#f8f2ea]"
+              type="button"
+              aria-label="Toggle theme"
+              onClick={toggleTheme}
+            >
+              <ThemeIcon size={19} />
+            </motion.button>
             <Link
               href="/account"
               className="focus-ring hidden h-11 w-11 items-center justify-center rounded-lg border border-border_color bg-white shadow-sm transition hover:border-primary/40 hover:text-primary sm:flex"
@@ -96,7 +111,7 @@ export function Navbar({
               <User size={19} />
             </Link>
             <Link
-              href="/account?tab=wishlist"
+              href="/wishlist"
               className="focus-ring relative hidden h-11 w-11 items-center justify-center rounded-lg border border-border_color bg-white shadow-sm transition hover:border-primary/40 hover:text-primary sm:flex"
               aria-label="Wishlist"
             >
@@ -185,11 +200,19 @@ export function Navbar({
                 </Link>
               ))}
               <Link
-                href="/account?tab=wishlist"
+                href="/wishlist"
                 className="rounded-lg px-3 py-3 text-base font-medium transition hover:bg-white"
               >
                 Wishlist
               </Link>
+              <button
+                className="flex items-center justify-between rounded-lg px-3 py-3 text-base font-medium transition hover:bg-white"
+                type="button"
+                onClick={toggleTheme}
+              >
+                Theme
+                <ThemeIcon size={18} />
+              </button>
               <Link
                 href="/cart"
                 className="rounded-lg px-3 py-3 text-base font-medium transition hover:bg-white"
@@ -226,9 +249,5 @@ function SearchForm({ className, handleSearch, query, setQuery }) {
 }
 
 function isActiveLink(currentPath, href) {
-  if (href === "/#journal") {
-    return currentPath.includes("#journal");
-  }
-
   return currentPath === href || currentPath.startsWith(`${href}?`);
 }

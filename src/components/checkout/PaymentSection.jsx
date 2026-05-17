@@ -1,4 +1,4 @@
-import { CreditCard } from "lucide-react";
+import { CreditCard, Smartphone, WalletCards } from "lucide-react";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
@@ -8,7 +8,27 @@ const paymentOptions = [
   ["cod", "Cash"],
 ];
 
+const paymentInstructions = {
+  card: {
+    icon: CreditCard,
+    title: "Card payment",
+    text: "Use any Visa, Mastercard, or local bank card. This demo checkout confirms the order before payment gateway handoff.",
+  },
+  bkash: {
+    icon: Smartphone,
+    title: "bKash instruction",
+    text: "Send payment to 01XXXXXXXXX with your order number as reference. Our team will verify and confirm by phone.",
+  },
+  cod: {
+    icon: WalletCards,
+    title: "Cash on delivery",
+    text: "Pay in cash when the parcel arrives. Please keep the exact amount ready for faster delivery handoff.",
+  },
+};
+
 export function PaymentSection({ note, payment, setPayment, updateField }) {
+  const InstructionIcon = paymentInstructions[payment].icon;
+
   return (
     <motion.section className="rounded-lg border border-[#e5ddd2] bg-white p-5" variants={fadeUp}>
       <div className="flex items-center gap-2">
@@ -32,6 +52,18 @@ export function PaymentSection({ note, payment, setPayment, updateField }) {
             {label}
           </motion.button>
         ))}
+      </motion.div>
+      <motion.div
+        className="mt-4 rounded-lg border border-[#ded6ca] bg-[#fbfaf8] p-4"
+        variants={fadeUp}
+      >
+        <div className="flex items-center gap-2 font-semibold">
+          <InstructionIcon size={18} className="text-[#b9404f]" />
+          {paymentInstructions[payment].title}
+        </div>
+        <p className="mt-2 text-sm leading-6 text-[#6f6a63]">
+          {paymentInstructions[payment].text}
+        </p>
       </motion.div>
       <label className="mt-5 block text-sm font-semibold" htmlFor="note">
         Order note

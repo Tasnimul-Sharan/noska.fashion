@@ -79,8 +79,8 @@ export function SiteFooter() {
             links={[
               { label: "All dresses", href: "/shop" },
               { label: "Collections", href: "/collections" },
+              { label: "Journal", href: "/journal" },
               { label: "Evening", href: "/shop?category=Evening" },
-              { label: "Festive", href: "/shop?category=Festive" },
             ]}
           />
           <FooterColumn
@@ -89,7 +89,9 @@ export function SiteFooter() {
               { label: "Cart", href: "/cart" },
               { label: "Checkout", href: "/checkout" },
               { label: "Account", href: "/account" },
-              { label: "Wishlist", href: "/account?tab=wishlist" },
+              { label: "Login / Register", href: "/login" },
+              { label: "Wishlist", href: "/wishlist" },
+              { label: "Returns", href: "/returns" },
             ]}
           />
 

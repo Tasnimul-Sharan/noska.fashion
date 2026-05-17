@@ -156,3 +156,49 @@ export function createCollectionListJsonLd(collections) {
     })),
   };
 }
+
+export function createJournalListJsonLd(posts) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: `${siteConfig.name} fashion journal`,
+    url: absoluteUrl("/journal"),
+    blogPost: posts.map((post) => ({
+      "@type": "BlogPosting",
+      headline: post.title,
+      description: post.excerpt,
+      image: absoluteUrl(post.image),
+      datePublished: post.date,
+      url: absoluteUrl(`/journal/${post.slug}`),
+      author: {
+        "@type": "Organization",
+        name: siteConfig.name,
+      },
+    })),
+  };
+}
+
+export function createJournalPostJsonLd(post) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    image: absoluteUrl(post.image),
+    datePublished: post.date,
+    dateModified: post.date,
+    url: absoluteUrl(`/journal/${post.slug}`),
+    author: {
+      "@type": "Organization",
+      name: siteConfig.name,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteUrl("/favicon.ico"),
+      },
+    },
+  };
+}

@@ -35,7 +35,7 @@ export function Layout({ children }) {
   };
 
   return (
-    <div className="min-h-screen bg-off_white text-secondary">
+    <div className="min-h-screen bg-off_white text-secondary transition-colors dark:bg-[#11100f] dark:text-[#f8f2ea]">
       <Navbar
         handleSearch={handleSearch}
         itemCount={itemCount}

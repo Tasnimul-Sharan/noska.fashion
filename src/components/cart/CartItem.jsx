@@ -2,10 +2,12 @@ import { Minus, Plus, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { formatCurrency } from "@/data/products";
+import { formatCurrency, getProductBySlug } from "@/data/products";
 import { fadeUp } from "@/lib/motion";
 
-export function CartItem({ line, removeFromCart, updateQuantity }) {
+export function CartItem({ line, removeFromCart, updateCartItemOptions, updateQuantity }) {
+  const product = getProductBySlug(line.slug);
+
   return (
     <motion.article
       className="grid gap-4 rounded-lg border border-[#e5ddd2] bg-white p-4 sm:grid-cols-[132px_1fr]"
@@ -49,6 +51,39 @@ export function CartItem({ line, removeFromCart, updateQuantity }) {
             <Trash2 size={18} />
           </motion.button>
         </div>
+
+        {product && (
+          <div className="grid gap-2 sm:grid-cols-2">
+            <select
+              value={line.size}
+              onChange={(event) =>
+                updateCartItemOptions(line.id, { size: event.target.value })
+              }
+              className="focus-ring h-10 rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-2 text-sm font-semibold"
+              aria-label={`Change ${line.name} size`}
+            >
+              {product.sizes.map((option) => (
+                <option key={option} value={option}>
+                  Size {option}
+                </option>
+              ))}
+            </select>
+            <select
+              value={line.color}
+              onChange={(event) =>
+                updateCartItemOptions(line.id, { color: event.target.value })
+              }
+              className="focus-ring h-10 rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-2 text-sm font-semibold"
+              aria-label={`Change ${line.name} color`}
+            >
+              {product.colors.map((option) => (
+                <option key={option.name} value={option.name}>
+                  {option.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex h-11 w-36 items-center justify-between rounded-lg border border-[#ded6ca] bg-[#fbfaf8]">
