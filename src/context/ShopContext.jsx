@@ -12,7 +12,6 @@ const ShopContext = createContext(null);
 const CART_STORAGE_KEY = "noska-cart";
 const WISHLIST_STORAGE_KEY = "noska-wishlist";
 const RECENTLY_VIEWED_STORAGE_KEY = "noska-recently-viewed";
-const THEME_STORAGE_KEY = "noska-theme";
 const FREE_SHIPPING_THRESHOLD = 12000;
 
 function lineId(productId, size, color) {
@@ -36,7 +35,6 @@ export function ShopProvider({ children }) {
   const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [recentlyViewed, setRecentlyViewed] = useState([]);
-  const [theme, setTheme] = useState("light");
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -50,7 +48,7 @@ export function ShopProvider({ children }) {
       setCart(readStorage(CART_STORAGE_KEY, []));
       setWishlist(readStorage(WISHLIST_STORAGE_KEY, []));
       setRecentlyViewed(readStorage(RECENTLY_VIEWED_STORAGE_KEY, []));
-      setTheme(readStorage(THEME_STORAGE_KEY, "light"));
+      document.documentElement.classList.remove("dark");
       setHydrated(true);
     });
 
@@ -79,15 +77,6 @@ export function ShopProvider({ children }) {
       );
     }
   }, [recentlyViewed, hydrated]);
-
-  useEffect(() => {
-    if (!hydrated) {
-      return;
-    }
-
-    document.documentElement.classList.toggle("dark", theme === "dark");
-    window.localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify(theme));
-  }, [hydrated, theme]);
 
   const addToCart = useCallback((product, options = {}) => {
     const size = options.size || product.sizes?.[0] || "M";
@@ -196,10 +185,6 @@ export function ShopProvider({ children }) {
     ].slice(0, 8));
   }, []);
 
-  const toggleTheme = useCallback(() => {
-    setTheme((current) => (current === "dark" ? "light" : "dark"));
-  }, []);
-
   const subtotal = useMemo(
     () => cart.reduce((sum, line) => sum + line.price * line.quantity, 0),
     [cart],
@@ -215,7 +200,6 @@ export function ShopProvider({ children }) {
       cart,
       wishlist,
       recentlyViewed,
-      theme,
       subtotal,
       itemCount,
       freeShippingThreshold: FREE_SHIPPING_THRESHOLD,
@@ -228,7 +212,6 @@ export function ShopProvider({ children }) {
       removeFromWishlist,
       isInWishlist,
       addRecentlyViewed,
-      toggleTheme,
     }),
     [
       addRecentlyViewed,
@@ -241,8 +224,6 @@ export function ShopProvider({ children }) {
       removeFromWishlist,
       removeFromCart,
       subtotal,
-      theme,
-      toggleTheme,
       toggleWishlist,
       updateCartItemOptions,
       updateQuantity,

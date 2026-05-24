@@ -48,7 +48,12 @@ export function Layout({ children }) {
         wishlistCount={wishlist.length}
       />
       <CartPanel open={cartOpen} onClose={() => setCartOpen(false)} />
-      <motion.main layout="position">{children}</motion.main>
+      <motion.main
+        className={router.pathname === "/" ? "" : "pt-20"}
+        layout="position"
+      >
+        {children}
+      </motion.main>
       <SiteFooter />
     </div>
   );

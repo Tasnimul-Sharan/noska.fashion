@@ -1,253 +1,335 @@
-import {
-  Heart,
-  Menu,
-  Moon,
-  Search,
-  ShoppingBag,
-  Sparkles,
-  Sun,
-  User,
-  X,
-} from "lucide-react";
+import { Menu, ShoppingBag, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useShop } from "@/context/ShopContext";
-import { easeOut, fadeIn, panelSlide } from "@/lib/motion";
+import { useMemo, useState } from "react";
+import { accessories } from "@/data/accessories";
+import {
+  formatCurrency,
+  getCollectionGroups,
+  products,
+} from "@/data/products";
+import { easeOut, fadeIn, fadeUp, panelSlide, staggerContainer } from "@/lib/motion";
 
-const navLinks = [
-  { href: "/shop", label: "Shop" },
-  { href: "/collections", label: "Collections" },
-  { href: "/journal", label: "Journal" },
-  { href: "/account", label: "Account" },
-  { href: "/login", label: "Login" },
-];
+const departments = ["WOMAN", "MAN", "ACCESSORIES"];
 
 export function Navbar({
-  handleSearch,
   itemCount,
   mobileOpen,
   onCartOpen,
   onMobileClose,
   onMobileOpen,
-  query,
-  setQuery,
-  wishlistCount,
 }) {
-  const router = useRouter();
-  const { theme, toggleTheme } = useShop();
-  const ThemeIcon = theme === "dark" ? Sun : Moon;
+  const [activeDepartment, setActiveDepartment] = useState("WOMAN");
+  const collections = useMemo(() => getCollectionGroups(), []);
+  const featuredProducts = products.slice(0, 10);
 
   return (
     <>
       <motion.header
-        initial={{ opacity: 0, y: -18 }}
+        className="fixed inset-x-0 top-0 z-40 border-b border-black/5 bg-[#fbfaf8]/82 backdrop-blur-md"
+        initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: easeOut }}
-        className="sticky top-0 z-40 border-b border-border_color bg-off_white/94 backdrop-blur-xl"
+        transition={{ duration: 0.38, ease: easeOut }}
       >
-        <div className="hidden border-b border-secondary/10 bg-secondary text-white sm:block">
-          <div className="mx-auto flex h-9 max-w-7xl items-center justify-between px-6 text-xs font-semibold lg:px-8">
-            <span className="text-[#d8d0c8]">Premium dresswear made for modern occasions</span>
-            <span className="text-tertiary">Free delivery from BDT 12,000</span>
-          </div>
-        </div>
-        <div className="mx-auto flex h-20 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex min-w-fit items-center gap-3">
-            <span className="flex h-11 w-11 items-center justify-center rounded-lg bg-secondary text-white shadow-[0_14px_34px_rgba(21,21,21,0.18)] ring-1 ring-white/70">
-              <Sparkles size={20} strokeWidth={1.8} />
-            </span>
-            <span className="flex flex-col leading-none">
-              <span className="text-xl font-semibold">Noska</span>
-              <span className="mt-1 text-xs font-medium text-muted_light">
-                Premium Wear
-              </span>
-            </span>
-          </Link>
-
-          <nav className="ml-8 hidden items-center gap-6 text-sm font-medium text-[#3b3834] lg:flex">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`relative py-2 transition hover:text-primary ${
-                  isActiveLink(router.asPath, link.href) ? "text-primary" : ""
-                }`}
-              >
-                {link.label}
-                {isActiveLink(router.asPath, link.href) && (
-                  <motion.span
-                    layoutId="desktop-nav-active"
-                    className="absolute inset-x-0 -bottom-1 h-0.5 rounded-full bg-primary"
-                    transition={{ duration: 0.28, ease: easeOut }}
-                  />
-                )}
-              </Link>
-            ))}
-          </nav>
-
-          <SearchForm
-            className="ml-auto hidden h-11 w-full max-w-sm items-center gap-2 rounded-lg border border-border_color bg-white px-3 shadow-sm md:flex"
-            handleSearch={handleSearch}
-            query={query}
-            setQuery={setQuery}
-          />
-
-          <div className="ml-auto flex items-center gap-2 md:ml-2">
-            <motion.button
-              whileTap={{ scale: 0.96 }}
-              className="focus-ring hidden h-11 w-11 items-center justify-center rounded-lg border border-border_color bg-white shadow-sm transition hover:border-primary/40 hover:text-primary sm:flex dark:bg-[#24201d] dark:text-[#f8f2ea]"
+        <div className="grid h-20 grid-cols-[1fr_auto_1fr] items-center px-4 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#151515] sm:px-6 lg:px-8">
+          <div className="flex items-center gap-5">
+            <button
+              className="focus-ring inline-flex items-center gap-2"
               type="button"
-              aria-label="Toggle theme"
-              onClick={toggleTheme}
-            >
-              <ThemeIcon size={19} />
-            </motion.button>
-            <Link
-              href="/account"
-              className="focus-ring hidden h-11 w-11 items-center justify-center rounded-lg border border-border_color bg-white shadow-sm transition hover:border-primary/40 hover:text-primary sm:flex"
-              aria-label="Account"
-            >
-              <User size={19} />
-            </Link>
-            <Link
-              href="/wishlist"
-              className="focus-ring relative hidden h-11 w-11 items-center justify-center rounded-lg border border-border_color bg-white shadow-sm transition hover:border-primary/40 hover:text-primary sm:flex"
-              aria-label="Wishlist"
-            >
-              <Heart size={19} />
-              {wishlistCount > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[11px] font-semibold text-white">
-                  {wishlistCount}
-                </span>
-              )}
-            </Link>
-            <motion.button
-              whileTap={{ scale: 0.96 }}
-              className="focus-ring relative flex h-11 w-11 items-center justify-center rounded-lg bg-secondary text-white shadow-[0_12px_30px_rgba(21,21,21,0.16)] transition hover:bg-primary"
-              type="button"
-              aria-label="Open cart"
-              onClick={onCartOpen}
-            >
-              <ShoppingBag size={19} />
-              {itemCount > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-tertiary px-1 text-[11px] font-bold text-secondary">
-                  {itemCount}
-                </span>
-              )}
-            </motion.button>
-            <motion.button
-              whileTap={{ scale: 0.96 }}
-              className="focus-ring flex h-11 w-11 items-center justify-center rounded-lg border border-border_color bg-white shadow-sm lg:hidden"
-              type="button"
-              aria-label="Open menu"
               onClick={onMobileOpen}
             >
-              <Menu size={20} />
-            </motion.button>
+              <Menu size={18} />
+              Menu
+            </button>
           </div>
+
+          <Link
+            href="/"
+            className="text-center text-3xl font-semibold tracking-[0.24em] sm:text-5xl"
+            onClick={onMobileClose}
+          >
+            NOSKA
+          </Link>
+
+          <nav className="flex items-center justify-end gap-4 sm:gap-6">
+            <Link href="/login" className="hidden sm:inline">
+              Login
+            </Link>
+            <Link href="/returns" className="hidden sm:inline">
+              Help
+            </Link>
+            <button
+              className="focus-ring inline-flex items-center gap-2 uppercase"
+              type="button"
+              onClick={onCartOpen}
+            >
+              <span>Cart</span>
+              <ShoppingBag size={16} />
+              {itemCount > 0 && <span>({itemCount})</span>}
+            </button>
+          </nav>
         </div>
       </motion.header>
 
       <AnimatePresence>
         {mobileOpen && (
-        <motion.div
-          className="fixed inset-0 z-50 bg-secondary/45 lg:hidden"
-          initial="hidden"
-          animate="show"
-          exit="hidden"
-          variants={fadeIn}
-        >
           <motion.div
-            className="ml-auto flex h-full w-full max-w-sm flex-col bg-off_white p-5 shadow-2xl"
-            variants={panelSlide}
+            className="fixed inset-0 z-50 bg-[#fbfaf8]"
+            data-lenis-prevent=""
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+            variants={fadeIn}
           >
-            <div className="flex items-center justify-between">
-              <span className="text-lg font-semibold">Noska menu</span>
-              <motion.button
-                whileTap={{ scale: 0.96 }}
-                className="focus-ring flex h-10 w-10 items-center justify-center rounded-lg border border-border_color bg-white"
-                type="button"
-                aria-label="Close menu"
-                onClick={onMobileClose}
-              >
-                <X size={19} />
-              </motion.button>
-            </div>
-            <SearchForm
-              className="mt-6 flex h-12 items-center gap-2 rounded-lg border border-[#e0d8cc] bg-white px-3"
-              handleSearch={handleSearch}
-              query={query}
-              setQuery={setQuery}
-            />
-            <nav className="mt-8 flex flex-col gap-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`relative rounded-lg px-3 py-3 text-base font-medium transition hover:bg-white ${
-                    isActiveLink(router.asPath, link.href) ? "bg-white text-primary" : ""
-                  }`}
+            <motion.div
+              className="grid h-dvh min-h-0 grid-rows-[80px_1fr]"
+              initial="hidden"
+              animate="show"
+              exit="exit"
+              variants={panelSlide}
+            >
+              <div className="grid grid-cols-[1fr_auto_1fr] items-center border-b border-[#e7e1d8] px-4 text-[12px] font-semibold uppercase tracking-[0.14em] sm:px-6 lg:px-8">
+                <button
+                  className="focus-ring inline-flex w-fit items-center gap-2"
+                  type="button"
+                  onClick={onMobileClose}
                 >
-                  {link.label}
-                  {isActiveLink(router.asPath, link.href) && (
-                    <motion.span
-                      layoutId="mobile-nav-active"
-                      className="absolute inset-y-2 left-0 w-1 rounded-full bg-primary"
-                      transition={{ duration: 0.28, ease: easeOut }}
-                    />
-                  )}
+                  <X size={18} />
+                  Close
+                </button>
+                <Link
+                  href="/"
+                  className="text-3xl font-semibold tracking-[0.24em] sm:text-5xl"
+                  onClick={onMobileClose}
+                >
+                  NOSKA
                 </Link>
-              ))}
-              <Link
-                href="/wishlist"
-                className="rounded-lg px-3 py-3 text-base font-medium transition hover:bg-white"
-              >
-                Wishlist
-              </Link>
-              <button
-                className="flex items-center justify-between rounded-lg px-3 py-3 text-base font-medium transition hover:bg-white"
-                type="button"
-                onClick={toggleTheme}
-              >
-                Theme
-                <ThemeIcon size={18} />
-              </button>
-              <Link
-                href="/cart"
-                className="rounded-lg px-3 py-3 text-base font-medium transition hover:bg-white"
-              >
-                Cart
-              </Link>
-            </nav>
+                <div className="flex justify-end gap-4">
+                  <Link href="/login" onClick={onMobileClose}>
+                    Login
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onMobileClose();
+                      onCartOpen();
+                    }}
+                  >
+                    Cart {itemCount > 0 ? `(${itemCount})` : ""}
+                  </button>
+                </div>
+              </div>
+
+              <div className="cart-scroll min-h-0 overflow-y-auto px-4 py-8 sm:px-6 lg:px-8">
+                <div className="grid gap-10 lg:grid-cols-[260px_1fr]">
+                  <aside>
+                    <div className="grid gap-3 text-4xl font-semibold uppercase leading-none sm:text-6xl">
+                      {departments.map((department) => (
+                        <button
+                          key={department}
+                          className={`text-left transition ${
+                            activeDepartment === department
+                              ? "text-[#151515]"
+                              : "text-[#151515]/25 hover:text-[#151515]"
+                          }`}
+                          type="button"
+                          onClick={() => setActiveDepartment(department)}
+                        >
+                          {department}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="mt-10 grid gap-3 text-[12px] font-semibold uppercase tracking-[0.14em]">
+                      <Link href="/shop" onClick={onMobileClose}>
+                        Search
+                      </Link>
+                      <Link href="/wishlist" onClick={onMobileClose}>
+                        Wishlist
+                      </Link>
+                      <Link href="/returns" onClick={onMobileClose}>
+                        Help
+                      </Link>
+                    </div>
+                  </aside>
+
+                  <AnimatePresence mode="wait">
+                    {activeDepartment === "WOMAN" && (
+                      <WomanMenu
+                        collections={collections}
+                        products={featuredProducts}
+                        onClose={onMobileClose}
+                      />
+                    )}
+                    {activeDepartment === "MAN" && <ManMenu />}
+                    {activeDepartment === "ACCESSORIES" && (
+                      <AccessoriesMenu onClose={onMobileClose} />
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
         )}
       </AnimatePresence>
     </>
   );
 }
 
-function SearchForm({ className, handleSearch, query, setQuery }) {
+function WomanMenu({ collections, products: featuredProducts, onClose }) {
   return (
-    <motion.form
-      onSubmit={handleSearch}
-      className={className}
-      whileFocus={{ scale: 1.01 }}
-      transition={{ duration: 0.2, ease: easeOut }}
+    <motion.div
+      key="woman"
+      className="grid gap-10 xl:grid-cols-[0.75fr_1.25fr]"
+      initial="hidden"
+      animate="show"
+      exit="hidden"
+      variants={staggerContainer}
     >
-      <Search size={18} className="text-muted_light" />
-      <input
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-        className="focus-ring min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted_light"
-        placeholder="Search the edit"
-        type="search"
-      />
-    </motion.form>
+      <motion.div variants={fadeUp}>
+        <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#7b7167]">
+          Woman / Dresses
+        </p>
+        <div className="mt-6 grid gap-2 text-sm font-semibold uppercase tracking-[0.12em]">
+          <Link href="/shop" onClick={onClose}>
+            View all dresses
+          </Link>
+          <Link href="/shop?category=Festive" onClick={onClose}>
+            Festive
+          </Link>
+          <Link href="/shop?category=Evening" onClick={onClose}>
+            Evening
+          </Link>
+          <Link href="/shop?category=Workwear" onClick={onClose}>
+            Workwear
+          </Link>
+          <Link href="/collections" onClick={onClose}>
+            All collections
+          </Link>
+        </div>
+
+        <div className="mt-10">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#7b7167]">
+            Collections
+          </p>
+          <div className="mt-4 grid gap-2 text-sm">
+            {collections.map((collection) => (
+              <Link
+                key={collection.slug}
+                href={`/collections/${collection.slug}`}
+                className="grid grid-cols-[1fr_auto] gap-4 border-b border-[#e7e1d8] py-2"
+                onClick={onClose}
+              >
+                <span>{collection.title}</span>
+                <span>{collection.items.length}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
+      <motion.div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3" variants={staggerContainer}>
+        {featuredProducts.map((product) => (
+          <Link
+            key={product.id}
+            href={`/products/${product.slug}`}
+            className="group"
+            onClick={onClose}
+          >
+            <motion.article variants={fadeUp}>
+              <div className="relative aspect-[3/4] overflow-hidden bg-[#eee7dd]">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  sizes="(min-width: 1280px) 20vw, 50vw"
+                  className="object-cover transition duration-700 group-hover:scale-[1.04]"
+                />
+              </div>
+              <div className="mt-3 text-[12px] uppercase tracking-[0.12em]">
+                <p>{product.name}</p>
+                <p className="mt-1 text-[#7b7167]">
+                  {product.collection} / {formatCurrency(product.price)}
+                </p>
+              </div>
+            </motion.article>
+          </Link>
+        ))}
+      </motion.div>
+    </motion.div>
   );
 }
 
-function isActiveLink(currentPath, href) {
-  return currentPath === href || currentPath.startsWith(`${href}?`);
+function ManMenu() {
+  return (
+    <motion.div
+      key="man"
+      className="flex min-h-[55vh] flex-col justify-center"
+      initial="hidden"
+      animate="show"
+      exit="hidden"
+      variants={staggerContainer}
+    >
+      <motion.p
+        className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#7b7167]"
+        variants={fadeUp}
+      >
+        Man
+      </motion.p>
+      <motion.h2
+        className="mt-4 max-w-2xl text-5xl font-semibold uppercase leading-none sm:text-7xl"
+        variants={fadeUp}
+      >
+        Coming soon
+      </motion.h2>
+      <motion.p className="mt-5 max-w-xl text-sm leading-6 text-[#6f6a63]" variants={fadeUp}>
+        Menswear will arrive as a restrained capsule with tailored essentials and
+        occasion pieces.
+      </motion.p>
+    </motion.div>
+  );
+}
+
+function AccessoriesMenu({ onClose }) {
+  return (
+    <motion.div
+      key="accessories"
+      initial="hidden"
+      animate="show"
+      exit="hidden"
+      variants={staggerContainer}
+    >
+      <motion.div variants={fadeUp}>
+        <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#7b7167]">
+          Accessories
+        </p>
+        <h2 className="mt-4 max-w-2xl text-5xl font-semibold uppercase leading-none sm:text-7xl">
+          Finishing pieces
+        </h2>
+      </motion.div>
+      <motion.div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-3" variants={staggerContainer}>
+        {accessories.map((item) => (
+          <Link key={item.id} href="/shop" className="group" onClick={onClose}>
+            <motion.article variants={fadeUp}>
+              <div className="relative aspect-[4/5] overflow-hidden bg-[#eee7dd]">
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  fill
+                  sizes="(min-width: 1280px) 20vw, 50vw"
+                  className="object-cover transition duration-700 group-hover:scale-[1.04]"
+                />
+              </div>
+              <div className="mt-3 text-[12px] uppercase tracking-[0.12em]">
+                <p>{item.name}</p>
+                <p className="mt-1 text-[#7b7167]">
+                  {item.category} / {formatCurrency(item.price)}
+                </p>
+              </div>
+            </motion.article>
+          </Link>
+        ))}
+      </motion.div>
+    </motion.div>
+  );
 }

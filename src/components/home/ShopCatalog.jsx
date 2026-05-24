@@ -10,7 +10,7 @@ import {
   products,
   sizes,
 } from "@/data/products";
-import { fadeIn, fadeUp, panelSlide, staggerContainer } from "@/lib/motion";
+import { easeOut, fadeIn, fadeUp, panelSlide, staggerContainer } from "@/lib/motion";
 
 const sortOptions = [
   { value: "featured", label: "Featured" },
@@ -223,10 +223,9 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
         <div>
           {filteredProducts.length > 0 ? (
             <motion.div
-              key={`${query}-${category}-${collection}-${size}-${color}-${priceMin}-${priceMax}-${sort}`}
               className="grid gap-5 sm:grid-cols-2 xl:grid-cols-3"
-              initial="hidden"
-              animate="show"
+              layout
+              transition={{ layout: { duration: 0.32, ease: easeOut } }}
               variants={staggerContainer}
             >
               {filteredProducts.map((product) => (
