@@ -46,10 +46,18 @@ export function Navbar({
 
           <Link
             href="/"
-            className="text-center text-3xl font-semibold tracking-[0.24em] sm:text-5xl"
+            className="flex items-center justify-center"
             onClick={onMobileClose}
+            aria-label="Noska home"
           >
-            NOSKA
+            <Image
+              src="/noska-png-logo.png"
+              alt="Noska"
+              width={5000}
+              height={5000}
+              priority
+              className="h-14 w-14 object-cover sm:h-16 sm:w-16"
+            />
           </Link>
 
           <nav className="flex items-center justify-end gap-4 sm:gap-6">
@@ -100,10 +108,18 @@ export function Navbar({
                 </button>
                 <Link
                   href="/"
-                  className="text-3xl font-semibold tracking-[0.24em] sm:text-5xl"
+                  className="flex items-center justify-center"
                   onClick={onMobileClose}
+                  aria-label="Noska home"
                 >
-                  NOSKA
+                  <Image
+                    src="/noska-png-logo.png"
+                    alt="Noska"
+                    width={5000}
+                    height={5000}
+                    priority
+                    className="h-14 w-14 object-cover sm:h-16 sm:w-16"
+                  />
                 </Link>
                 <div className="flex justify-end gap-4">
                   <Link href="/login" onClick={onMobileClose}>

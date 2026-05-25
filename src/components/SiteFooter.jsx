@@ -1,5 +1,6 @@
-import { ArrowRight, Mail, MapPin, Sparkles } from "lucide-react";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Link from "next/link";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
@@ -19,8 +20,14 @@ export function SiteFooter() {
         >
           <motion.div variants={fadeUp}>
             <div className="flex items-center gap-3">
-              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-white text-secondary">
-                <Sparkles size={21} />
+              <span className="flex h-14 w-14 items-center justify-center rounded-lg bg-white p-2 text-secondary">
+                <Image
+                  src="/noska-png-logo.png"
+                  alt="Noska"
+                  width={5000}
+                  height={5000}
+                  className="h-full w-full object-contain"
+                />
               </span>
               <span>
                 <span className="block text-2xl font-semibold">Noska</span>
@@ -67,10 +74,28 @@ export function SiteFooter() {
             <div className="mt-4 flex gap-3 text-sm leading-6 text-[#c9c0b7]">
               <MapPin size={18} className="mt-1 shrink-0 text-white" />
               <span>
-                Banani, Dhaka
+                Printers Building, 11th floor
                 <br />
-                Online orders open every day
+                5, Rajuk Avenue, Motijheel
+                <br />
+                1000 Dhaka
               </span>
+            </div>
+            <div className="mt-4 space-y-3 text-sm leading-6 text-[#c9c0b7]">
+              <a
+                href="mailto:support@noska.fashion"
+                className="flex items-center gap-3 transition hover:text-white"
+              >
+                <Mail size={17} className="shrink-0 text-white" />
+                <span>support@noska.fashion</span>
+              </a>
+              <a
+                href="tel:01323030644"
+                className="flex items-center gap-3 transition hover:text-white"
+              >
+                <Phone size={17} className="shrink-0 text-white" />
+                <span>01323030644</span>
+              </a>
             </div>
           </motion.div>
 
