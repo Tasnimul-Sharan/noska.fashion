@@ -1023,7 +1023,7 @@ export function getStockStatus(stock) {
     return {
       label: `Only ${stock} left`,
       tone: "danger",
-      detail: "Low stock for this size and color.",
+      detail: "Low stock for this size.",
     };
   }
 

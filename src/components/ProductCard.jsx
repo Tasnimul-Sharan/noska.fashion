@@ -16,7 +16,7 @@ import { fadeUp, viewportOnce } from "@/lib/motion";
 export function ProductCard({ product }) {
   const { addToCart, isInWishlist, toggleWishlist } = useShop();
   const [size, setSize] = useState(product.sizes[0]);
-  const [color, setColor] = useState(product.colors[0].name);
+  const color = product.colors[0].name;
   const wished = isInWishlist(product.id);
   const optionStock = getOptionStock(product, size, color);
   const stockStatus = getStockStatus(optionStock);
@@ -90,6 +90,7 @@ export function ProductCard({ product }) {
         </div>
 
         <div className="mt-4 flex items-center justify-between gap-3">
+          {/* Color choice disabled by request.
           <div className="flex items-center gap-1.5">
             {product.colors.slice(0, 3).map((option) => (
               <motion.button
@@ -107,10 +108,11 @@ export function ProductCard({ product }) {
               />
             ))}
           </div>
+          */}
           <select
             value={size}
             onChange={(event) => setSize(event.target.value)}
-            className="focus-ring h-9 rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-2 text-sm font-medium"
+            className="focus-ring ml-auto h-9 rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-2 text-sm font-medium"
             aria-label="Select size"
           >
             {product.sizes.map((option) => (
@@ -127,7 +129,7 @@ export function ProductCard({ product }) {
                 : "bg-[#ffe2e6] text-[#8f2637]"
           }`}
         >
-          {stockStatus.label} · {size} / {color}
+          {stockStatus.label} · {size}
         </div>
 
         <motion.button

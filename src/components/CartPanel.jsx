@@ -180,7 +180,7 @@ function CartPanelLine({
               {line.name}
             </Link>
             <p className="readable-soft mt-1 text-xs font-medium text-[#6f6a63]">
-              {line.size} / {line.color}
+              {line.size}
             </p>
           </div>
           <button
@@ -194,7 +194,7 @@ function CartPanelLine({
         </div>
 
         {product && (
-          <div className="mt-3 grid grid-cols-2 gap-2">
+          <div className="mt-3 grid gap-2">
             <select
               value={line.size}
               onChange={(event) =>
@@ -209,6 +209,7 @@ function CartPanelLine({
                 </option>
               ))}
             </select>
+            {/* Color choice disabled by request.
             <select
               value={line.color}
               onChange={(event) =>
@@ -223,6 +224,7 @@ function CartPanelLine({
                 </option>
               ))}
             </select>
+            */}
           </div>
         )}
 

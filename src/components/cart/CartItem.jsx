@@ -37,7 +37,7 @@ export function CartItem({ line, removeFromCart, updateCartItemOptions, updateQu
               {line.name}
             </Link>
             <p className="mt-1 text-sm text-[#7b7167]">
-              {line.size} / {line.color}
+              {line.size}
             </p>
             <p className="mt-2 font-semibold">{formatCurrency(line.price)}</p>
           </div>
@@ -53,7 +53,7 @@ export function CartItem({ line, removeFromCart, updateCartItemOptions, updateQu
         </div>
 
         {product && (
-          <div className="grid gap-2 sm:grid-cols-2">
+          <div className="grid gap-2">
             <select
               value={line.size}
               onChange={(event) =>
@@ -68,6 +68,7 @@ export function CartItem({ line, removeFromCart, updateCartItemOptions, updateQu
                 </option>
               ))}
             </select>
+            {/* Color choice disabled by request.
             <select
               value={line.color}
               onChange={(event) =>
@@ -82,6 +83,7 @@ export function CartItem({ line, removeFromCart, updateCartItemOptions, updateQu
                 </option>
               ))}
             </select>
+            */}
           </div>
         )}
 

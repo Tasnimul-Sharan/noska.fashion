@@ -10,7 +10,7 @@ export default function ShopPage() {
     <>
       <Seo
         title="Shop Premium Dresses"
-        description="Browse every Noska dress with filters for collection, size, color, and category. Shop festive, workwear, resort, bridal, casual, and evening styles."
+        description="Browse every Noska dress with filters for collection, size, category, and price. Shop festive, workwear, resort, bridal, casual, and evening styles."
         canonicalPath="/shop"
         image={products[0].image}
         imageAlt="Noska shop all dresses"

@@ -25,7 +25,7 @@ export function CheckoutOrderSummary({ cart, error, shipping, subtotal, total })
             <div className="min-w-0">
               <p className="font-semibold leading-5">{line.name}</p>
               <p className="mt-1 text-xs text-[#7b7167]">
-                {line.size} / {line.color} x {line.quantity}
+                {line.size} x {line.quantity}
               </p>
               <p className="mt-2 text-sm font-semibold">
                 {formatCurrency(line.price * line.quantity)}

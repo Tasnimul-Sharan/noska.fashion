@@ -33,8 +33,8 @@ export default function WishlistPage() {
             Saved dresses
           </motion.h1>
           <motion.p className="mt-3 max-w-2xl text-sm leading-6 text-[#6f6a63]" variants={fadeUp}>
-            Review saved pieces, choose size and color, remove items, or move them
-            straight to cart.
+            Review saved pieces, choose size, remove items, or move them straight
+            to cart.
           </motion.p>
         </motion.div>
 
@@ -77,7 +77,7 @@ export default function WishlistPage() {
 function WishlistLine({ product }) {
   const { addToCart, removeFromWishlist } = useShop();
   const [size, setSize] = useState(product.sizes[0]);
-  const [color, setColor] = useState(product.colors[0].name);
+  const color = product.colors[0].name;
 
   return (
     <motion.article
@@ -97,7 +97,7 @@ function WishlistLine({ product }) {
         </Link>
         <p className="mt-2 text-sm text-[#6f6a63]">{product.description}</p>
         <p className="mt-3 font-semibold">{formatCurrency(product.price)}</p>
-        <div className="mt-4 grid max-w-md gap-2 sm:grid-cols-2">
+        <div className="mt-4 grid max-w-md gap-2">
           <select
             value={size}
             onChange={(event) => setSize(event.target.value)}
@@ -110,6 +110,7 @@ function WishlistLine({ product }) {
               </option>
             ))}
           </select>
+          {/* Color choice disabled by request.
           <select
             value={color}
             onChange={(event) => setColor(event.target.value)}
@@ -122,6 +123,7 @@ function WishlistLine({ product }) {
               </option>
             ))}
           </select>
+          */}
         </div>
       </div>
       <div className="flex gap-2 sm:flex-col">

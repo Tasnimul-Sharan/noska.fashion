@@ -9,7 +9,7 @@ const policySteps = [
   {
     icon: RotateCcw,
     title: "7-day exchange window",
-    text: "Request an exchange within 7 days of delivery if the fit, size, or color is not right.",
+    text: "Request an exchange within 7 days of delivery if the fit or size is not right.",
   },
   {
     icon: ShieldCheck,
@@ -24,7 +24,7 @@ const policySteps = [
 ];
 
 const faqs = [
-  ["Can I return sale items?", "Sale items can be exchanged for size or color when stock is available."],
+  ["Can I return sale items?", "Sale items can be exchanged for size when stock is available."],
   ["How long does exchange take?", "Dhaka exchanges usually complete within 2-4 business days after pickup."],
   ["Can I change delivery address?", "Address changes are possible before dispatch through customer support."],
 ];

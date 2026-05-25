@@ -43,7 +43,7 @@ export default function ProductDetail({ product }) {
   } = useShop();
   const [activeImage, setActiveImage] = useState(product.gallery[0]);
   const [size, setSize] = useState(product.sizes[0]);
-  const [color, setColor] = useState(product.colors[0].name);
+  const color = product.colors[0].name;
   const [quantity, setQuantity] = useState(1);
   const wished = isInWishlist(product.id);
   const collectionHref = `/collections/${slugifyCollection(product.collection)}`;
@@ -73,9 +73,7 @@ export default function ProductDetail({ product }) {
     <>
       <Seo
         title={`${product.name} | Premium ${product.category} Dress`}
-        description={`${product.description} Available in ${product.colors
-          .map((option) => option.name)
-          .join(", ")} with sizes ${product.sizes.join(", ")}.`}
+        description={`${product.description} Available in sizes ${product.sizes.join(", ")}.`}
         canonicalPath={`/products/${product.slug}`}
         image={product.image}
         imageAlt={product.name}
@@ -172,6 +170,7 @@ export default function ProductDetail({ product }) {
               </span>
             </motion.div>
 
+            {/* Color choice disabled by request.
             <motion.div className="mt-7" variants={fadeUp}>
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold">Color</p>
@@ -198,6 +197,7 @@ export default function ProductDetail({ product }) {
                 ))}
               </div>
             </motion.div>
+            */}
 
             <motion.div className="mt-7" variants={fadeUp}>
               <div className="flex items-center justify-between">
@@ -234,7 +234,7 @@ export default function ProductDetail({ product }) {
               }`}
               variants={fadeUp}
             >
-              {stockStatus.label} for {size} / {color}.{" "}
+              {stockStatus.label} for {size}.{" "}
               <span className="font-medium">{stockStatus.detail}</span>
             </motion.div>
 

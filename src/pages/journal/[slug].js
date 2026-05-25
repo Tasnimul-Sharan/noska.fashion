@@ -101,8 +101,8 @@ export default function JournalDetailPage({ post, featuredProducts }) {
             <CheckCircle2 size={22} className="text-[#1f7a5a]" />
             <h2 className="mt-3 text-xl font-semibold">Styling note</h2>
             <p className="mt-2 text-sm leading-6 text-[#6f6a63]">
-              Save pieces you like, then refine size and color from your wishlist
-              before checkout.
+              Save pieces you like, then refine size from your wishlist before
+              checkout.
             </p>
             <Link
               href="/wishlist"

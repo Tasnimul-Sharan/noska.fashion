@@ -20,11 +20,13 @@ const sortOptions = [
   { value: "new", label: "New drops" },
 ];
 
+/* Color choice disabled by request.
 const colorOptions = Array.from(
   new Map(
     products.flatMap((product) => product.colors).map((color) => [color.name, color]),
   ).values(),
 ).slice(0, 9);
+*/
 
 const collectionOptions = [
   "All",
@@ -39,7 +41,6 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
   const [category, setCategory] = useState("All");
   const [collection, setCollection] = useState("All");
   const [size, setSize] = useState("All");
-  const [color, setColor] = useState("All");
   const [sort, setSort] = useState("featured");
   const [priceMin, setPriceMin] = useState(priceRange.min);
   const [priceMax, setPriceMax] = useState(priceRange.max);
@@ -96,8 +97,6 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
         const matchesCollection =
           collection === "All" || product.collection === collection;
         const matchesSize = size === "All" || product.sizes.includes(size);
-        const matchesColor =
-          color === "All" || product.colors.some((option) => option.name === color);
         const matchesPrice = product.price >= priceMin && product.price <= priceMax;
 
         return (
@@ -105,7 +104,6 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
           matchesCategory &&
           matchesCollection &&
           matchesSize &&
-          matchesColor &&
           matchesPrice
         );
       })
@@ -116,14 +114,13 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
         if (sort === "new") return b.id.localeCompare(a.id);
         return products.indexOf(a) - products.indexOf(b);
       });
-  }, [category, collection, color, priceMax, priceMin, query, size, sort]);
+  }, [category, collection, priceMax, priceMin, query, size, sort]);
 
   const resetFilters = () => {
     setQuery("");
     setCategory("All");
     setCollection("All");
     setSize("All");
-    setColor("All");
     setSort("featured");
     setPriceMin(priceRange.min);
     setPriceMax(priceRange.max);
@@ -144,14 +141,12 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
   const filterProps = {
     category,
     collection,
-    color,
     priceMax,
     priceMin,
     query,
     resetFilters,
     setCategory,
     setCollection,
-    setColor,
     setQuery,
     setSize,
     setSort,
@@ -240,7 +235,7 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
               <Search size={36} className="text-[#b9404f]" />
               <h3 className="mt-4 text-xl font-semibold">No dresses found</h3>
               <p className="mt-2 max-w-md text-sm leading-6 text-[#6f6a63]">
-                Try a different category, size, color, price range, or search phrase.
+                Try a different category, size, price range, or search phrase.
               </p>
               <button
                 className="focus-ring mt-5 rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
@@ -309,14 +304,12 @@ function FilterPanel({
   category,
   className,
   collection,
-  color,
   priceMax,
   priceMin,
   query,
   resetFilters,
   setCategory,
   setCollection,
-  setColor,
   setQuery,
   setSize,
   setSort,
@@ -470,6 +463,7 @@ function FilterPanel({
         </div>
       </div>
 
+      {/* Color filter disabled by request.
       <div className="mt-5">
         <p className="text-sm font-semibold">Color</p>
         <div className="mt-3 flex flex-wrap gap-2">
@@ -506,6 +500,7 @@ function FilterPanel({
           ))}
         </div>
       </div>
+      */}
 
       <label className="mt-5 block text-sm font-semibold" htmlFor="sort">
         Sort
