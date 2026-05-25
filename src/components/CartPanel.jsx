@@ -39,7 +39,7 @@ export function CartPanel({ open, onClose }) {
           variants={fadeIn}
         >
           <motion.div
-            className="ml-auto flex h-dvh min-h-0 w-full max-w-md flex-col bg-[#fbfaf8] shadow-2xl"
+            className="light-readable ml-auto flex h-dvh min-h-0 w-full max-w-md flex-col bg-[#fbfaf8] text-[#151515] shadow-2xl"
             onWheel={(event) => event.stopPropagation()}
             onTouchMove={(event) => event.stopPropagation()}
             data-lenis-prevent=""
@@ -48,14 +48,14 @@ export function CartPanel({ open, onClose }) {
             exit="exit"
             variants={panelSlide}
           >
-            <div className="flex shrink-0 items-center justify-between border-b border-[#e7e1d8] p-5">
+            <div className="flex shrink-0 items-center justify-between border-b border-[#ded6ca] bg-white p-5 text-[#151515]">
               <div>
-                <p className="text-sm font-medium text-[#7b7167]">Shopping bag</p>
-                <h2 className="mt-1 text-2xl font-semibold">Your edit</h2>
+                <p className="readable-muted text-sm font-semibold text-[#514c45]">Shopping bag</p>
+                <h2 className="mt-1 text-2xl font-bold text-[#151515]">Your edit</h2>
               </div>
               <motion.button
                 whileTap={{ scale: 0.96 }}
-                className="focus-ring flex h-10 w-10 items-center justify-center rounded-lg border border-[#e0d8cc] bg-white"
+                className="focus-ring flex h-10 w-10 items-center justify-center rounded-lg border border-[#cfc4b6] bg-[#fbfaf8] text-[#151515]"
                 type="button"
                 aria-label="Close cart"
                 onClick={onClose}
@@ -69,14 +69,14 @@ export function CartPanel({ open, onClose }) {
                 className="flex flex-1 flex-col items-center justify-center px-8 text-center"
                 variants={fadeUp}
               >
-                <ShoppingBag size={42} className="text-[#b9404f]" />
+                <ShoppingBag size={42} className="readable-accent text-[#b9404f]" />
                 <h3 className="mt-4 text-xl font-semibold">Your bag is empty</h3>
-                <p className="mt-2 text-sm leading-6 text-[#6f6a63]">
+                <p className="readable-soft mt-2 text-sm leading-6 text-[#6f6a63]">
                   Add your favorite dresses and they will stay here.
                 </p>
                 <Link
                   href="/shop"
-                  className="mt-6 rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
+                  className="readable-white mt-6 rounded-lg bg-[#151515] px-5 py-3 text-sm font-semibold text-white"
                 >
                   Shop dresses
                 </Link>
@@ -93,7 +93,7 @@ export function CartPanel({ open, onClose }) {
                   variants={staggerContainer}
                 >
                   <motion.div
-                    className="mb-4 rounded-lg border border-[#e0d8cc] bg-white p-3 text-sm text-[#514c45]"
+                    className="readable-muted mb-4 rounded-lg border border-[#d8cec0] bg-white p-3 text-sm font-medium text-[#514c45]"
                     variants={fadeUp}
                   >
                     {remaining === 0
@@ -114,23 +114,23 @@ export function CartPanel({ open, onClose }) {
                 </motion.div>
 
                 <motion.div
-                  className="shrink-0 border-t border-[#e7e1d8] p-5"
+                  className="shrink-0 border-t border-[#ded6ca] bg-white p-5 text-[#151515]"
                   variants={fadeUp}
                 >
-                  <div className="mb-4 flex items-center justify-between text-base font-semibold">
+                  <div className="mb-4 flex items-center justify-between text-base font-bold text-[#151515]">
                     <span>Subtotal</span>
                     <span>{formatCurrency(subtotal)}</span>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <Link
                       href="/cart"
-                      className="rounded-lg border border-[#151515] px-4 py-3 text-center text-sm font-semibold"
+                      className="rounded-lg border border-[#151515] bg-white px-4 py-3 text-center text-sm font-bold text-[#151515]"
                     >
                       View bag
                     </Link>
                     <Link
                       href="/checkout"
-                      className="rounded-lg bg-[#b9404f] px-4 py-3 text-center text-sm font-semibold text-white"
+                      className="readable-white rounded-lg bg-[#b9404f] px-4 py-3 text-center text-sm font-bold text-white"
                     >
                       Checkout
                     </Link>
@@ -175,16 +175,16 @@ function CartPanelLine({
           <div>
             <Link
               href={`/products/${line.slug}`}
-              className="font-semibold hover:text-[#b9404f]"
+              className="font-bold text-[#151515] hover:text-[#b9404f]"
             >
               {line.name}
             </Link>
-            <p className="mt-1 text-xs text-[#7b7167]">
+            <p className="readable-soft mt-1 text-xs font-medium text-[#6f6a63]">
               {line.size} / {line.color}
             </p>
           </div>
           <button
-            className="focus-ring text-[#7b7167] transition hover:text-[#b9404f]"
+            className="readable-muted focus-ring text-[#514c45] transition hover:text-[#b9404f]"
             type="button"
             aria-label={`Remove ${line.name}`}
             onClick={() => removeFromCart(line.id)}
@@ -227,22 +227,22 @@ function CartPanelLine({
         )}
 
         <div className="mt-4 flex items-center justify-between">
-          <div className="flex h-9 items-center rounded-lg border border-[#ded6ca] bg-white">
+          <div className="flex h-9 items-center rounded-lg border border-[#cfc4b6] bg-white text-[#151515]">
             <motion.button
               whileTap={{ scale: 0.94 }}
-              className="focus-ring flex h-9 w-9 items-center justify-center"
+              className="readable-muted focus-ring flex h-9 w-9 items-center justify-center text-[#514c45]"
               type="button"
               aria-label="Decrease quantity"
               onClick={() => updateQuantity(line.id, line.quantity - 1)}
             >
               <Minus size={15} />
             </motion.button>
-            <span className="w-8 text-center text-sm font-semibold">
+            <span className="w-8 text-center text-sm font-bold text-[#151515]">
               {line.quantity}
             </span>
             <motion.button
               whileTap={{ scale: 0.94 }}
-              className="focus-ring flex h-9 w-9 items-center justify-center"
+              className="readable-muted focus-ring flex h-9 w-9 items-center justify-center text-[#514c45]"
               type="button"
               aria-label="Increase quantity"
               onClick={() => updateQuantity(line.id, line.quantity + 1)}
@@ -250,7 +250,7 @@ function CartPanelLine({
               <Plus size={15} />
             </motion.button>
           </div>
-          <span className="font-semibold">
+          <span className="font-bold text-[#151515]">
             {formatCurrency(line.price * line.quantity)}
           </span>
         </div>

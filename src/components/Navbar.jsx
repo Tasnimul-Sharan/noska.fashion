@@ -27,7 +27,7 @@ export function Navbar({
   return (
     <>
       <motion.header
-        className="fixed inset-x-0 top-0 z-40 border-b border-black/5 bg-[#fbfaf8]/82 backdrop-blur-md"
+        className="light-readable fixed inset-x-0 top-0 z-40 border-b border-[#ded6ca] bg-[#fbfaf8]/94 text-[#151515] backdrop-blur-md"
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.38, ease: easeOut }}
@@ -75,7 +75,7 @@ export function Navbar({
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="fixed inset-0 z-50 bg-[#fbfaf8]"
+            className="light-readable fixed inset-0 z-50 bg-[#fbfaf8] text-[#151515]"
             data-lenis-prevent=""
             initial="hidden"
             animate="show"
@@ -89,7 +89,7 @@ export function Navbar({
               exit="exit"
               variants={panelSlide}
             >
-              <div className="grid grid-cols-[1fr_auto_1fr] items-center border-b border-[#e7e1d8] px-4 text-[12px] font-semibold uppercase tracking-[0.14em] sm:px-6 lg:px-8">
+              <div className="grid grid-cols-[1fr_auto_1fr] items-center border-b border-[#ded6ca] px-4 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#151515] sm:px-6 lg:px-8">
                 <button
                   className="focus-ring inline-flex w-fit items-center gap-2"
                   type="button"
@@ -121,7 +121,7 @@ export function Navbar({
                 </div>
               </div>
 
-              <div className="cart-scroll min-h-0 overflow-y-auto px-4 py-8 sm:px-6 lg:px-8">
+              <div className="cart-scroll min-h-0 overflow-y-auto px-4 py-8 text-[#151515] sm:px-6 lg:px-8">
                 <div className="grid gap-10 lg:grid-cols-[260px_1fr]">
                   <aside>
                     <div className="grid gap-3 text-4xl font-semibold uppercase leading-none sm:text-6xl">
@@ -131,7 +131,7 @@ export function Navbar({
                           className={`text-left transition ${
                             activeDepartment === department
                               ? "text-[#151515]"
-                              : "text-[#151515]/25 hover:text-[#151515]"
+                              : "readable-soft text-[#6f6a63] hover:text-[#151515]"
                           }`}
                           type="button"
                           onClick={() => setActiveDepartment(department)}
@@ -140,7 +140,7 @@ export function Navbar({
                         </button>
                       ))}
                     </div>
-                    <div className="mt-10 grid gap-3 text-[12px] font-semibold uppercase tracking-[0.14em]">
+                    <div className="readable-muted mt-10 grid gap-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#514c45]">
                       <Link href="/shop" onClick={onMobileClose}>
                         Search
                       </Link>
@@ -187,10 +187,10 @@ function WomanMenu({ collections, products: featuredProducts, onClose }) {
       variants={staggerContainer}
     >
       <motion.div variants={fadeUp}>
-        <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#7b7167]">
+        <p className="readable-muted text-[12px] font-semibold uppercase tracking-[0.14em] text-[#514c45]">
           Woman / Dresses
         </p>
-        <div className="mt-6 grid gap-2 text-sm font-semibold uppercase tracking-[0.12em]">
+        <div className="mt-6 grid gap-2 text-sm font-bold uppercase tracking-[0.12em] text-[#151515]">
           <Link href="/shop" onClick={onClose}>
             View all dresses
           </Link>
@@ -209,10 +209,10 @@ function WomanMenu({ collections, products: featuredProducts, onClose }) {
         </div>
 
         <div className="mt-10">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#7b7167]">
+          <p className="readable-muted text-[12px] font-semibold uppercase tracking-[0.14em] text-[#514c45]">
             Collections
           </p>
-          <div className="mt-4 grid gap-2 text-sm">
+          <div className="readable-muted mt-4 grid gap-2 text-sm font-medium text-[#514c45]">
             {collections.map((collection) => (
               <Link
                 key={collection.slug}
@@ -246,9 +246,9 @@ function WomanMenu({ collections, products: featuredProducts, onClose }) {
                   className="object-cover transition duration-700 group-hover:scale-[1.04]"
                 />
               </div>
-              <div className="mt-3 text-[12px] uppercase tracking-[0.12em]">
-                <p>{product.name}</p>
-                <p className="mt-1 text-[#7b7167]">
+              <div className="mt-3 text-[12px] uppercase tracking-[0.12em] text-[#151515]">
+                <p className="font-semibold text-[#151515]">{product.name}</p>
+                <p className="readable-muted mt-1 text-[#514c45]">
                   {product.collection} / {formatCurrency(product.price)}
                 </p>
               </div>
@@ -271,7 +271,7 @@ function ManMenu() {
       variants={staggerContainer}
     >
       <motion.p
-        className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#7b7167]"
+        className="readable-muted text-[12px] font-semibold uppercase tracking-[0.14em] text-[#514c45]"
         variants={fadeUp}
       >
         Man
@@ -282,7 +282,7 @@ function ManMenu() {
       >
         Coming soon
       </motion.h2>
-      <motion.p className="mt-5 max-w-xl text-sm leading-6 text-[#6f6a63]" variants={fadeUp}>
+      <motion.p className="readable-soft mt-5 max-w-xl text-sm leading-6 text-[#6f6a63]" variants={fadeUp}>
         Menswear will arrive as a restrained capsule with tailored essentials and
         occasion pieces.
       </motion.p>
@@ -300,7 +300,7 @@ function AccessoriesMenu({ onClose }) {
       variants={staggerContainer}
     >
       <motion.div variants={fadeUp}>
-        <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#7b7167]">
+        <p className="readable-muted text-[12px] font-semibold uppercase tracking-[0.14em] text-[#514c45]">
           Accessories
         </p>
         <h2 className="mt-4 max-w-2xl text-5xl font-semibold uppercase leading-none sm:text-7xl">
@@ -320,9 +320,9 @@ function AccessoriesMenu({ onClose }) {
                   className="object-cover transition duration-700 group-hover:scale-[1.04]"
                 />
               </div>
-              <div className="mt-3 text-[12px] uppercase tracking-[0.12em]">
-                <p>{item.name}</p>
-                <p className="mt-1 text-[#7b7167]">
+              <div className="mt-3 text-[12px] uppercase tracking-[0.12em] text-[#151515]">
+                <p className="font-semibold text-[#151515]">{item.name}</p>
+                <p className="readable-muted mt-1 text-[#514c45]">
                   {item.category} / {formatCurrency(item.price)}
                 </p>
               </div>

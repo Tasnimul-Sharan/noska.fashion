@@ -31,7 +31,7 @@ export function Seo({
       <meta name="description" content={description} key="description" />
       <meta name="robots" content={robots} key="robots" />
       <meta name="googlebot" content={robots} key="googlebot" />
-      <meta name="theme-color" content="#151515" key="theme-color" />
+      <meta name="theme-color" content="#ffffff" key="theme-color" />
       <meta name="application-name" content={siteConfig.name} key="application-name" />
       <meta name="apple-mobile-web-app-title" content={siteConfig.name} key="apple-title" />
       <link rel="canonical" href={canonicalUrl} key="canonical" />
