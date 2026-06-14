@@ -19,20 +19,25 @@ export function Navbar({
   onCartOpen,
   onMobileClose,
   onMobileOpen,
+  overlay = false,
 }) {
   const [activeDepartment, setActiveDepartment] = useState("WOMAN");
   const collections = useMemo(() => getCollectionGroups(), []);
   const featuredProducts = products.slice(0, 10);
+  const headerClassName = overlay
+    ? "fixed inset-x-0 top-0 z-40 border-b border-transparent bg-transparent text-[#151515] drop-shadow-[0_1px_10px_rgba(255,255,255,0.72)]"
+    : "light-readable fixed inset-x-0 top-0 z-40 border-b border-[#ded6ca] bg-[#fbfaf8]/94 text-[#151515] backdrop-blur-md";
+  const navTextClassName = "text-[#151515]";
 
   return (
     <>
       <motion.header
-        className="light-readable fixed inset-x-0 top-0 z-40 border-b border-[#ded6ca] bg-[#fbfaf8]/94 text-[#151515] backdrop-blur-md"
+        className={headerClassName}
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.38, ease: easeOut }}
       >
-        <div className="grid h-20 grid-cols-[1fr_auto_1fr] items-center px-4 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#151515] sm:px-6 lg:px-8">
+        <div className={`grid h-20 grid-cols-[1fr_auto_1fr] items-center px-4 text-[12px] font-semibold uppercase tracking-[0.14em] sm:px-6 lg:px-8 ${navTextClassName}`}>
           <div className="flex items-center gap-5">
             <button
               className="focus-ring inline-flex items-center gap-2"
@@ -50,14 +55,20 @@ export function Navbar({
             onClick={onMobileClose}
             aria-label="Noska home"
           >
-            <Image
-              src="/noska-png-logo.png"
-              alt="Noska"
-              width={5000}
-              height={5000}
-              priority
-              className="h-14 w-14 object-cover sm:h-16 sm:w-16"
-            />
+            {overlay ? (
+              <span className="font-serif text-2xl font-semibold normal-case tracking-normal sm:text-3xl">
+                Noska
+              </span>
+            ) : (
+              <Image
+                src="/noska-png-logo.png"
+                alt="Noska"
+                width={5000}
+                height={5000}
+                priority
+                className="h-14 w-14 object-cover sm:h-16 sm:w-16"
+              />
+            )}
           </Link>
 
           <nav className="flex items-center justify-end gap-4 sm:gap-6">
@@ -140,7 +151,7 @@ export function Navbar({
               <div className="cart-scroll min-h-0 overflow-y-auto px-4 py-8 text-[#151515] sm:px-6 lg:px-8">
                 <div className="grid gap-10 lg:grid-cols-[260px_1fr]">
                   <aside>
-                    <div className="grid gap-3 text-4xl font-semibold uppercase leading-none sm:text-6xl">
+                    <div className="grid gap-3 text-xl font-semibold uppercase leading-none sm:text-3xl">
                       {departments.map((department) => (
                         <button
                           key={department}

@@ -4,7 +4,42 @@ import Image from "next/image";
 import Link from "next/link";
 import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
-export function SiteFooter() {
+export function SiteFooter({ minimal = false }) {
+  if (minimal) {
+    return (
+      <footer className="bg-white text-[#151515]">
+        <div className="flex min-h-[46vh] flex-col justify-between px-4 pb-7 pt-20 text-[10px] uppercase tracking-[0.12em] sm:px-6 lg:px-8">
+          <div className="mx-auto mt-auto text-center">
+            <p className="font-serif text-3xl normal-case tracking-normal sm:text-4xl">
+              The New
+            </p>
+            <Link
+              href="/shop"
+              className="mt-3 inline-block border-b border-[#151515] pb-1 text-[10px] font-semibold"
+            >
+              Shop now
+            </Link>
+          </div>
+
+          <div className="mt-auto flex flex-col gap-4 text-[#5f5a54] sm:flex-row sm:items-end sm:justify-between">
+            <nav className="flex flex-wrap gap-x-4 gap-y-2">
+              <Link href="/shop">Shop</Link>
+              <Link href="/collections">Collections</Link>
+              <Link href="/journal">Journal</Link>
+              <Link href="/returns">Returns</Link>
+              <Link href="/account">Account</Link>
+            </nav>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 sm:justify-end">
+              <a href="mailto:support@noska.fashion">Support</a>
+              <a href="tel:01323030644">01323030644</a>
+              <span>Bangladesh</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    );
+  }
+
   return (
     <motion.footer
       className="border-t border-border_color bg-secondary text-white"

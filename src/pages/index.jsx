@@ -1,9 +1,5 @@
 import { Seo } from "@/components/Seo";
-import { Collections } from "@/components/home/Collections";
-import { FeaturedProducts } from "@/components/home/FeaturedProducts";
-import { HeroSection } from "@/components/home/HeroSection";
-import { Lookbook } from "@/components/home/Lookbook";
-import { ServiceStrip } from "@/components/home/ServiceStrip";
+import { EditorialHome } from "@/components/home/EditorialHome";
 import { heroProduct, products } from "@/data/products";
 import {
   createBreadcrumbJsonLd,
@@ -29,11 +25,7 @@ export default function Home() {
         ]}
       />
 
-      <HeroSection />
-      <ServiceStrip />
-      <FeaturedProducts />
-      <Collections />
-      <Lookbook />
+      <EditorialHome />
     </>
   );
 }

@@ -12,6 +12,7 @@ export function Layout({ children }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const isHome = router.pathname === "/";
 
   useEffect(() => {
     const closePanels = () => {
@@ -43,6 +44,7 @@ export function Layout({ children }) {
         onCartOpen={() => setCartOpen(true)}
         onMobileClose={() => setMobileOpen(false)}
         onMobileOpen={() => setMobileOpen(true)}
+        overlay={isHome}
         query={query}
         setQuery={setQuery}
         wishlistCount={wishlist.length}
@@ -54,7 +56,7 @@ export function Layout({ children }) {
       >
         {children}
       </motion.main>
-      <SiteFooter />
+      <SiteFooter minimal={isHome} />
     </div>
   );
 }

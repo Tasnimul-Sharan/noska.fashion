@@ -165,3 +165,27 @@ button:disabled {
 .light-readable .readable-white * {
   color: #ffffff !important;
 }
+
+.noska-home-mark {
+  font-size: 5.5rem;
+  line-height: 0.78;
+  letter-spacing: 0;
+}
+
+@media (min-width: 640px) {
+  .noska-home-mark {
+    font-size: 9rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .noska-home-mark {
+    font-size: 14rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .noska-home-mark {
+    font-size: 17rem;
+  }
+}
