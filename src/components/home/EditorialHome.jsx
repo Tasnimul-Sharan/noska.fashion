@@ -4,24 +4,26 @@ import Link from "next/link";
 import {
   formatCurrency,
   getCollectionBySlug,
-  products,
+  getProductBySlug,
   slugifyCollection,
 } from "@/data/products";
 import { fadeIn, fadeUp, staggerContainer } from "@/lib/motion";
 
+const product = (slug) => getProductBySlug(slug);
+
 const heroTiles = [
   {
-    product: products[1],
+    product: product("noor-embroidered-anarkali"),
     className: "md:col-span-7 md:row-span-2",
     imageClassName: "object-[50%_34%]",
   },
   {
-    product: products[12],
+    product: product("selene-velvet-midi"),
     className: "md:col-span-5",
     imageClassName: "object-[50%_28%]",
   },
   {
-    product: products[23],
+    product: product("elara-metallic-slip"),
     className: "md:col-span-5",
     imageClassName: "object-[50%_42%]",
   },
@@ -32,7 +34,7 @@ const featurePanels = [
     collection: "Eid Edit",
     label: "Woman",
     kicker: "Festive arrivals",
-    product: products[1],
+    product: product("noor-embroidered-anarkali"),
     href: "/collections/eid-edit",
     height: "min-h-[72vh]",
     imageClassName: "object-[52%_32%]",
@@ -44,7 +46,7 @@ const featurePanels = [
     collection: "Moonlit Edit",
     label: "Evening",
     kicker: "Satin and velvet silhouettes",
-    product: products[12],
+    product: product("selene-velvet-midi"),
     href: "/collections/moonlit-edit",
     height: "min-h-[78vh]",
     imageClassName: "object-[48%_30%]",
@@ -56,7 +58,7 @@ const featurePanels = [
     collection: "Sunset Resort",
     label: "Resort",
     kicker: "Light dresses for warm days",
-    product: products[3],
+    product: product("maeve-pleated-maxi"),
     href: "/collections/sunset-resort",
     height: "min-h-[74vh]",
     imageClassName: "object-[48%_40%]",
@@ -67,14 +69,15 @@ const featurePanels = [
 ];
 
 const collectionLinks = [
-  "Eid Edit",
   "Moonlit Edit",
+  "Eid Edit",
   "Nine to Nine",
   "Sunset Resort",
   "White Room",
-  "Garden Mehfil",
-  "Heritage Luxe",
-  "City Linen",
+  "Soft Hours",
+  "Gala Room",
+  "Weekend Market",
+  "After Dark",
 ];
 
 function collectionHref(title) {
@@ -246,8 +249,8 @@ export function EditorialHome() {
             variants={fadeUp}
           >
             <Image
-              src={products[5].image}
-              alt={products[5].name}
+              src={product("serein-knit-daydress").image}
+              alt={product("serein-knit-daydress").name}
               fill
               sizes="(min-width: 640px) 16rem, 12rem"
               className="object-cover object-[50%_25%]"
@@ -272,11 +275,11 @@ export function EditorialHome() {
 
       <section className="relative min-h-[70vh] overflow-hidden bg-[#d9e3ec]">
         <div className="absolute inset-0 grid md:grid-cols-2">
-          {[products[10], products[21]].map((product) => (
-            <div key={product.id} className="relative min-h-[35vh] overflow-hidden">
+          {[product("aria-tailored-wrap"), product("iris-utility-shirt-dress")].map((item) => (
+            <div key={item.id} className="relative min-h-[35vh] overflow-hidden">
               <Image
-                src={product.image}
-                alt={product.name}
+                src={item.image}
+                alt={item.name}
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover object-[50%_34%]"
@@ -303,11 +306,11 @@ export function EditorialHome() {
             className="mt-2 font-serif text-5xl font-semibold uppercase tracking-normal sm:text-7xl lg:text-8xl"
             variants={fadeUp}
           >
-            Power Edit
+            Nine to Nine
           </motion.h2>
           <motion.div variants={fadeUp}>
             <Link
-              href={collectionHref("Power Edit")}
+              href={collectionHref("Nine to Nine")}
               className="mt-4 inline-block border-b border-white pb-1 text-[10px] font-semibold uppercase tracking-[0.16em]"
             >
               View collection

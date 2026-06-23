@@ -18,7 +18,7 @@ function getCollectionCard(title) {
 
 const edits = [
   getCollectionCard("Eid Edit"),
-  getCollectionCard("Power Edit"),
+  getCollectionCard("Nine to Nine"),
   getCollectionCard("Sunset Resort"),
 ];
 

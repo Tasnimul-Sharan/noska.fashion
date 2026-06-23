@@ -1,4 +1,8 @@
-import { products } from "@/data/products";
+import { getProductBySlug, products } from "@/data/products";
+
+function productImage(slug) {
+  return getProductBySlug(slug)?.image || products[0].image;
+}
 
 export const journalPosts = [
   {
@@ -9,8 +13,8 @@ export const journalPosts = [
     category: "Festive styling",
     date: "May 10, 2026",
     readTime: "4 min read",
-    image: products[1].image,
-    featuredProductSlugs: ["noor-embroidered-anarkali", "naira-zari-kaftan", "laila-rosette-midi"],
+    image: productImage("noor-embroidered-anarkali"),
+    featuredProductSlugs: ["noor-embroidered-anarkali", "naira-zari-kaftan", "elara-metallic-slip"],
     sections: [
       {
         title: "Start With Movement",
@@ -37,8 +41,8 @@ export const journalPosts = [
     category: "Workwear",
     date: "May 6, 2026",
     readTime: "5 min read",
-    image: products[10].image,
-    featuredProductSlugs: ["aria-tailored-wrap", "rhea-blazer-dress", "eden-belted-blazer-dress"],
+    image: productImage("aria-tailored-wrap"),
+    featuredProductSlugs: ["aria-tailored-wrap", "iris-utility-shirt-dress"],
     sections: [
       {
         title: "Look For Structure",
@@ -65,7 +69,7 @@ export const journalPosts = [
     category: "Resort",
     date: "April 30, 2026",
     readTime: "3 min read",
-    image: products[3].image,
+    image: productImage("maeve-pleated-maxi"),
     featuredProductSlugs: ["maeve-pleated-maxi", "vela-linen-midi", "paloma-halter-maxi"],
     sections: [
       {
