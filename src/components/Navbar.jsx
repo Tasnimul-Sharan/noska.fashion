@@ -72,6 +72,15 @@ export function Navbar({
           </Link>
 
           <nav className="flex items-center justify-end gap-4 sm:gap-6">
+            <Link href="/shop" className="hidden sm:inline">
+              Shop
+            </Link>
+            <Link href="/collections" className="hidden sm:inline">
+              Collections
+            </Link>
+            <Link href="/wishlist" className="hidden sm:inline">
+              Wishlist
+            </Link>
             <Link href="/login" className="hidden sm:inline">
               Login
             </Link>
@@ -169,7 +178,10 @@ export function Navbar({
                     </div>
                     <div className="readable-muted mt-10 grid gap-3 text-[12px] font-semibold uppercase tracking-[0.14em] text-[#514c45]">
                       <Link href="/shop" onClick={onMobileClose}>
-                        Search
+                        Shop
+                      </Link>
+                      <Link href="/collections" onClick={onMobileClose}>
+                        Collections
                       </Link>
                       <Link href="/wishlist" onClick={onMobileClose}>
                         Wishlist

@@ -84,29 +84,6 @@ function collectionHref(title) {
   return `/collections/${slugifyCollection(title)}`;
 }
 
-function TinyNav({ tone = "light" }) {
-  const className =
-    tone === "dark"
-      ? "text-[#151515] drop-shadow-[0_1px_10px_rgba(255,255,255,0.78)]"
-      : "text-white drop-shadow-[0_1px_10px_rgba(0,0,0,0.28)]";
-
-  return (
-    <div
-      className={`absolute right-4 top-24 z-20 hidden text-right text-[9px] font-semibold uppercase leading-4 tracking-[0.12em] sm:block lg:right-8 ${className}`}
-    >
-      <Link href="/shop" className="block">
-        Shop
-      </Link>
-      <Link href="/collections" className="block">
-        Collections
-      </Link>
-      <Link href="/wishlist" className="block">
-        Wishlist
-      </Link>
-    </div>
-  );
-}
-
 function NoskaMark({ className = "", tone = "text-white" }) {
   return (
     <motion.div
@@ -126,7 +103,6 @@ export function EditorialHome() {
   return (
     <div className="bg-white text-[#151515]">
       <section className="relative min-h-screen overflow-hidden bg-white">
-        <TinyNav tone="dark" />
         <motion.div
           className="grid min-h-screen grid-cols-1 grid-rows-[44vh_28vh_28vh] gap-0 md:grid-cols-12 md:grid-rows-2"
           initial="hidden"
@@ -166,7 +142,6 @@ export function EditorialHome() {
       </section>
 
       <section className="relative flex min-h-[42vh] items-center justify-center bg-white px-4 text-center">
-        <TinyNav tone="dark" />
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -210,7 +185,6 @@ export function EditorialHome() {
             className={`object-cover ${panel.imageClassName}`}
           />
           <div className="absolute inset-0 bg-black/10" />
-          <TinyNav />
           <NoskaMark className={panel.logoPosition} tone={panel.logoTone} />
 
           <motion.div
@@ -236,7 +210,6 @@ export function EditorialHome() {
       ))}
 
       <section className="relative grid min-h-[62vh] place-items-center overflow-hidden bg-white px-4 py-20 text-center">
-        <TinyNav tone="dark" />
         <motion.div
           className="relative z-10"
           initial="hidden"
@@ -288,7 +261,6 @@ export function EditorialHome() {
           ))}
         </div>
         <div className="absolute inset-0 bg-black/12" />
-        <TinyNav />
         <motion.div
           className="relative z-20 flex min-h-[70vh] flex-col items-center justify-end px-4 pb-12 text-center text-white sm:px-6 lg:px-8"
           initial="hidden"
@@ -320,7 +292,6 @@ export function EditorialHome() {
       </section>
 
       <section className="relative bg-white px-4 py-24 sm:px-6 lg:px-8">
-        <TinyNav tone="dark" />
         <motion.div
           className="mx-auto grid max-w-6xl gap-12 md:grid-cols-[0.9fr_1.1fr] md:items-start"
           initial="hidden"
