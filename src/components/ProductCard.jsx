@@ -89,7 +89,7 @@ export function ProductCard({ product }) {
           </span>
         </div>
 
-        <div className="mt-4 flex items-center justify-between gap-3">
+        <div className="mt-4 flex items-center gap-2">
           {/* Color choice disabled by request.
           <div className="flex items-center gap-1.5">
             {product.colors.slice(0, 3).map((option) => (
@@ -109,27 +109,27 @@ export function ProductCard({ product }) {
             ))}
           </div>
           */}
+          <div
+            className={`min-w-0 flex-1 truncate rounded-lg px-3 py-2 text-xs font-semibold ${
+              stockStatus.tone === "success"
+                ? "bg-[#eaf7f1] text-[#1f7a5a]"
+                : stockStatus.tone === "warning"
+                  ? "bg-[#fff6dc] text-[#8a6515]"
+                  : "bg-[#ffe2e6] text-[#8f2637]"
+            }`}
+          >
+            {stockStatus.label} · {size}
+          </div>
           <select
             value={size}
             onChange={(event) => setSize(event.target.value)}
-            className="focus-ring ml-auto h-9 rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-2 text-sm font-medium"
+            className="focus-ring h-9 w-16 shrink-0 rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-2 text-sm font-medium"
             aria-label="Select size"
           >
             {product.sizes.map((option) => (
               <option key={option}>{option}</option>
             ))}
           </select>
-        </div>
-        <div
-          className={`mt-3 rounded-lg px-3 py-2 text-xs font-semibold ${
-            stockStatus.tone === "success"
-              ? "bg-[#eaf7f1] text-[#1f7a5a]"
-              : stockStatus.tone === "warning"
-                ? "bg-[#fff6dc] text-[#8a6515]"
-                : "bg-[#ffe2e6] text-[#8f2637]"
-          }`}
-        >
-          {stockStatus.label} · {size}
         </div>
 
         <motion.button

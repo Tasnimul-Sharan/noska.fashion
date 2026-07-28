@@ -193,14 +193,18 @@ function CartPanelLine({
           </button>
         </div>
 
-        {product && (
-          <div className="mt-3 grid gap-2">
+        <div
+          className={`mt-3 grid gap-2 ${
+            product ? "grid-cols-[minmax(0,1fr)_auto]" : "grid-cols-1"
+          }`}
+        >
+          {product && (
             <select
               value={line.size}
               onChange={(event) =>
                 updateCartItemOptions(line.id, { size: event.target.value })
               }
-              className="focus-ring h-9 rounded-lg border border-[#ded6ca] bg-white px-2 text-xs font-semibold"
+              className="focus-ring h-9 min-w-0 rounded-lg border border-[#ded6ca] bg-white px-2 text-xs font-semibold"
               aria-label={`Change ${line.name} size`}
             >
               {product.sizes.map((option) => (
@@ -209,42 +213,23 @@ function CartPanelLine({
                 </option>
               ))}
             </select>
-            {/* Color choice disabled by request.
-            <select
-              value={line.color}
-              onChange={(event) =>
-                updateCartItemOptions(line.id, { color: event.target.value })
-              }
-              className="focus-ring h-9 rounded-lg border border-[#ded6ca] bg-white px-2 text-xs font-semibold"
-              aria-label={`Change ${line.name} color`}
-            >
-              {product.colors.map((option) => (
-                <option key={option.name} value={option.name}>
-                  {option.name}
-                </option>
-              ))}
-            </select>
-            */}
-          </div>
-        )}
-
-        <div className="mt-4 flex items-center justify-between">
-          <div className="flex h-9 items-center rounded-lg border border-[#cfc4b6] bg-white text-[#151515]">
+          )}
+          <div className="flex h-9 w-[104px] shrink-0 items-center rounded-lg border border-[#cfc4b6] bg-white text-[#151515]">
             <motion.button
               whileTap={{ scale: 0.94 }}
-              className="readable-muted focus-ring flex h-9 w-9 items-center justify-center text-[#514c45]"
+              className="readable-muted focus-ring flex h-9 w-8 items-center justify-center text-[#514c45]"
               type="button"
               aria-label="Decrease quantity"
               onClick={() => updateQuantity(line.id, line.quantity - 1)}
             >
               <Minus size={15} />
             </motion.button>
-            <span className="w-8 text-center text-sm font-bold text-[#151515]">
+            <span className="w-10 text-center text-sm font-bold text-[#151515]">
               {line.quantity}
             </span>
             <motion.button
               whileTap={{ scale: 0.94 }}
-              className="readable-muted focus-ring flex h-9 w-9 items-center justify-center text-[#514c45]"
+              className="readable-muted focus-ring flex h-9 w-8 items-center justify-center text-[#514c45]"
               type="button"
               aria-label="Increase quantity"
               onClick={() => updateQuantity(line.id, line.quantity + 1)}
@@ -252,7 +237,12 @@ function CartPanelLine({
               <Plus size={15} />
             </motion.button>
           </div>
-          <span className="font-bold text-[#151515]">
+        </div>
+        <div className="mt-3 flex items-center justify-between rounded-lg bg-white px-3 py-2">
+          <span className="readable-soft text-xs font-semibold text-[#6f6a63]">
+            Item total
+          </span>
+          <span className="text-sm font-bold text-[#151515]">
             {formatCurrency(line.price * line.quantity)}
           </span>
         </div>

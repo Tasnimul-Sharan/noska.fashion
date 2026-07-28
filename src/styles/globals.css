@@ -42,17 +42,16 @@ body {
   color: #151515;
 }
 
-a,
-button {
+:where(a, button) {
   color: inherit;
 }
 
-button,
-input,
-select,
-textarea {
+:where(button, input, select, textarea) {
   font: inherit;
   letter-spacing: 0;
+}
+
+:where(input, select, textarea) {
   color: #151515;
 }
 
@@ -62,13 +61,19 @@ textarea {
   background-color: #ffffff;
 }
 
-.bg-white,
-.bg-off_white,
-.bg-cream,
-.bg-\[\#fbfaf8\],
-.bg-\[\#f3eee7\],
-.bg-\[\#f5eee5\] {
+:where(.bg-white, .bg-off_white, .bg-cream, .bg-\[\#fbfaf8\], .bg-\[\#f3eee7\], .bg-\[\#f5eee5\]) {
   color: #151515;
+}
+
+:where(.bg-\[\#151515\], .bg-\[\#171412\], .bg-\[\#211d19\], .bg-\[\#b9404f\], .bg-secondary) {
+  color: #ffffff;
+}
+
+.text-white,
+.text-white *,
+.light-readable .text-white,
+.light-readable .text-white * {
+  color: #ffffff !important;
 }
 
 button {
