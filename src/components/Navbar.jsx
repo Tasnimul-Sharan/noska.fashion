@@ -2,6 +2,7 @@ import { Menu, ShoppingBag, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { BrandLogo } from "@/components/BrandLogo";
 import { useMemo, useState } from "react";
 import { accessories } from "@/data/accessories";
 import {
@@ -55,20 +56,7 @@ export function Navbar({
             onClick={onMobileClose}
             aria-label="Noska home"
           >
-            {overlay ? (
-              <span className="font-serif text-2xl font-semibold normal-case tracking-normal sm:text-3xl">
-                Noska
-              </span>
-            ) : (
-              <Image
-                src="/noska-png-logo.png"
-                alt="Noska"
-                width={5000}
-                height={5000}
-                priority
-                className="h-14 w-14 object-cover sm:h-16 sm:w-16"
-              />
-            )}
+            <BrandLogo priority size="nav" />
           </Link>
 
           <nav className="flex items-center justify-end gap-4 sm:gap-6">
@@ -132,14 +120,7 @@ export function Navbar({
                   onClick={onMobileClose}
                   aria-label="Noska home"
                 >
-                  <Image
-                    src="/noska-png-logo.png"
-                    alt="Noska"
-                    width={5000}
-                    height={5000}
-                    priority
-                    className="h-14 w-14 object-cover sm:h-16 sm:w-16"
-                  />
+                  <BrandLogo priority size="nav" />
                 </Link>
                 <div className="flex justify-end gap-4">
                   <Link href="/login" onClick={onMobileClose}>
