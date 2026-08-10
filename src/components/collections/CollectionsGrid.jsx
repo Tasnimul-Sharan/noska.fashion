@@ -3,24 +3,16 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { formatCurrency, getCollectionGroups } from "@/data/products";
-import { fadeUp, staggerContainer, viewportOnce } from "@/lib/motion";
 
 const collectionGroups = getCollectionGroups();
 
 export function CollectionsGrid() {
   return (
-    <motion.section
-      className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8"
-      initial="hidden"
-      whileInView="show"
-      viewport={viewportOnce}
-      variants={staggerContainer}
-    >
-      <motion.div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3" variants={staggerContainer}>
-        {collectionGroups.map((collection) => (
+    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {collectionGroups.map((collection, index) => (
           <motion.div
             key={collection.title}
-            variants={fadeUp}
             whileHover={{ y: -6 }}
             transition={{ duration: 0.24 }}
           >
@@ -33,6 +25,7 @@ export function CollectionsGrid() {
                   src={collection.image}
                   alt={collection.title}
                   fill
+                  priority={index < 2}
                   sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
                   className="object-cover transition duration-700 group-hover:scale-[1.04]"
                 />
@@ -68,7 +61,7 @@ export function CollectionsGrid() {
             </Link>
           </motion.div>
         ))}
-      </motion.div>
-    </motion.section>
+      </div>
+    </section>
   );
 }
