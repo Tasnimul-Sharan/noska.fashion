@@ -257,7 +257,7 @@ function WomanMenu({ collections, products: featuredProducts, onClose }) {
             onClick={onClose}
           >
             <motion.article variants={fadeUp}>
-              <div className="relative aspect-[3/4] overflow-hidden bg-[#eee7dd]">
+              <div className="relative aspect-3/4 overflow-hidden bg-[#eee7dd]">
                 <Image
                   src={product.image}
                   alt={product.name}
@@ -331,7 +331,7 @@ function AccessoriesMenu({ onClose }) {
         {accessories.map((item) => (
           <Link key={item.id} href="/shop" className="group" onClick={onClose}>
             <motion.article variants={fadeUp}>
-              <div className="relative aspect-[4/5] overflow-hidden bg-[#eee7dd]">
+              <div className="relative aspect-4/5 overflow-hidden bg-[#eee7dd]">
                 <Image
                   src={item.image}
                   alt={item.name}
