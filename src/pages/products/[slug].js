@@ -262,7 +262,7 @@ export default function ProductDetail({ product }) {
               </div>
               <motion.button
                 whileTap={{ scale: 0.98 }}
-                className="focus-ring flex h-12 flex-1 items-center justify-center gap-2 rounded-lg bg-[#151515] px-5 text-sm font-semibold text-white transition hover:bg-[#231f20] disabled:bg-[#9b9288]"
+                className="focus-ring flex h-12 min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#151515] px-5 text-sm font-semibold text-white transition hover:bg-[#231f20] disabled:bg-[#9b9288] sm:w-auto sm:flex-1"
                 type="button"
                 disabled={soldOut}
                 onClick={addSelectedToCart}
@@ -272,7 +272,7 @@ export default function ProductDetail({ product }) {
               </motion.button>
               <motion.button
                 whileTap={{ scale: 0.98 }}
-                className="focus-ring flex h-12 items-center justify-center gap-2 rounded-lg border border-[#151515] px-5 text-sm font-semibold"
+                className="focus-ring flex h-12 min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-[#151515] px-5 text-sm font-semibold sm:w-auto"
                 type="button"
                 onClick={() => toggleWishlist(product.id)}
               >
