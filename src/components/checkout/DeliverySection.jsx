@@ -17,7 +17,7 @@ export function DeliverySection({
   return (
     <motion.section className="rounded-lg border border-[#e5ddd2] bg-white p-5" variants={fadeUp}>
       <div className="flex items-center gap-2">
-        <MapPin size={19} className="text-[#b9404f]" />
+        <MapPin size={19} className="text-[#231f20]" />
         <h2 className="text-xl font-semibold">Delivery</h2>
       </div>
       <div className="mt-5">
@@ -65,7 +65,7 @@ function DeliveryOption({ active, icon: Icon, title, text, price, onClick }) {
       type="button"
       onClick={onClick}
     >
-      <Icon size={19} className="text-[#b9404f]" />
+      <Icon size={19} className="text-[#231f20]" />
       <span className="mt-3 block font-semibold">{title}</span>
       <span className="mt-1 block text-sm text-[#6f6a63]">{text}</span>
       <span className="mt-2 block text-sm font-semibold">{price}</span>

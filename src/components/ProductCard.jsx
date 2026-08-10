@@ -55,12 +55,12 @@ export function ProductCard({ product }) {
         </div>
         <motion.button
           whileTap={{ scale: 0.92 }}
-          className="focus-ring absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-lg bg-white/92 text-[#151515] shadow-sm transition hover:text-[#b9404f]"
+          className="focus-ring absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-lg bg-white/92 text-[#151515] shadow-sm transition hover:text-[#231f20]"
           type="button"
           aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
           onClick={() => toggleWishlist(product.id)}
         >
-          <Heart size={18} fill={wished ? "#b9404f" : "none"} />
+          <Heart size={18} fill={wished ? "#231f20" : "none"} />
         </motion.button>
       </div>
 
@@ -68,7 +68,7 @@ export function ProductCard({ product }) {
         <div className="flex items-center justify-between gap-3 text-xs text-[#7b7167]">
           <Link
             href={`/collections/${slugifyCollection(product.collection)}`}
-            className="transition hover:text-[#b9404f]"
+            className="transition hover:text-[#231f20]"
           >
             {product.collection}
           </Link>
@@ -78,7 +78,7 @@ export function ProductCard({ product }) {
           </span>
         </div>
         <Link href={`/products/${product.slug}`} className="mt-2 block">
-          <h3 className="line-clamp-2 min-h-12 text-lg font-semibold leading-6 transition group-hover:text-[#b9404f]">
+          <h3 className="line-clamp-2 min-h-12 text-lg font-semibold leading-6 transition group-hover:text-[#231f20]">
             {product.name}
           </h3>
         </Link>
@@ -134,7 +134,7 @@ export function ProductCard({ product }) {
 
         <motion.button
           whileTap={{ scale: 0.98 }}
-          className="focus-ring mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#151515] px-4 text-sm font-semibold text-white transition hover:bg-[#b9404f] disabled:bg-[#9b9288]"
+          className="focus-ring mt-4 flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-[#151515] px-4 text-sm font-semibold text-white transition hover:bg-[#231f20] disabled:bg-[#9b9288]"
           type="button"
           disabled={soldOut}
           onClick={() => addToCart(product, { size, color })}

@@ -120,7 +120,7 @@ export default function JournalDetailPage({ post, featuredProducts }) {
           variants={staggerContainer}
         >
           <motion.div className="mb-6" variants={fadeUp}>
-            <p className="text-sm font-semibold text-[#b9404f]">Shop the guide</p>
+            <p className="text-sm font-semibold text-[#231f20]">Shop the guide</p>
             <h2 className="mt-2 text-3xl font-semibold">Featured Noska pieces</h2>
           </motion.div>
           <motion.div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" variants={staggerContainer}>

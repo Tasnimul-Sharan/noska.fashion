@@ -86,7 +86,7 @@ export default function ReturnsPage() {
                 className="rounded-lg border border-[#e5ddd2] bg-white p-5"
                 variants={fadeUp}
               >
-                <Icon size={22} className="text-[#b9404f]" />
+                <Icon size={22} className="text-[#231f20]" />
                 <h2 className="mt-4 text-xl font-semibold">{step.title}</h2>
                 <p className="mt-2 text-sm leading-6 text-[#6f6a63]">{step.text}</p>
               </motion.article>

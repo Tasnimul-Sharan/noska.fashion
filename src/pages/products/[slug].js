@@ -99,7 +99,7 @@ export default function ProductDetail({ product }) {
         <motion.div variants={fadeUp}>
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#514c45] transition hover:text-[#b9404f]"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-[#514c45] transition hover:text-[#231f20]"
           >
             <ArrowLeft size={17} />
             Back to shop
@@ -146,7 +146,7 @@ export default function ProductDetail({ product }) {
             <motion.div className="flex flex-wrap items-center gap-3 text-sm" variants={fadeUp}>
               <Link
                 href={collectionHref}
-                className="rounded-lg bg-[#f4ece2] px-3 py-1 font-semibold text-[#b9404f] transition hover:bg-[#ead8ca]"
+                className="rounded-lg bg-[#f4ece2] px-3 py-1 font-semibold text-[#231f20] transition hover:bg-[#ead8ca]"
               >
                 {product.collection}
               </Link>
@@ -202,7 +202,7 @@ export default function ProductDetail({ product }) {
             <motion.div className="mt-7" variants={fadeUp}>
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold">Size</p>
-                <Link href="/shop" className="text-sm font-semibold text-[#b9404f]">
+                <Link href="/shop" className="text-sm font-semibold text-[#231f20]">
                   Size guide
                 </Link>
               </div>
@@ -262,7 +262,7 @@ export default function ProductDetail({ product }) {
               </div>
               <motion.button
                 whileTap={{ scale: 0.98 }}
-                className="focus-ring flex h-12 flex-1 items-center justify-center gap-2 rounded-lg bg-[#151515] px-5 text-sm font-semibold text-white transition hover:bg-[#b9404f] disabled:bg-[#9b9288]"
+                className="focus-ring flex h-12 flex-1 items-center justify-center gap-2 rounded-lg bg-[#151515] px-5 text-sm font-semibold text-white transition hover:bg-[#231f20] disabled:bg-[#9b9288]"
                 type="button"
                 disabled={soldOut}
                 onClick={addSelectedToCart}
@@ -276,7 +276,7 @@ export default function ProductDetail({ product }) {
                 type="button"
                 onClick={() => toggleWishlist(product.id)}
               >
-                <Heart size={18} fill={wished ? "#b9404f" : "none"} />
+                <Heart size={18} fill={wished ? "#231f20" : "none"} />
                 Wishlist
               </motion.button>
             </motion.div>
@@ -305,7 +305,7 @@ export default function ProductDetail({ product }) {
       >
         <motion.div className="mb-6 flex items-end justify-between" variants={fadeUp}>
           <div>
-            <p className="text-sm font-semibold text-[#b9404f]">Recommended</p>
+            <p className="text-sm font-semibold text-[#231f20]">Recommended</p>
             <h2 className="mt-2 text-3xl font-semibold">Related from the collection</h2>
           </div>
           <Link
@@ -331,7 +331,7 @@ export default function ProductDetail({ product }) {
           variants={staggerContainer}
         >
           <motion.div className="mb-6" variants={fadeUp}>
-            <p className="text-sm font-semibold text-[#b9404f]">Recently viewed</p>
+            <p className="text-sm font-semibold text-[#231f20]">Recently viewed</p>
             <h2 className="mt-2 text-3xl font-semibold">Back to pieces you opened</h2>
           </motion.div>
           <motion.div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3" variants={staggerContainer}>
@@ -348,7 +348,7 @@ export default function ProductDetail({ product }) {
 function InfoTile({ icon: Icon, label, text }) {
   return (
     <motion.div className="rounded-lg border border-[#e5ddd2] bg-white p-3" variants={scaleIn}>
-      <Icon size={18} className="text-[#b9404f]" />
+      <Icon size={18} className="text-[#231f20]" />
       <p className="mt-2 text-sm font-semibold">{label}</p>
       <p className="mt-1 text-xs text-[#7b7167]">{text}</p>
     </motion.div>

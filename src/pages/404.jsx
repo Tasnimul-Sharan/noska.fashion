@@ -19,7 +19,7 @@ export default function NotFoundPage() {
         animate="show"
         variants={staggerContainer}
       >
-        <motion.p className="text-sm font-semibold uppercase text-[#b9404f]" variants={fadeUp}>
+        <motion.p className="text-sm font-semibold uppercase text-[#231f20]" variants={fadeUp}>
           404
         </motion.p>
         <motion.h1 className="mt-3 text-4xl font-semibold md:text-5xl" variants={fadeUp}>

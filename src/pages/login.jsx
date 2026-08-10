@@ -20,7 +20,7 @@ export default function LoginPage() {
 
       <section className="mx-auto grid min-h-[70vh] max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:px-8">
         <motion.div initial="hidden" animate="show" variants={staggerContainer}>
-          <motion.p className="text-sm font-semibold text-[#b9404f]" variants={fadeUp}>
+          <motion.p className="text-sm font-semibold text-[#231f20]" variants={fadeUp}>
             Member access
           </motion.p>
           <motion.h1 className="mt-2 max-w-2xl text-4xl font-semibold leading-tight md:text-6xl" variants={fadeUp}>
@@ -84,7 +84,7 @@ export default function LoginPage() {
               <Field icon={Phone} label="Phone" placeholder="+8801XXXXXXXXX" type="tel" />
             )}
             <button
-              className="focus-ring h-12 rounded-lg bg-[#b9404f] px-5 text-sm font-semibold text-white"
+              className="focus-ring h-12 rounded-lg bg-[#231f20] px-5 text-sm font-semibold text-white"
               type="submit"
             >
               {isRegister ? "Create account" : "Login"}
@@ -112,7 +112,7 @@ function Field({ icon: Icon, label, placeholder, type }) {
         {label}
       </label>
       <div className="mt-2 flex h-11 items-center gap-2 rounded-lg border border-[#ded6ca] bg-[#fbfaf8] px-3">
-        <Icon size={17} className="text-[#b9404f]" />
+        <Icon size={17} className="text-[#231f20]" />
         <input
           id={id}
           className="focus-ring min-w-0 flex-1 bg-transparent text-sm outline-none"

@@ -69,7 +69,7 @@ export function CartPanel({ open, onClose }) {
                 className="flex flex-1 flex-col items-center justify-center px-8 text-center"
                 variants={fadeUp}
               >
-                <ShoppingBag size={42} className="readable-accent text-[#b9404f]" />
+                <ShoppingBag size={42} className="readable-accent text-[#231f20]" />
                 <h3 className="mt-4 text-xl font-semibold">Your bag is empty</h3>
                 <p className="readable-soft mt-2 text-sm leading-6 text-[#6f6a63]">
                   Add your favorite dresses and they will stay here.
@@ -130,7 +130,7 @@ export function CartPanel({ open, onClose }) {
                     </Link>
                     <Link
                       href="/checkout"
-                      className="readable-white rounded-lg bg-[#b9404f] px-4 py-3 text-center text-sm font-bold text-white"
+                      className="readable-white rounded-lg bg-[#231f20] px-4 py-3 text-center text-sm font-bold text-white"
                     >
                       Checkout
                     </Link>
@@ -175,7 +175,7 @@ function CartPanelLine({
           <div>
             <Link
               href={`/products/${line.slug}`}
-              className="font-bold text-[#151515] hover:text-[#b9404f]"
+              className="font-bold text-[#151515] hover:text-[#231f20]"
             >
               {line.name}
             </Link>
@@ -184,7 +184,7 @@ function CartPanelLine({
             </p>
           </div>
           <button
-            className="readable-muted focus-ring text-[#514c45] transition hover:text-[#b9404f]"
+            className="readable-muted focus-ring text-[#514c45] transition hover:text-[#231f20]"
             type="button"
             aria-label={`Remove ${line.name}`}
             onClick={() => removeFromCart(line.id)}

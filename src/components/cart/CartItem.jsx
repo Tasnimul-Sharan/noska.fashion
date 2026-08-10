@@ -32,7 +32,7 @@ export function CartItem({ line, removeFromCart, updateCartItemOptions, updateQu
           <div>
             <Link
               href={`/products/${line.slug}`}
-              className="text-xl font-semibold hover:text-[#b9404f]"
+              className="text-xl font-semibold hover:text-[#231f20]"
             >
               {line.name}
             </Link>
@@ -43,7 +43,7 @@ export function CartItem({ line, removeFromCart, updateCartItemOptions, updateQu
           </div>
           <motion.button
             whileTap={{ scale: 0.94 }}
-            className="focus-ring flex h-10 w-10 items-center justify-center rounded-lg border border-[#ded6ca] text-[#7b7167] transition hover:text-[#b9404f]"
+            className="focus-ring flex h-10 w-10 items-center justify-center rounded-lg border border-[#ded6ca] text-[#7b7167] transition hover:text-[#231f20]"
             type="button"
             aria-label={`Remove ${line.name}`}
             onClick={() => removeFromCart(line.id)}

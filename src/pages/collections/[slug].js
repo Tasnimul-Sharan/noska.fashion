@@ -110,7 +110,7 @@ export default function CollectionDetailPage({ collection }) {
           variants={fadeUp}
         >
           <div>
-            <p className="text-sm font-semibold text-[#b9404f]">Collection rack</p>
+            <p className="text-sm font-semibold text-[#231f20]">Collection rack</p>
             <h2 className="mt-2 text-3xl font-semibold md:text-4xl">
               {collection.title} dresses
             </h2>

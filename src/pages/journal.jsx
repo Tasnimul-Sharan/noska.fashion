@@ -77,7 +77,7 @@ export default function JournalPage() {
                   />
                 </div>
                 <div className="p-5">
-                  <p className="text-xs font-semibold uppercase text-[#b9404f]">
+                  <p className="text-xs font-semibold uppercase text-[#231f20]">
                     {post.category} · {post.readTime}
                   </p>
                   <h2 className="mt-3 text-2xl font-semibold">{post.title}</h2>

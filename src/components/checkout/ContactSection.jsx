@@ -7,7 +7,7 @@ export function ContactSection({ form, updateField }) {
   return (
     <motion.section className="rounded-lg border border-[#e5ddd2] bg-white p-5" variants={fadeUp}>
       <div className="flex items-center gap-2">
-        <Phone size={19} className="text-[#b9404f]" />
+        <Phone size={19} className="text-[#231f20]" />
         <h2 className="text-xl font-semibold">Contact</h2>
       </div>
       <motion.div className="mt-5 grid gap-4 sm:grid-cols-2" variants={staggerContainer}>

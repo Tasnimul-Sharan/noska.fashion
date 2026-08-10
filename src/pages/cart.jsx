@@ -58,7 +58,7 @@ export default function CartPage() {
           variants={staggerContainer}
         >
           <div>
-            <motion.p className="text-sm font-semibold text-[#b9404f]" variants={fadeUp}>
+            <motion.p className="text-sm font-semibold text-[#231f20]" variants={fadeUp}>
               Shopping bag
             </motion.p>
             <motion.h1 className="mt-2 text-4xl font-semibold" variants={fadeUp}>

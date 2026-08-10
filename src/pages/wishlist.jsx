@@ -26,7 +26,7 @@ export default function WishlistPage() {
 
       <section className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <motion.div initial="hidden" animate="show" variants={staggerContainer}>
-          <motion.p className="text-sm font-semibold text-[#b9404f]" variants={fadeUp}>
+          <motion.p className="text-sm font-semibold text-[#231f20]" variants={fadeUp}>
             Wishlist
           </motion.p>
           <motion.h1 className="mt-2 text-4xl font-semibold" variants={fadeUp}>
@@ -45,7 +45,7 @@ export default function WishlistPage() {
             animate="show"
             variants={staggerContainer}
           >
-            <Heart size={44} className="text-[#b9404f]" />
+            <Heart size={44} className="text-[#231f20]" />
             <h2 className="mt-4 text-2xl font-semibold">No saved dresses yet</h2>
             <p className="mt-2 max-w-md text-sm leading-6 text-[#6f6a63]">
               Save dresses from the shop and they will appear here.
@@ -91,7 +91,7 @@ function WishlistLine({ product }) {
         <Image src={product.image} alt={product.name} fill sizes="140px" className="object-cover" />
       </Link>
       <div>
-        <p className="text-sm font-semibold text-[#b9404f]">{product.collection}</p>
+        <p className="text-sm font-semibold text-[#231f20]">{product.collection}</p>
         <Link href={`/products/${product.slug}`} className="mt-1 block text-xl font-semibold">
           {product.name}
         </Link>
@@ -136,7 +136,7 @@ function WishlistLine({ product }) {
           Add
         </button>
         <button
-          className="focus-ring flex h-11 items-center justify-center gap-2 rounded-lg border border-[#ded6ca] px-4 text-sm font-semibold text-[#b9404f]"
+          className="focus-ring flex h-11 items-center justify-center gap-2 rounded-lg border border-[#ded6ca] px-4 text-sm font-semibold text-[#231f20]"
           type="button"
           onClick={() => removeFromWishlist(product.id)}
         >

@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#b9404f",
+        primary: "#231f20",
         primary_dark: "#8f2637",
         secondary: "#151515",
         secondary_soft: "#2a2927",
@@ -36,9 +36,9 @@ module.exports = {
       },
       keyframes: {
         ripple: {
-          "0%": { boxShadow: "0 0 0 0 rgba(185, 64, 79, 0.42)" },
-          "70%": { boxShadow: "0 0 0 30px rgba(185, 64, 79, 0)" },
-          "100%": { boxShadow: "0 0 0 0 rgba(185, 64, 79, 0)" },
+          "0%": { boxShadow: "0 0 0 0 rgba(35, 31, 32, 0.42)" },
+          "70%": { boxShadow: "0 0 0 30px rgba(35, 31, 32, 0)" },
+          "100%": { boxShadow: "0 0 0 0 rgba(35, 31, 32, 0)" },
         },
         shine: {
           "0%": { transform: "translateX(-100%)" },

@@ -45,9 +45,9 @@ export function CheckoutOrderSummary({ cart, error, shipping, subtotal, total })
         <span>Total</span>
         <span>{formatCurrency(total)}</span>
       </div>
-      {error && <p className="mt-3 text-sm text-[#b9404f]">{error}</p>}
+      {error && <p className="mt-3 text-sm text-[#231f20]">{error}</p>}
       <button
-        className="focus-ring mt-5 w-full rounded-lg bg-[#b9404f] px-5 py-3 text-sm font-semibold text-white"
+        className="focus-ring mt-5 w-full rounded-lg bg-[#231f20] px-5 py-3 text-sm font-semibold text-white"
         type="submit"
       >
         Place order

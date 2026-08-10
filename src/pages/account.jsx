@@ -79,7 +79,7 @@ export default function AccountPage() {
           variants={staggerContainer}
         >
           <div>
-            <motion.p className="text-sm font-semibold text-[#b9404f]" variants={fadeUp}>
+            <motion.p className="text-sm font-semibold text-[#231f20]" variants={fadeUp}>
               Account
             </motion.p>
             <motion.h1 className="mt-2 text-4xl font-semibold" variants={fadeUp}>
@@ -166,7 +166,7 @@ function OverviewPanel({
         variants={fadeUp}
       >
         <div className="flex items-center gap-2">
-          <Bell size={20} className="text-[#b9404f]" />
+          <Bell size={20} className="text-[#231f20]" />
           <h2 className="text-xl font-semibold">Preferences</h2>
         </div>
         <motion.div className="mt-5 grid gap-3 sm:grid-cols-2" variants={staggerContainer}>
@@ -198,7 +198,7 @@ function OrdersPanel({ compact = false, expandedOrder, setExpandedOrder }) {
     >
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-2">
-          <PackageCheck size={20} className="text-[#b9404f]" />
+          <PackageCheck size={20} className="text-[#231f20]" />
           <h2 className="text-xl font-semibold">Order history</h2>
         </div>
         {compact && (
@@ -294,7 +294,7 @@ function AuthPanel({ authMode, setAuthMode }) {
       variants={fadeUp}
     >
       <div>
-        <p className="text-sm font-semibold text-[#b9404f]">Member access</p>
+        <p className="text-sm font-semibold text-[#231f20]">Member access</p>
         <h2 className="mt-1 text-2xl font-semibold">
           {isRegister ? "Create your account" : "Login to Noska"}
         </h2>
@@ -324,7 +324,7 @@ function AuthPanel({ authMode, setAuthMode }) {
         <Field label="Password" placeholder="Minimum 8 characters" type="password" />
         {isRegister && <Field label="Phone" placeholder="+8801XXXXXXXXX" type="tel" />}
         <button
-          className="focus-ring h-12 rounded-lg bg-[#b9404f] px-5 text-sm font-semibold text-white"
+          className="focus-ring h-12 rounded-lg bg-[#231f20] px-5 text-sm font-semibold text-white"
           type="submit"
         >
           {isRegister ? "Create account" : "Login"}
@@ -342,7 +342,7 @@ function WishlistPreview({ wishedProducts }) {
     >
       <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-sm font-semibold text-[#b9404f]">Wishlist</p>
+          <p className="text-sm font-semibold text-[#231f20]">Wishlist</p>
           <h2 className="mt-1 text-2xl font-semibold">Saved dresses</h2>
         </div>
         <Link href="/wishlist" className="text-sm font-semibold text-[#151515]">
@@ -356,7 +356,7 @@ function WishlistPreview({ wishedProducts }) {
           variants={staggerContainer}
         >
           <motion.div variants={scaleIn}>
-            <Heart size={40} className="text-[#b9404f]" />
+            <Heart size={40} className="text-[#231f20]" />
           </motion.div>
           <motion.h3 className="mt-4 text-xl font-semibold" variants={fadeUp}>
             No saved dresses yet
@@ -401,7 +401,7 @@ function TabLink({ href, active, icon: Icon, label }) {
 function Metric({ icon: Icon, label, value }) {
   return (
     <motion.div className="rounded-lg border border-[#e5ddd2] bg-white p-5" variants={fadeUp}>
-      <Icon size={20} className="text-[#b9404f]" />
+      <Icon size={20} className="text-[#231f20]" />
       <p className="mt-4 text-sm text-[#7b7167]">{label}</p>
       <p className="mt-1 text-2xl font-semibold">{value}</p>
     </motion.div>
@@ -415,14 +415,14 @@ function Preference({ icon: Icon, label, checked, onChange }) {
       variants={fadeUp}
     >
       <span className="flex items-center gap-3 font-semibold">
-        <Icon size={18} className="text-[#b9404f]" />
+        <Icon size={18} className="text-[#231f20]" />
         {label}
       </span>
       <input
         checked={checked}
         onChange={(event) => onChange(event.target.checked)}
         type="checkbox"
-        className="h-5 w-5 accent-[#b9404f]"
+        className="h-5 w-5 accent-[#231f20]"
       />
     </motion.label>
   );

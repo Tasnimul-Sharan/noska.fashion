@@ -24,7 +24,7 @@ export function Lookbook() {
     >
       <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
         <motion.div variants={fadeUp}>
-          <p className="text-sm font-semibold text-[#b9404f]">Lookbook</p>
+          <p className="text-sm font-semibold text-[#231f20]">Lookbook</p>
           <h2 className="mt-2 text-3xl font-semibold md:text-4xl">Styled for the full day</h2>
           <p className="mt-4 max-w-lg text-base leading-7 text-[#6f6a63]">
             Build a wardrobe from polished work mornings to candlelit dinners,

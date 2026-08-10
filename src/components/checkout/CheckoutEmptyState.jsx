@@ -12,7 +12,7 @@ export function CheckoutEmptyState() {
       variants={staggerContainer}
     >
       <motion.div variants={scaleIn}>
-        <ShoppingBag size={44} className="text-[#b9404f]" />
+        <ShoppingBag size={44} className="text-[#231f20]" />
       </motion.div>
       <motion.h2 className="mt-4 text-2xl font-semibold" variants={fadeUp}>
         No items to checkout

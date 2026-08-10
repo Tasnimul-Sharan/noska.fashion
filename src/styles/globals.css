@@ -6,7 +6,7 @@
   --foreground: #151515;
   --muted: #6f6a63;
   --line: #e7e1d8;
-  --accent: #b9404f;
+  --accent: #231f20;
   --accent-strong: #8f2637;
   --ink: #101114;
 }
@@ -65,7 +65,7 @@ textarea {
   color: #151515;
 }
 
-:where(.bg-\[\#151515\], .bg-\[\#171412\], .bg-\[\#211d19\], .bg-\[\#b9404f\], .bg-secondary) {
+:where(.bg-\[\#151515\], .bg-\[\#171412\], .bg-\[\#211d19\], .bg-\[\#231f20\], .bg-secondary) {
   color: #ffffff;
 }
 
@@ -98,7 +98,7 @@ button:disabled {
 }
 
 .focus-ring:focus-visible {
-  box-shadow: 0 0 0 3px rgba(185, 64, 79, 0.24);
+  box-shadow: 0 0 0 3px rgba(35, 31, 32, 0.24);
 }
 
 .line-clamp-2 {
@@ -117,7 +117,7 @@ button:disabled {
 }
 
 .cart-scroll {
-  scrollbar-color: #b9404f #eee7dd;
+  scrollbar-color: #231f20 #eee7dd;
   scrollbar-width: thin;
 }
 
@@ -131,7 +131,7 @@ button:disabled {
 }
 
 .cart-scroll::-webkit-scrollbar-thumb {
-  background: #b9404f;
+  background: #231f20;
   border-radius: 999px;
 }
 
@@ -141,6 +141,18 @@ button:disabled {
 
 .shop-shadow {
   box-shadow: 0 24px 80px rgba(24, 21, 18, 0.12);
+}
+
+
+.navbar-readable-shadow {
+  text-shadow:
+    0 1px 1px rgba(255, 255, 255, 0.7),
+    0 0 7px rgba(255, 255, 255, 0.48);
+  filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.55));
+}
+
+.navbar-readable-shadow svg {
+  filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.55));
 }
 
 .light-readable {
@@ -163,7 +175,7 @@ button:disabled {
 
 .light-readable .readable-accent,
 .light-readable .readable-accent * {
-  color: #b9404f !important;
+  color: #231f20 !important;
 }
 
 .light-readable .readable-white,

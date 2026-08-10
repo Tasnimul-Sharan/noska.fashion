@@ -41,7 +41,7 @@ export function Navbar({
         <div className={`grid h-20 grid-cols-[1fr_auto_1fr] items-center px-4 text-[12px] font-semibold uppercase tracking-[0.14em] sm:px-6 lg:px-8 ${navTextClassName}`}>
           <div className="flex items-center gap-5">
             <button
-              className="focus-ring inline-flex items-center gap-2"
+              className="focus-ring inline-flex items-center gap-2 navbar-readable-shadow"
               type="button"
               onClick={onMobileOpen}
             >
@@ -59,7 +59,7 @@ export function Navbar({
             <BrandLogo priority size="nav" />
           </Link>
 
-          <nav className="flex items-center justify-end gap-4 sm:gap-6">
+          <nav className="flex items-center justify-end gap-4 navbar-readable-shadow sm:gap-6">
             <Link href="/shop" className="hidden sm:inline">
               Shop
             </Link>

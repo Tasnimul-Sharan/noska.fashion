@@ -169,7 +169,7 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
         variants={fadeUp}
       >
         <div>
-          <p className="flex items-center gap-2 text-sm font-semibold text-[#b9404f]">
+          <p className="flex items-center gap-2 text-sm font-semibold text-[#231f20]">
             <SlidersHorizontal size={17} />
             {activeEyebrow}
           </p>
@@ -199,7 +199,7 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
             className={`focus-ring h-11 min-w-fit rounded-lg border px-4 text-sm font-semibold transition ${
               category === option
                 ? "border-[#151515] bg-[#151515] text-white"
-                : "border-[#ded6ca] bg-white text-[#514c45] hover:border-[#b9404f]"
+                : "border-[#ded6ca] bg-white text-[#514c45] hover:border-[#231f20]"
             }`}
             type="button"
             onClick={() => setCategory(option)}
@@ -232,7 +232,7 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
               className="flex min-h-80 flex-col items-center justify-center rounded-lg border border-[#e5ddd2] bg-white p-8 text-center"
               variants={fadeUp}
             >
-              <Search size={36} className="text-[#b9404f]" />
+              <Search size={36} className="text-[#231f20]" />
               <h3 className="mt-4 text-xl font-semibold">No dresses found</h3>
               <p className="mt-2 max-w-md text-sm leading-6 text-[#6f6a63]">
                 Try a different category, size, price range, or search phrase.
@@ -268,7 +268,7 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
             >
               <div className="flex items-center justify-between border-b border-[#e7e1d8] p-5">
                 <div>
-                  <p className="text-sm font-semibold text-[#b9404f]">Shop filters</p>
+                  <p className="text-sm font-semibold text-[#231f20]">Shop filters</p>
                   <h3 className="mt-1 text-xl font-semibold">Refine the rack</h3>
                 </div>
                 <button
@@ -324,7 +324,7 @@ function FilterPanel({
         <h3 className="font-semibold">Filters</h3>
         <motion.button
           whileTap={{ scale: 0.96 }}
-          className="focus-ring flex items-center gap-1 text-sm font-semibold text-[#b9404f]"
+          className="focus-ring flex items-center gap-1 text-sm font-semibold text-[#231f20]"
           type="button"
           onClick={resetFilters}
         >
@@ -427,7 +427,7 @@ function FilterPanel({
             step="100"
             type="range"
             aria-label="Minimum price range"
-            className="accent-[#b9404f]"
+            className="accent-[#231f20]"
           />
           <input
             value={priceMax}
@@ -437,7 +437,7 @@ function FilterPanel({
             step="100"
             type="range"
             aria-label="Maximum price range"
-            className="accent-[#b9404f]"
+            className="accent-[#231f20]"
           />
         </div>
       </div>

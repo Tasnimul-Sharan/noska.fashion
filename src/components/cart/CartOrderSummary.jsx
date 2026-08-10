@@ -28,7 +28,7 @@ export function CartOrderSummary({
         variants={fadeUp}
       >
         <div className="flex items-center gap-2 text-sm font-semibold">
-          <Gift size={17} className="text-[#b9404f]" />
+          <Gift size={17} className="text-[#231f20]" />
           Promo
         </div>
         <div className="mt-3 flex gap-2">
@@ -53,7 +53,7 @@ export function CartOrderSummary({
               className={`focus-ring rounded-lg border px-3 py-2 text-left text-xs transition ${
                 promo === suggestion.code
                   ? "border-[#1f7a5a] bg-[#eaf7f1] text-[#1f7a5a]"
-                  : "border-[#ded6ca] bg-white text-[#514c45] hover:border-[#b9404f]"
+                  : "border-[#ded6ca] bg-white text-[#514c45] hover:border-[#231f20]"
               }`}
               type="button"
               onClick={() => applyPromo(suggestion.code)}
@@ -69,7 +69,7 @@ export function CartOrderSummary({
             {promo} applied
           </p>
         )}
-        {promoError && <p className="mt-2 text-sm text-[#b9404f]">{promoError}</p>}
+        {promoError && <p className="mt-2 text-sm text-[#231f20]">{promoError}</p>}
       </motion.div>
 
       <motion.div className="mt-5 space-y-3 text-sm" variants={staggerContainer}>
@@ -83,7 +83,7 @@ export function CartOrderSummary({
       </div>
       <Link
         href="/checkout"
-        className="mt-5 block rounded-lg bg-[#b9404f] px-5 py-3 text-center text-sm font-semibold text-white"
+        className="mt-5 block rounded-lg bg-[#231f20] px-5 py-3 text-center text-sm font-semibold text-white"
       >
         Checkout
       </Link>

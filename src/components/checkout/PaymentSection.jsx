@@ -32,7 +32,7 @@ export function PaymentSection({ note, payment, setPayment, updateField }) {
   return (
     <motion.section className="rounded-lg border border-[#e5ddd2] bg-white p-5" variants={fadeUp}>
       <div className="flex items-center gap-2">
-        <CreditCard size={19} className="text-[#b9404f]" />
+        <CreditCard size={19} className="text-[#231f20]" />
         <h2 className="text-xl font-semibold">Payment</h2>
       </div>
       <motion.div className="mt-5 grid gap-3 sm:grid-cols-3" variants={staggerContainer}>
@@ -58,7 +58,7 @@ export function PaymentSection({ note, payment, setPayment, updateField }) {
         variants={fadeUp}
       >
         <div className="flex items-center gap-2 font-semibold">
-          <InstructionIcon size={18} className="text-[#b9404f]" />
+          <InstructionIcon size={18} className="text-[#231f20]" />
           {paymentInstructions[payment].title}
         </div>
         <p className="mt-2 text-sm leading-6 text-[#6f6a63]">
