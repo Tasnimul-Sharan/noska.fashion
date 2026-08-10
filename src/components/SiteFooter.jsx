@@ -30,7 +30,7 @@ export function SiteFooter({ minimal = false }) {
               <Link href="/account">Account</Link>
             </nav>
             <div className="flex flex-wrap gap-x-4 gap-y-2 sm:justify-end">
-              <a href="mailto:support@noska.fashion">Support</a>
+              <a href="mailto:support@noska.fashion">support@noska.fashion</a>
               <a href="tel:01323030644">01323030644</a>
               <span>Bangladesh</span>
             </div>
