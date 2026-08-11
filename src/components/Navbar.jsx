@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { BrandLogo } from "@/components/BrandLogo";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { accessories } from "@/data/accessories";
 import {
   formatCurrency,
@@ -23,11 +23,24 @@ export function Navbar({
   overlay = false,
 }) {
   const [activeDepartment, setActiveDepartment] = useState("WOMAN");
+  const [isScrolled, setIsScrolled] = useState(false);
   const collections = useMemo(() => getCollectionGroups(), []);
   const featuredProducts = products.slice(0, 10);
-  const headerClassName = overlay
-    ? "fixed inset-x-0 top-0 z-40 border-b border-transparent bg-transparent text-[#151515] drop-shadow-[0_1px_10px_rgba(255,255,255,0.72)]"
-    : "light-readable fixed inset-x-0 top-0 z-40 border-b border-[#ded6ca] bg-[#fbfaf8]/94 text-[#151515] backdrop-blur-md";
+
+  useEffect(() => {
+    if (!overlay) return undefined;
+
+    const handleScroll = () => setIsScrolled(window.scrollY > 8);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [overlay]);
+
+  const showNavbarBackground = !overlay || isScrolled;
+  const headerClassName = showNavbarBackground
+    ? "light-readable fixed inset-x-0 top-0 z-40 border-b border-[#ded6ca] bg-[#fbfaf8]/94 text-[#151515] backdrop-blur-md transition-colors duration-300"
+    : "fixed inset-x-0 top-0 z-40 border-b border-transparent bg-transparent text-[#151515] transition-colors duration-300";
   const navTextClassName = "text-[#151515]";
 
   return (
@@ -41,7 +54,7 @@ export function Navbar({
         <div className={`grid h-20 grid-cols-[1fr_auto_1fr] items-center px-4 text-[12px] font-semibold uppercase tracking-[0.14em] sm:px-6 lg:px-8 ${navTextClassName}`}>
           <div className="flex items-center gap-5">
             <button
-              className="focus-ring inline-flex items-center gap-2 navbar-readable-shadow"
+              className="focus-ring inline-flex items-center gap-2"
               type="button"
               onClick={onMobileOpen}
             >
@@ -59,7 +72,7 @@ export function Navbar({
             <BrandLogo priority size="nav" />
           </Link>
 
-          <nav className="flex items-center justify-end gap-4 navbar-readable-shadow sm:gap-6">
+          <nav className="flex items-center justify-end gap-4 sm:gap-6">
             <Link href="/shop" className="hidden sm:inline">
               Shop
             </Link>
