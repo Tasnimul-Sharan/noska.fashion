@@ -127,7 +127,7 @@ export function EditorialHome() {
           ))}
         </motion.div>
 
-        <NoskaMark className="right-[-2.5rem] top-[18%] md:right-[-4rem] md:top-[20%]" />
+        <NoskaMark className="-right-10 top-[18%] md:-right-16 md:top-[20%]" />
         <motion.div
           className="absolute bottom-8 left-4 z-20 max-w-xs text-[11px] font-semibold uppercase leading-5 tracking-[0.12em] text-[#151515] drop-shadow-[0_1px_10px_rgba(255,255,255,0.78)] sm:left-6 lg:left-8"
           initial={{ opacity: 0, y: 16 }}

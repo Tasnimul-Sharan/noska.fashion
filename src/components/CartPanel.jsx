@@ -214,7 +214,7 @@ function CartPanelLine({
               ))}
             </select>
           )}
-          <div className="flex h-9 w-[104px] shrink-0 items-center rounded-lg border border-[#cfc4b6] bg-white text-[#151515]">
+          <div className="flex h-9 w-26 shrink-0 items-center rounded-lg border border-[#cfc4b6] bg-white text-[#151515]">
             <motion.button
               whileTap={{ scale: 0.94 }}
               className="readable-muted focus-ring flex h-9 w-8 items-center justify-center text-[#514c45]"
