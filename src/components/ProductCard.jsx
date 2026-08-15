@@ -90,25 +90,6 @@ export function ProductCard({ product }) {
         </div>
 
         <div className="mt-4 flex items-center gap-2">
-          {/* Color choice disabled by request.
-          <div className="flex items-center gap-1.5">
-            {product.colors.slice(0, 3).map((option) => (
-              <motion.button
-                key={option.name}
-                whileTap={{ scale: 0.9 }}
-                className={`focus-ring h-6 w-6 rounded-full border ${
-                  color === option.name
-                    ? "border-[#151515] ring-2 ring-[#151515]/15"
-                    : "border-[#d7cdc0]"
-                }`}
-                style={{ backgroundColor: option.value }}
-                type="button"
-                aria-label={`Select ${option.name}`}
-                onClick={() => setColor(option.name)}
-              />
-            ))}
-          </div>
-          */}
           <div
             className={`min-w-0 flex-1 truncate rounded-lg px-3 py-2 text-xs font-semibold ${
               stockStatus.tone === "success"
