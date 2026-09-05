@@ -4,17 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/ProductCard";
 import { Seo } from "@/components/Seo";
-import {
-  formatCurrency,
-  getCollectionBySlug,
-  getCollectionGroups,
-} from "@/data/products";
+import { formatCurrency } from "@/data/products";
 import {
   createBreadcrumbJsonLd,
   createCollectionJsonLd,
   createItemListJsonLd,
 } from "@/lib/seo";
 import { fadeUp, scaleIn, staggerContainer, viewportOnce } from "@/lib/motion";
+import {
+  CATALOG_REVALIDATE_SECONDS,
+  getCatalogCollectionBySlug,
+  getCatalogCollections,
+} from "@/lib/server/catalog";
 
 export default function CollectionDetailPage({ collection }) {
   return (
@@ -137,21 +138,31 @@ export default function CollectionDetailPage({ collection }) {
   );
 }
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const collections = await getCatalogCollections();
+
   return {
-    paths: getCollectionGroups().map((collection) => ({
+    paths: collections.map((collection) => ({
       params: { slug: collection.slug },
     })),
-    fallback: false,
+    fallback: "blocking",
   };
 }
 
-export function getStaticProps({ params }) {
-  const collection = getCollectionBySlug(params.slug);
+export async function getStaticProps({ params }) {
+  const collection = await getCatalogCollectionBySlug(params.slug);
+
+  if (!collection) {
+    return {
+      notFound: true,
+      revalidate: CATALOG_REVALIDATE_SECONDS,
+    };
+  }
 
   return {
     props: {
       collection,
     },
+    revalidate: CATALOG_REVALIDATE_SECONDS,
   };
 }

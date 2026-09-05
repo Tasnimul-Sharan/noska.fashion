@@ -1,14 +1,19 @@
 import { Seo } from "@/components/Seo";
 import { EditorialHome } from "@/components/home/EditorialHome";
-import { heroProduct, products } from "@/data/products";
 import {
   createBreadcrumbJsonLd,
   createItemListJsonLd,
   createOrganizationJsonLd,
   createWebsiteJsonLd,
 } from "@/lib/seo";
+import {
+  CATALOG_REVALIDATE_SECONDS,
+  getCatalogProducts,
+} from "@/lib/server/catalog";
 
-export default function Home() {
+export default function Home({ products }) {
+  const heroProduct = products[0];
+
   return (
     <>
       <Seo
@@ -28,4 +33,13 @@ export default function Home() {
       <EditorialHome />
     </>
   );
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      products: await getCatalogProducts(),
+    },
+    revalidate: CATALOG_REVALIDATE_SECONDS,
+  };
 }

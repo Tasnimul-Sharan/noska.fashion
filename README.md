@@ -1,37 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Noska Fashion
 
-## Getting Started
+Next.js Pages Router storefront with Vercel ISR and a Supabase Postgres catalog.
+When `DATABASE_URL` is absent or the database is unavailable, the storefront keeps
+working with the catalog in `src/data/products.jsx`.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Supabase setup
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Create a Supabase project in the same or nearest region to the Vercel functions.
+2. Open Supabase SQL Editor and run `supabase/migrations/001_catalog.sql`.
+3. In the Supabase dashboard, click **Connect** and select **Transaction pooler**.
+4. Copy the connection string that uses port `6543`. Its username includes the
+   project reference, for example `postgres.PROJECT_REF`.
+5. URL-encode special characters in the database password before placing it in the URL.
+6. Copy `.env.example` to `.env.local` and set `DATABASE_URL` and a long random
+   `REVALIDATION_SECRET`.
+7. Add both variables in Vercel Project Settings > Environment Variables for
+   Production and Preview, then redeploy.
 
-## Learn More
+The runtime connection must look like this:
 
-To learn more about Next.js, take a look at the following resources:
+```text
+postgresql://postgres.PROJECT_REF:URL_ENCODED_PASSWORD@aws-0-REGION.pooler.supabase.com:6543/postgres
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Do not expose `DATABASE_URL` through a `NEXT_PUBLIC_` variable. Port `6543` is for
+short-lived Vercel/serverless traffic. The database client disables prepared
+statements because Supabase transaction mode does not support them.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Import the current catalog
 
-## Deploy on Vercel
+After the schema and Vercel variables are ready, import the products currently in
+the local catalog with one protected request:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+curl -X POST https://YOUR_DOMAIN/api/admin/seed-catalog \
+  -H "Authorization: Bearer YOUR_REVALIDATION_SECRET"
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# noska.fashion
+The import is idempotent: it upserts collections and products, then refreshes the
+main catalog and collection ISR pages. Product detail pages refresh automatically
+within five minutes, or they can be refreshed immediately with the revalidation
+endpoint below. Remove or disable this route after the real admin panel becomes the
+only catalog writer.
+
+## ISR and cache behavior
+
+The home, shop, collections, collection detail, and product detail pages use ISR.
+Cached HTML is served to visitors and is eligible for background regeneration every
+300 seconds. New product and collection slugs use `fallback: "blocking"`, so adding
+a product does not require rebuilding the full site.
+
+After an admin update, refresh selected pages immediately:
+
+```bash
+curl -X POST https://YOUR_DOMAIN/api/revalidate-catalog \
+  -H "Authorization: Bearer YOUR_REVALIDATION_SECRET" \
+  -H "Content-Type: application/json" \
+  -d '{"paths":["/shop","/collections/eid-edit","/products/example-slug"]}'
+```
+
+ISR is suitable for catalog content, product descriptions, prices, and display-only
+stock snapshots. A real checkout API must always re-read variant stock and price
+inside a database transaction before creating an order. Never trust cached stock or
+prices sent by the browser.
+
+Connection pooling and ISR reduce database load, but they do not guarantee a fixed
+visitor count. Actual capacity depends on cache-hit rate, page weight, Vercel limits,
+Supabase egress/compute, authenticated usage, and how many uncached API calls each
+visit creates.

@@ -4,13 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatCurrency, getCollectionGroups } from "@/data/products";
 
-const collectionGroups = getCollectionGroups();
-
-export function CollectionsGrid() {
+export function CollectionsGrid({ collections = getCollectionGroups() }) {
   return (
     <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {collectionGroups.map((collection, index) => (
+        {collections.map((collection, index) => (
           <motion.div
             key={collection.title}
             whileHover={{ y: -6 }}

@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { BrandLogo } from "@/components/BrandLogo";
+import { useCustomer } from "@/context/CustomerContext";
 import { useEffect, useMemo, useState } from "react";
 import { accessories } from "@/data/accessories";
 import {
@@ -22,10 +23,13 @@ export function Navbar({
   onMobileOpen,
   overlay = false,
 }) {
+  const { hydrated, session } = useCustomer();
   const [activeDepartment, setActiveDepartment] = useState("WOMAN");
   const [isScrolled, setIsScrolled] = useState(false);
   const collections = useMemo(() => getCollectionGroups(), []);
   const featuredProducts = products.slice(0, 10);
+  const accountHref = hydrated && session ? "/account" : "/login";
+  const accountLabel = hydrated && session ? "Account" : "Login";
 
   useEffect(() => {
     if (!overlay) return undefined;
@@ -82,8 +86,8 @@ export function Navbar({
             <Link href="/wishlist" className="hidden sm:inline">
               Wishlist
             </Link>
-            <Link href="/login" className="hidden sm:inline">
-              Login
+            <Link href={accountHref} className="hidden sm:inline">
+              {accountLabel}
             </Link>
             <Link href="/returns" className="hidden sm:inline">
               Help
@@ -136,8 +140,8 @@ export function Navbar({
                   <BrandLogo priority size="nav" />
                 </Link>
                 <div className="flex justify-end gap-4">
-                  <Link href="/login" onClick={onMobileClose}>
-                    Login
+                  <Link href={accountHref} onClick={onMobileClose}>
+                    {accountLabel}
                   </Link>
                   <button
                     type="button"

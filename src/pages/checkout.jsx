@@ -4,6 +4,7 @@ import { CheckoutEmptyState } from "@/components/checkout/CheckoutEmptyState";
 import { CheckoutForm } from "@/components/checkout/CheckoutForm";
 import { CheckoutSuccess } from "@/components/checkout/CheckoutSuccess";
 import { Seo } from "@/components/Seo";
+import { useCustomer } from "@/context/CustomerContext";
 import { useShop } from "@/context/ShopContext";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 
@@ -17,6 +18,7 @@ const initialForm = {
 };
 
 export default function CheckoutPage() {
+  const { session, addOrder } = useCustomer();
   const { cart, subtotal, freeShippingThreshold, clearCart } = useShop();
   const [form, setForm] = useState(initialForm);
   const [payment, setPayment] = useState("card");
@@ -52,14 +54,29 @@ export default function CheckoutPage() {
     }
 
     const orderNumber = `NS-${Math.floor(100000 + Math.random() * 900000)}`;
-    setOrder({
+    const confirmedOrder = {
       number: orderNumber,
       total,
       email: form.email,
       delivery,
       payment,
       items: cart.length,
-    });
+    };
+    setOrder(confirmedOrder);
+    if (session) {
+      addOrder({
+        id: orderNumber,
+        status: "Confirmed",
+        date: new Date().toISOString().slice(0, 10),
+        total,
+        payment: payment === "bkash" ? "bKash" : payment === "cod" ? "Cash on delivery" : "Card",
+        delivery: delivery === "express" ? "Express delivery" : "Standard delivery",
+        address: `${form.address}, ${form.city}`,
+        tracking: "Tracking will be assigned after dispatch",
+        timeline: ["Order placed", "Order confirmed"],
+        lines: cart.map((line) => ({ name: line.name, quantity: line.quantity, price: line.price })),
+      });
+    }
     setError("");
     clearCart();
   };

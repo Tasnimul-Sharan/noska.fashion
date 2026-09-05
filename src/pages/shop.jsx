@@ -1,11 +1,14 @@
 import { motion } from "framer-motion";
 import { Seo } from "@/components/Seo";
 import { ShopCatalog } from "@/components/home/ShopCatalog";
-import { products } from "@/data/products";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 import { createBreadcrumbJsonLd, createItemListJsonLd } from "@/lib/seo";
+import {
+  CATALOG_REVALIDATE_SECONDS,
+  getCatalogProducts,
+} from "@/lib/server/catalog";
 
-export default function ShopPage() {
+export default function ShopPage({ products }) {
   return (
     <>
       <Seo
@@ -49,7 +52,16 @@ export default function ShopPage() {
         </motion.div>
       </section>
 
-      <ShopCatalog title="All dresses" eyebrow="Shop" />
+      <ShopCatalog title="All dresses" eyebrow="Shop" products={products} />
     </>
   );
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      products: await getCatalogProducts(),
+    },
+    revalidate: CATALOG_REVALIDATE_SECONDS,
+  };
 }

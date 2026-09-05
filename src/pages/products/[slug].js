@@ -19,11 +19,8 @@ import { useShop } from "@/context/ShopContext";
 import {
   formatCurrency,
   getOptionStock,
-  getProductBySlug,
   getProductsByIds,
-  getRelatedProducts,
   getStockStatus,
-  products,
   slugifyCollection,
 } from "@/data/products";
 import {
@@ -32,8 +29,12 @@ import {
   createItemListJsonLd,
 } from "@/lib/seo";
 import { fadeUp, scaleIn, staggerContainer, viewportOnce } from "@/lib/motion";
+import {
+  CATALOG_REVALIDATE_SECONDS,
+  getCatalogProducts,
+} from "@/lib/server/catalog";
 
-export default function ProductDetail({ product }) {
+export default function ProductDetail({ product, recommendations }) {
   const {
     addToCart,
     addRecentlyViewed,
@@ -55,7 +56,6 @@ export default function ProductDetail({ product }) {
     addRecentlyViewed(product.id);
   }, [addRecentlyViewed, product.id]);
 
-  const recommendations = useMemo(() => getRelatedProducts(product, 3), [product]);
   const recentlyViewedProducts = useMemo(
     () => getProductsByIds(recentlyViewed).filter((item) => item.id !== product.id).slice(0, 3),
     [product.id, recentlyViewed],
@@ -364,19 +364,49 @@ function DetailRow({ title, text }) {
   );
 }
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const products = await getCatalogProducts();
+
   return {
     paths: products.map((product) => ({ params: { slug: product.slug } })),
-    fallback: false,
+    fallback: "blocking",
   };
 }
 
-export function getStaticProps({ params }) {
-  const product = getProductBySlug(params.slug);
+export async function getStaticProps({ params }) {
+  const products = await getCatalogProducts();
+  const product = products.find((item) => item.slug === params.slug) || null;
+
+  if (!product) {
+    return {
+      notFound: true,
+      revalidate: CATALOG_REVALIDATE_SECONDS,
+    };
+  }
+
+  const recommendations = [
+    ...products.filter(
+      (item) => item.collection === product.collection && item.id !== product.id,
+    ),
+    ...products.filter(
+      (item) =>
+        item.category === product.category &&
+        item.collection !== product.collection &&
+        item.id !== product.id,
+    ),
+    ...products.filter(
+      (item) =>
+        item.category !== product.category &&
+        item.collection !== product.collection &&
+        item.id !== product.id,
+    ),
+  ].slice(0, 3);
 
   return {
     props: {
       product,
+      recommendations,
     },
+    revalidate: CATALOG_REVALIDATE_SECONDS,
   };
 }

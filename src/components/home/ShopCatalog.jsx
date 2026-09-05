@@ -3,13 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { ProductCard } from "@/components/ProductCard";
-import {
-  categories,
-  formatCurrency,
-  getPriceRange,
-  products,
-  sizes,
-} from "@/data/products";
+import { formatCurrency, products as localProducts } from "@/data/products";
 import { easeOut, fadeIn, fadeUp, panelSlide, staggerContainer } from "@/lib/motion";
 
 const sortOptions = [
@@ -28,15 +22,31 @@ const colorOptions = Array.from(
 ).slice(0, 9);
 */
 
-const collectionOptions = [
-  "All",
-  ...Array.from(new Set(products.map((product) => product.collection))),
-];
-
-const priceRange = getPriceRange();
-
-export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }) {
+export function ShopCatalog({
+  eyebrow = "Curated rack",
+  products = localProducts,
+  title = "Shop dresses",
+}) {
   const router = useRouter();
+  const categories = useMemo(
+    () => ["All", ...new Set(products.map((product) => product.category))],
+    [products],
+  );
+  const collectionOptions = useMemo(
+    () => ["All", ...new Set(products.map((product) => product.collection))],
+    [products],
+  );
+  const sizes = useMemo(
+    () => [...new Set(products.flatMap((product) => product.sizes))],
+    [products],
+  );
+  const priceRange = useMemo(
+    () => ({
+      min: Math.min(...products.map((product) => product.price)),
+      max: Math.max(...products.map((product) => product.price)),
+    }),
+    [products],
+  );
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
   const [collection, setCollection] = useState("All");
@@ -66,7 +76,7 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
 
       setCategory(nextCategory);
     });
-  }, [router.isReady, router.query.category]);
+  }, [categories, router.isReady, router.query.category]);
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -80,7 +90,7 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
 
       setCollection(nextCollection);
     });
-  }, [router.isReady, router.query.collection]);
+  }, [collectionOptions, router.isReady, router.query.collection]);
 
   const filteredProducts = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -114,7 +124,7 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
         if (sort === "new") return b.id.localeCompare(a.id);
         return products.indexOf(a) - products.indexOf(b);
       });
-  }, [category, collection, priceMax, priceMin, query, size, sort]);
+  }, [category, collection, priceMax, priceMin, products, query, size, sort]);
 
   const resetFilters = () => {
     setQuery("");
@@ -139,8 +149,10 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
   const activeEyebrow = collection === "All" ? eyebrow : "Collection";
   const activeTitle = collection === "All" ? title : collection;
   const filterProps = {
+    categories,
     category,
     collection,
+    collectionOptions,
     priceMax,
     priceMin,
     query,
@@ -151,7 +163,9 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
     setSize,
     setSort,
     size,
+    sizes,
     sort,
+    priceRange,
     updatePriceMax,
     updatePriceMin,
   };
@@ -301,9 +315,11 @@ export function ShopCatalog({ eyebrow = "Curated rack", title = "Shop dresses" }
 }
 
 function FilterPanel({
+  categories,
   category,
   className,
   collection,
+  collectionOptions,
   priceMax,
   priceMin,
   query,
@@ -314,7 +330,9 @@ function FilterPanel({
   setSize,
   setSort,
   size,
+  sizes,
   sort,
+  priceRange,
   updatePriceMax,
   updatePriceMin,
 }) {

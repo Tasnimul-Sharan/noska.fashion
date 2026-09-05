@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 import { CollectionsGrid } from "@/components/collections/CollectionsGrid";
 import { Seo } from "@/components/Seo";
-import { getCollectionGroups } from "@/data/products";
 import { fadeUp, staggerContainer } from "@/lib/motion";
 import { createBreadcrumbJsonLd, createCollectionListJsonLd } from "@/lib/seo";
+import {
+  CATALOG_REVALIDATE_SECONDS,
+  getCatalogCollections,
+} from "@/lib/server/catalog";
 
-export default function CollectionsPage() {
-  const collections = getCollectionGroups();
-
+export default function CollectionsPage({ collections }) {
   return (
     <>
       <Seo
@@ -51,7 +52,16 @@ export default function CollectionsPage() {
         </motion.div>
       </section>
 
-      <CollectionsGrid />
+      <CollectionsGrid collections={collections} />
     </>
   );
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      collections: await getCatalogCollections(),
+    },
+    revalidate: CATALOG_REVALIDATE_SECONDS,
+  };
 }
