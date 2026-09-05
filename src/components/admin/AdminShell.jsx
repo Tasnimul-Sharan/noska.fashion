@@ -126,7 +126,7 @@ function Sidebar({ pathname, onLogout, onNavigate, can }) {
         {links.filter((link) => can(link.permission)).map(({ href, label, icon: Icon }) => {
           const active = href === "/admin" ? pathname === href : pathname.startsWith(href);
           return (
-            <Link key={href} href={href} onClick={onNavigate} className={`flex h-11 items-center gap-3 rounded-lg px-3 text-sm font-medium transition ${active ? "bg-white text-[#231f20]" : "text-white/65 hover:bg-white/10 hover:text-white"}`}>
+            <Link key={href} href={href} onClick={onNavigate} className={`flex h-11 items-center gap-3 rounded-lg px-3 text-sm font-medium transition ${active ? "admin-nav-active bg-white text-[#231f20]" : "text-white/65 hover:bg-white/10 hover:text-white"}`}>
               <Icon size={18} strokeWidth={1.8} />
               {label}
             </Link>

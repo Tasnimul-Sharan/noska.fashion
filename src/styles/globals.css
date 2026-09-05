@@ -76,6 +76,11 @@ textarea {
   color: #ffffff !important;
 }
 
+.text-white .admin-nav-active,
+.text-white .admin-nav-active * {
+  color: #231f20 !important;
+}
+
 button {
   cursor: pointer;
 }
