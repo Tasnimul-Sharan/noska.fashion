@@ -16,6 +16,7 @@ function createSitemap() {
   const staticRoutes = [
     createUrlEntry("/", "1.0", "daily"),
     createUrlEntry("/shop", "0.9", "daily"),
+    createUrlEntry("/noska-street", "0.9", "weekly"),
     createUrlEntry("/collections", "0.8", "weekly"),
     createUrlEntry("/journal", "0.7", "weekly"),
     createUrlEntry("/returns", "0.5", "monthly"),

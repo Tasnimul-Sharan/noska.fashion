@@ -12,7 +12,8 @@ export function Layout({ children }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const isHome = router.pathname === "/";
+  const isEditorial =
+    router.pathname === "/" || router.pathname === "/noska-street";
 
   useEffect(() => {
     const closePanels = () => {
@@ -44,19 +45,19 @@ export function Layout({ children }) {
         onCartOpen={() => setCartOpen(true)}
         onMobileClose={() => setMobileOpen(false)}
         onMobileOpen={() => setMobileOpen(true)}
-        overlay={isHome}
+        overlay={isEditorial}
         query={query}
         setQuery={setQuery}
         wishlistCount={wishlist.length}
       />
       <CartPanel open={cartOpen} onClose={() => setCartOpen(false)} />
       <motion.main
-        className={router.pathname === "/" ? "" : "pt-20"}
+        className={isEditorial ? "" : "pt-20"}
         layout="position"
       >
         {children}
       </motion.main>
-      <SiteFooter minimal={isHome} />
+      <SiteFooter minimal={isEditorial} />
     </div>
   );
 }

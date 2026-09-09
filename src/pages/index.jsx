@@ -1,5 +1,6 @@
 import { Seo } from "@/components/Seo";
 import { EditorialHome } from "@/components/home/EditorialHome";
+import { NoskaStreetHero } from "@/components/home/NoskaStreetHero";
 import {
   createBreadcrumbJsonLd,
   createItemListJsonLd,
@@ -30,6 +31,7 @@ export default function Home({ products }) {
         ]}
       />
 
+      <NoskaStreetHero variant="home" />
       <EditorialHome />
     </>
   );

@@ -46,6 +46,9 @@ export function Navbar({
     ? "light-readable fixed inset-x-0 top-0 z-40 border-b border-[#ded6ca] bg-[#fbfaf8]/94 text-[#151515] backdrop-blur-md transition-colors duration-300"
     : "fixed inset-x-0 top-0 z-40 border-b border-transparent bg-transparent text-[#151515] transition-colors duration-300";
   const navTextClassName = "text-[#151515]";
+  const utilityNavTextClassName = showNavbarBackground
+    ? "text-[#151515]"
+    : "text-white";
 
   return (
     <>
@@ -76,12 +79,17 @@ export function Navbar({
             <BrandLogo priority size="nav" />
           </Link>
 
-          <nav className="flex items-center justify-end gap-4 sm:gap-6">
+          <nav
+            className={`flex items-center justify-end gap-4 transition-colors duration-300 sm:gap-6 ${utilityNavTextClassName}`}
+          >
             <Link href="/shop" className="hidden sm:inline">
               Shop
             </Link>
             <Link href="/collections" className="hidden sm:inline">
               Collections
+            </Link>
+            <Link href="/noska-street" className="hidden lg:inline">
+              Noska Street
             </Link>
             <Link href="/wishlist" className="hidden sm:inline">
               Wishlist
@@ -180,6 +188,9 @@ export function Navbar({
                       </Link>
                       <Link href="/collections" onClick={onMobileClose}>
                         Collections
+                      </Link>
+                      <Link href="/noska-street" onClick={onMobileClose}>
+                        Noska Street
                       </Link>
                       <Link href="/wishlist" onClick={onMobileClose}>
                         Wishlist

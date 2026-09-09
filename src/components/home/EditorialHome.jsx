@@ -154,12 +154,12 @@ export function EditorialHome() {
           >
             Noska studio
           </motion.p>
-          <motion.h1
+          <motion.h2
             className="mt-5 font-serif text-5xl font-semibold uppercase tracking-normal sm:text-7xl lg:text-8xl"
             variants={fadeUp}
           >
             The New
-          </motion.h1>
+          </motion.h2>
           <motion.div variants={fadeUp}>
             <Link
               href="/shop"
