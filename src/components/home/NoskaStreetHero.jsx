@@ -49,7 +49,7 @@ export function NoskaStreetHero({ variant = "page" }) {
           >
             Noska Street
           </motion.h1>
-          <motion.div variants={fadeUp}>
+          <motion.div className="w-full text-right" variants={fadeUp}>
             <Link
               href="/noska-street"
               className="focus-ring mt-7 inline-flex items-center gap-2 border-b border-white pb-2 text-[11px] font-semibold uppercase tracking-[0.16em]"
