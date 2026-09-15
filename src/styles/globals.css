@@ -15,6 +15,22 @@
   box-sizing: border-box;
 }
 
+/* @font-face {
+  font-family: "Amsterdam Four_ttf";
+  src: url("/fonts/AmsterdamFour.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+} */
+
+@font-face {
+  font-family: "Amsterdam";
+  src: url("/font/Amsterdam.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 html {
   scroll-behavior: smooth;
   background: #ffffff;
@@ -59,11 +75,24 @@ textarea {
   background-color: #ffffff;
 }
 
-:where(.bg-white, .bg-off_white, .bg-cream, .bg-\[\#fbfaf8\], .bg-\[\#f3eee7\], .bg-\[\#f5eee5\]) {
+:where(
+  .bg-white,
+  .bg-off_white,
+  .bg-cream,
+  .bg-\[\#fbfaf8\],
+  .bg-\[\#f3eee7\],
+  .bg-\[\#f5eee5\]
+) {
   color: #151515;
 }
 
-:where(.bg-\[\#151515\], .bg-\[\#171412\], .bg-\[\#211d19\], .bg-\[\#231f20\], .bg-secondary) {
+:where(
+  .bg-\[\#151515\],
+  .bg-\[\#171412\],
+  .bg-\[\#211d19\],
+  .bg-\[\#231f20\],
+  .bg-secondary
+) {
   color: #ffffff;
 }
 
@@ -146,13 +175,31 @@ button:disabled {
   box-shadow: 0 24px 80px rgba(24, 21, 18, 0.12);
 }
 
-
-
 .light-readable {
   color: #151515 !important;
 }
 
-.light-readable :where(h1, h2, h3, h4, h5, h6, p, span, a, button, label, input, select, textarea, option, small, strong, div) {
+.light-readable
+  :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    span,
+    a,
+    button,
+    label,
+    input,
+    select,
+    textarea,
+    option,
+    small,
+    strong,
+    div
+  ) {
   color: #151515 !important;
 }
 
