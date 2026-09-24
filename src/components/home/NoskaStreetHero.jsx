@@ -160,14 +160,13 @@ export function NoskaStreetHero({ variant = "page" }) {
             </span>
           </motion.h1> */}
 
-          <motion.h1
+          {/* <motion.h1
             className="
     flex max-w-full flex-wrap items-end gap-x-3 gap-y-4 sm:gap-x-5
     font-normal leading-none tracking-normal
   "
             variants={fadeUp}
           >
-            {/* NOSKA STREET */}
             <span
               className="
       font-['Amsterdam']
@@ -223,9 +222,9 @@ export function NoskaStreetHero({ variant = "page" }) {
                 noska
               </span>
             </span>
-          </motion.h1>
+          </motion.h1> */}
 
-          {/* <motion.div
+          <motion.div
             className="relative w-[280px] sm:w-[380px] md:w-[520px] lg:w-[700px]"
             variants={fadeUp}
           >
@@ -237,7 +236,7 @@ export function NoskaStreetHero({ variant = "page" }) {
               priority
               className="h-full w-full object-cover object-center"
             />
-          </motion.div> */}
+          </motion.div>
 
           <motion.div className="w-full text-right" variants={fadeUp}>
             <Link
